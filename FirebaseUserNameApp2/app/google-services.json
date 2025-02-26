@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "12865039484",
+    "firebase_url": "https://experiment-8bd63-default-rtdb.firebaseio.com",
+    "project_id": "experiment-8bd63",
+    "storage_bucket": "experiment-8bd63.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12865039484:android:d183c72337a7078b012df9",
+        "android_client_info": {
+          "package_name": "com.example.firebaseusernameapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVZNAYQ963NOlp8Lnmd9Ozf9_hItr-Ucc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
