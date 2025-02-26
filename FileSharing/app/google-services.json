@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1053904337923",
+    "firebase_url": "https://file-sharing-e1c97-default-rtdb.firebaseio.com",
+    "project_id": "file-sharing-e1c97",
+    "storage_bucket": "file-sharing-e1c97.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053904337923:android:d6ab0ef7e56fbf0fa4e236",
+        "android_client_info": {
+          "package_name": "com.example.filesharing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqS1xU3lLIcc_gr6cy9isY3rpJXiGMZwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
