@@ -28,6 +28,11 @@
             android:name=".Jiankai.classManagement"
             android:exported="true">
         </activity>
+        <!-- LoginActivity -->
+        <activity
+            android:name=".Narciso.CourseDetailActivity"
+            android:exported="false">
+        </activity>
 
     </application>
 
