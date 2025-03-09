@@ -1,0 +1,374 @@
+Index: .idea/runConfigurations.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/runConfigurations.xml b/.idea/runConfigurations.xml
+new file mode 100644
+--- /dev/null	(date 1741502632516)
++++ b/.idea/runConfigurations.xml	(date 1741502632516)
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RunConfigurationProducerService">
++    <option name="ignoredProducers">
++      <set>
++        <option value="com.intellij.execution.junit.AbstractAllInDirectoryConfigurationProducer" />
++        <option value="com.intellij.execution.junit.AllInPackageConfigurationProducer" />
++        <option value="com.intellij.execution.junit.PatternConfigurationProducer" />
++        <option value="com.intellij.execution.junit.TestInClassConfigurationProducer" />
++        <option value="com.intellij.execution.junit.UniqueIdConfigurationProducer" />
++        <option value="com.intellij.execution.junit.testDiscovery.JUnitTestDiscoveryConfigurationProducer" />
++        <option value="org.jetbrains.kotlin.idea.junit.KotlinJUnitRunConfigurationProducer" />
++        <option value="org.jetbrains.kotlin.idea.junit.KotlinPatternConfigurationProducer" />
++      </set>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1741502632519)
++++ b/.idea/vcs.xml	(date 1741502632519)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1741501839239)
++++ b/.idea/misc.xml	(date 1741501839239)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectRootManager" version="2" default="true">
++    <output url="file://$PROJECT_DIR$/build/classes" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+new file mode 100644
+--- /dev/null	(date 1741506533363)
++++ b/.idea/workspace.xml	(date 1741506533363)
+@@ -0,0 +1,280 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="AndroidLayouts">
++    <shared>
++      <config />
++    </shared>
++    <layouts>
++      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/classmanagement.xml">
++        <config>
++          <theme>@style/Theme.EdKura</theme>
++        </config>
++      </layout>
++      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/course_detail.xml">
++        <config>
++          <theme>@style/Theme.EdKura</theme>
++        </config>
++      </layout>
++      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/course_item.xml">
++        <config>
++          <theme>@style/Theme.EdKura</theme>
++        </config>
++      </layout>
++      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dashboard.xml">
++        <config>
++          <theme>@style/Theme.EdKura</theme>
++        </config>
++      </layout>
++      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/student_item.xml">
++        <config>
++          <theme>@style/Theme.EdKura</theme>
++        </config>
++      </layout>
++    </layouts>
++  </component>
++  <component name="AutoImportSettings">
++    <option name="autoReloadType" value="NONE" />
++  </component>
++  <component name="ChangeListManager">
++    <list default="true" id="a619b1ec-aea4-4ca0-861c-81fe87579a41" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++    </list>
++    <option name="SHOW_DIALOG" value="false" />
++    <option name="HIGHLIGHT_CONFLICTS" value="true" />
++    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
++    <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="ClangdSettings">
++    <option name="formatViaClangd" value="false" />
++  </component>
++  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\narci\.android\avd\Medium_Phone.avd)]" />
++  <component name="ExternalProjectsData">
++    <projectState path="$PROJECT_DIR$">
++      <ProjectState />
++    </projectState>
++  </component>
++  <component name="ExternalProjectsManager">
++    <system id="GRADLE">
++      <state>
++        <task path="$PROJECT_DIR$/app">
++          <activation />
++        </task>
++        <projects_view>
++          <tree_state>
++            <expand>
++              <path>
++                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
++                <item name="EdKura" type="f1a62948:ProjectNode" />
++              </path>
++              <path>
++                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
++                <item name="EdKura" type="f1a62948:ProjectNode" />
++                <item name="app" type="2d1252cf:ModuleNode" />
++              </path>
++              <path>
++                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
++                <item name="EdKura" type="f1a62948:ProjectNode" />
++                <item name="app" type="2d1252cf:ModuleNode" />
++                <item name="Tasks" type="e4a08cd1:TasksNode" />
++              </path>
++              <path>
++                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
++                <item name="EdKura" type="f1a62948:ProjectNode" />
++                <item name="app" type="2d1252cf:ModuleNode" />
++                <item name="Tasks" type="e4a08cd1:TasksNode" />
++                <item name="other" type="c8890929:TasksNode$1" />
++              </path>
++            </expand>
++            <select />
++          </tree_state>
++        </projects_view>
++      </state>
++    </system>
++  </component>
++  <component name="FileTemplateManagerImpl">
++    <option name="RECENT_TEMPLATES">
++      <list>
++        <option value="Kotlin Data Class" />
++        <option value="Kotlin Class" />
++        <option value="layoutResourceFile" />
++        <option value="Kotlin File" />
++      </list>
++    </option>
++  </component>
++  <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$/.." value="NG" />
++      </map>
++    </option>
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
++  </component>
++  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
++  "lastFilter": {}
++}]]></component>
++  <component name="GitHubPullRequestState"><![CDATA[{
++  "prStates": [
++    {
++      "id": {
++        "id": "PR_kwDON3ay9M6N4-bO",
++        "number": 53
++      },
++      "lastSeen": 1741502570927
++    }
++  ]
++}]]></component>
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;https://github.com/Narcisog14/EdKura.git&quot;,
++    &quot;accountId&quot;: &quot;be809d19-18c4-438f-a2ef-e7f2d18e9630&quot;
++  }
++}</component>
++  <component name="ProblemsViewState">
++    <option name="selectedTabId" value="CurrentFile" />
++  </component>
++  <component name="ProjectColorInfo">{
++  &quot;associatedIndex&quot;: 7
++}</component>
++  <component name="ProjectId" id="2tsLeKJuVvT9ABD4DJBvasZyKsV" />
++  <component name="ProjectViewState">
++    <option name="hideEmptyMiddlePackages" value="true" />
++    <option name="showLibraryContents" value="true" />
++  </component>
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "Android App.app.executor": "Run",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "RunOnceActivity.cidr.known.project.marker": "true",
++    "RunOnceActivity.readMode.enableVisualFormatting": "true",
++    "cf.first.check.clang-format": "false",
++    "cidr.known.project.marker": "true",
++    "git-widget-placeholder": "#53 on NG",
++    "kotlin-language-version-configured": "true",
++    "last_opened_file_path": "C:/Users/narci/AndroidStudioProjects/EdKura/EdKura",
++    "project.structure.last.edited": "Modules",
++    "project.structure.proportion": "0.17",
++    "project.structure.side.proportion": "0.2"
++  }
++}]]></component>
++  <component name="RecentsManager">
++    <key name="CopyFile.RECENT_KEYS">
++      <recent name="C:\Users\narci\AndroidStudioProjects\EdKura\EdKura\app\src\main\java\com\example\edkura" />
++      <recent name="C:\Users\narci\AndroidStudioProjects\EdKura\EdKura\app\src\main\java\com\example\edkura\Narciso" />
++    </key>
++  </component>
++  <component name="RunManager">
++    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
++      <module name="EdKura.app" />
++      <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
++      <option name="DEPLOY" value="true" />
++      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
++      <option name="DEPLOY_AS_INSTANT" value="false" />
++      <option name="ARTIFACT_NAME" value="" />
++      <option name="PM_INSTALL_OPTIONS" value="" />
++      <option name="ALL_USERS" value="false" />
++      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
++      <option name="ALLOW_ASSUME_VERIFIED" value="false" />
++      <option name="CLEAR_APP_STORAGE" value="false" />
++      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
++      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
++      <option name="MODE" value="default_activity" />
++      <option name="RESTORE_ENABLED" value="false" />
++      <option name="RESTORE_FILE" value="" />
++      <option name="CLEAR_LOGCAT" value="false" />
++      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
++      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
++      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
++      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
++      <option name="DEBUGGER_TYPE" value="Auto" />
++      <Auto>
++        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
++        <option name="SHOW_STATIC_VARS" value="true" />
++        <option name="WORKING_DIR" value="" />
++        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
++        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
++        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
++        <option name="DEBUG_SANDBOX_SDK" value="false" />
++      </Auto>
++      <Hybrid>
++        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
++        <option name="SHOW_STATIC_VARS" value="true" />
++        <option name="WORKING_DIR" value="" />
++        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
++        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
++        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
++        <option name="DEBUG_SANDBOX_SDK" value="false" />
++      </Hybrid>
++      <Java>
++        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
++        <option name="DEBUG_SANDBOX_SDK" value="false" />
++      </Java>
++      <Native>
++        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
++        <option name="SHOW_STATIC_VARS" value="true" />
++        <option name="WORKING_DIR" value="" />
++        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
++        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
++        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
++        <option name="DEBUG_SANDBOX_SDK" value="false" />
++      </Native>
++      <Profilers>
++        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
++        <option name="STARTUP_PROFILING_ENABLED" value="false" />
++        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
++        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
++        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
++        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
++      </Profilers>
++      <option name="DEEP_LINK" value="" />
++      <option name="ACTIVITY" value="" />
++      <option name="ACTIVITY_CLASS" value="" />
++      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
++      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
++      <method v="2">
++        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
++      </method>
++    </configuration>
++  </component>
++  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
++  <component name="TaskManager">
++    <task active="true" id="Default" summary="Default task">
++      <changelist id="a619b1ec-aea4-4ca0-861c-81fe87579a41" name="Changes" comment="" />
++      <created>1741135930116</created>
++      <option name="number" value="Default" />
++      <option name="presentableId" value="Default" />
++      <updated>1741135930116</updated>
++    </task>
++    <servers />
++  </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
++  <component name="play_dynamic_filters_status">
++    <option name="appIdToCheckInfo">
++      <map>
++        <entry key="com.example.edkura">
++          <value>
++            <CheckInfo lastCheckTimestamp="1741497264223" />
++          </value>
++        </entry>
++        <entry key="com.example.edkura.test">
++          <value>
++            <CheckInfo lastCheckTimestamp="1741497264223" />
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/deploymentTargetSelector.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetSelector.xml b/.idea/deploymentTargetSelector.xml
+new file mode 100644
+--- /dev/null	(date 1741503024078)
++++ b/.idea/deploymentTargetSelector.xml	(date 1741503024078)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="deploymentTargetSelector">
++    <selectionStates>
++      <SelectionState runConfigName="app">
++        <option name="selectionMode" value="DROPDOWN" />
++      </SelectionState>
++    </selectionStates>
++  </component>
++</project>
+\ No newline at end of file
