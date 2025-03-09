@@ -13,18 +13,18 @@ class CourseAdapter(
 
     class CourseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val courseName: TextView = itemView.findViewById(R.id.textCourseName)
-        val major: TextView = itemView.findViewById(R.id.textMajor)
+        val subject: TextView = itemView.findViewById(R.id.textsubject)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.course_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.`jk_course_item`, parent, false)
         return CourseViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
-        val (major, course) = courses[position]
+        val (subject, course) = courses[position]
         holder.courseName.text = course
-        holder.major.text = major
+        holder.subject.text = subject
 
         holder.itemView.setOnLongClickListener {
             onLongClick(position)
