@@ -13,7 +13,7 @@ import android.widget.ImageButton
 import com.example.edkura.Narciso.CourseDetailActivity
 
 class DashboardActivity : AppCompatActivity() {
-    private lateinit var student: Student // 声明 Student 对象
+    private lateinit var student: Student
     private lateinit var recyclerView: RecyclerView
     private lateinit var courseAdapter: CourseAdapter
 
@@ -40,7 +40,6 @@ class DashboardActivity : AppCompatActivity() {
             student.addedClasses.addAll(addedClasses)
         }
 
-        // ✅ 初始化适配器，并添加点击事件
         courseAdapter = CourseAdapter(
             listOf(),
             { position -> showDeleteDialog(position) }, // 长按删除
