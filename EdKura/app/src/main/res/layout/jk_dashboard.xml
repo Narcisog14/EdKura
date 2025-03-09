@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Dashboard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DashboardActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dashboardLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#65F4A4">
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 设置按钮 -->
+    <ImageButton
+        android:id="@+id/buttonSetting"
+        android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintWidth_percent="0.15"
+    app:layout_constraintHeight_percent="0.07"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:contentDescription="Settings"
+    android:src="@drawable/jk_icon_settings"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginTop="40dp"
+    android:layout_marginEnd="25dp" />
+
+    <!-- Dashboard标题 - 直接约束到参考线 -->
+    <TextView
+        android:id="@+id/textViewDashboardTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dashboard"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.056"/>
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCourses"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewDashboardTitle" />
+
+    <!-- CustomCanvasView -->
+    <com.example.edkura.Jiankai.jiankaiUI.CustomCanvasView
+        android:id="@+id/customCanvasView"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
