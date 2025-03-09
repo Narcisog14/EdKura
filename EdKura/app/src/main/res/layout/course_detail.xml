@@ -19,11 +19,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textsubject"
+            android:id="@+id/textMajor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="subject: "
+            android:text="Major: "
             android:textSize="20sp" />
 
         <TextView

@@ -1,3 +1,4 @@
+
 package com.example.edkura.Narciso
 
 import android.os.Bundle
@@ -22,18 +23,19 @@ class CourseDetailActivity : AppCompatActivity() {
             insets
         }
 
-        val textsubject: TextView = findViewById(R.id.textsubject)
+        val textMajor: TextView = findViewById(R.id.textMajor)
         val textCourseName: TextView = findViewById(R.id.textCourseName)
         val studyPartnerButton: Button = findViewById(R.id.studyPartnerButton)
         val courseDetailsContainer: LinearLayout = findViewById(R.id.courseDetailsContainer)
         val studyPartnerDashboardContainer: LinearLayout = findViewById(R.id.studyPartnerDashboardContainer)
         val backButton: Button = findViewById(R.id.backButton)
 
-        val subject = intent.getStringExtra("subject") ?: "Unknown subject"
+        val major = intent.getStringExtra("major") ?: "Unknown Major"
         val courseName = intent.getStringExtra("courseName") ?: "Unknown Course"
 
-        textsubject.text = "subject: $subject"
+        textMajor.text = "Major: $major"
         textCourseName.text = "Course: $courseName"
+
 
         // Create an instance of the StudyPartner class
         studyPartner = StudyPartner(courseDetailsContainer, studyPartnerDashboardContainer, backButton)
