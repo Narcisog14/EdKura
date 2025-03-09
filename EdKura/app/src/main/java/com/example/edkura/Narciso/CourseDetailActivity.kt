@@ -35,6 +35,7 @@ class CourseDetailActivity : AppCompatActivity() {
         textMajor.text = "Major: $major"
         textCourseName.text = "Course: $courseName"
 
+
         // Create an instance of the StudyPartner class
         studyPartner = StudyPartner(courseDetailsContainer, studyPartnerDashboardContainer, backButton)
 
