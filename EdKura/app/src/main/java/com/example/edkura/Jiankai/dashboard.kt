@@ -59,10 +59,10 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun updateCourseList() {
         val courseList = student.addedClasses.map { course ->
-            val parts = course.split(" ", limit = 2) // 分割 Major 和 Course
-            val major = if (parts.size > 1) parts[0] else "Unknown"
+            val parts = course.split(" ", limit = 2) // 分割 Subject 和 Course
+            val subject = if (parts.size > 1) parts[0] else "Unknown"
             val courseName = if (parts.size > 1) parts[1] else course
-            Pair(major, courseName)
+            Pair(subject, courseName)
         }
 
         courseAdapter.updateData(courseList)
@@ -87,7 +87,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun goToCourseDetail(course: Pair<String, String>) {
         val intent = Intent(this, CourseDetailActivity::class.java)
-        intent.putExtra("major", course.first) // 传递专业
+        intent.putExtra("subject", course.first) // 传递专业
         intent.putExtra("courseName", course.second) // 传递课程名
         startActivity(intent)
     }

@@ -13,8 +13,8 @@ class Student(context: Context) {
     }
 
     // Add course without numbering in stored data
-    fun addCourse(major: String, course: String) {
-        addedClasses.add("$major $course")
+    fun addCourse(subject: String, course: String) {
+        addedClasses.add("$subject $course")
         saveCourses()
     }
 

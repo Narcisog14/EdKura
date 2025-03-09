@@ -10,7 +10,7 @@
         android:id="@+id/textMajor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Major"
+        android:text="Subject"
         android:textSize="20sp"
         android:textStyle="bold" />
 

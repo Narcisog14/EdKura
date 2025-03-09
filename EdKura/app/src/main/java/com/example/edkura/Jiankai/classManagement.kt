@@ -31,15 +31,15 @@ class classManagement : AppCompatActivity() {
         }
 
 
-        val editTextMajor: EditText = findViewById(R.id.editTextMajor)
-        val listViewMajor: ListView = findViewById(R.id.listViewMajor)
+        val editTextSubject: EditText = findViewById(R.id.editTextSubject)
+        val listViewSubject: ListView = findViewById(R.id.listViewSubject)
         val editTextClass: EditText = findViewById(R.id.editTextClass)
         val listViewClass: ListView = findViewById(R.id.listViewClass)
         val buttonNext: Button = findViewById(R.id.buttonNext)
         val buttonAdd: Button = findViewById(R.id.buttonAdd)
         val listViewAddedClasses: ListView = findViewById(R.id.listViewAddedClasses)
 
-        val majors = listOf("Computer Science", "Mathematics", "Physics", "Biology", "Chemistry")
+        val subjects = listOf("Computer Science", "Mathematics", "Physics", "Biology", "Chemistry")
         val courses = mapOf(
             "Computer Science" to listOf("Comp100", "Comp112", "Comp210", "Comp250", "Comp300"),
             "Mathematics" to listOf("Math121", "Math210", "Math250", "Math310", "Math400"),
@@ -48,29 +48,29 @@ class classManagement : AppCompatActivity() {
             "Chemistry" to listOf("Chem101", "Chem202", "Chem303", "Chem404", "Chem505")
         )
 
-        val majorAdapter =
-            ArrayAdapter(this, android.R.layout.simple_list_item_1, majors.toMutableList())
-        listViewMajor.adapter = majorAdapter
+        val subjectAdapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, subjects.toMutableList())
+        listViewSubject.adapter = subjectAdapter
 
         student = Student(this)
         addedClassesAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, student.getNumberedCourseList())
         listViewAddedClasses.adapter = addedClassesAdapter
-        // 监听 EditTextMajor 输入，动态筛选专业
-        editTextMajor.addTextChangedListener(object : TextWatcher {
+        // 监听 EditTextSubject 输入，动态筛选专业
+        editTextSubject.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s.isNullOrEmpty()) {
-                    listViewMajor.visibility = View.GONE  // 输入为空时隐藏 ListView
+                    listViewSubject.visibility = View.GONE  // 输入为空时隐藏 ListView
                     listViewClass.visibility = View.GONE  // 隐藏课程列表
                 } else {
-                    listViewMajor.visibility = View.VISIBLE  // 输入时显示 ListView
+                    listViewSubject.visibility = View.VISIBLE  // 输入时显示 ListView
                     // 筛选专业列表，只显示匹配的专业
-                    val filteredMajors = majors.filter { it.contains(s, ignoreCase = true) }
-                    val majorAdapter = ArrayAdapter(
+                    val filteredSubjects = subjects.filter { it.contains(s, ignoreCase = true) }
+                    val SubjectAdapter = ArrayAdapter(
                         this@classManagement,
                         android.R.layout.simple_list_item_1,
-                        filteredMajors
+                        filteredSubjects
                     )
-                    listViewMajor.adapter = majorAdapter
+                    listViewSubject.adapter = subjectAdapter
                 }
             }
 
@@ -78,15 +78,15 @@ class classManagement : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        // 监听 ListViewMajor 点击，填充 EditText 并显示对应的课程
-        listViewMajor.setOnItemClickListener { parent, view, position, id ->
-            val selectedMajor = parent.getItemAtPosition(position).toString()  // 通过 Item 获取点击的专业名称
-            editTextMajor.setText(selectedMajor)  // 设置选中的专业到 EditText
-            editTextMajor.setSelection(editTextMajor.text.length)  // 设置光标到文本末尾
-            listViewMajor.visibility = View.GONE  // 选完后隐藏 ListView
+        // 监听 ListViewSubject 点击，填充 EditText 并显示对应的课程
+        listViewSubject.setOnItemClickListener { parent, view, position, id ->
+            val selectedSubject = parent.getItemAtPosition(position).toString()  // 通过 Item 获取点击的专业名称
+            editTextSubject.setText(selectedSubject)  // 设置选中的专业到 EditText
+            editTextSubject.setSelection(editTextSubject.text.length)  // 设置光标到文本末尾
+            listViewSubject.visibility = View.GONE  // 选完后隐藏 ListView
 
             // 更新 ListViewClass，显示对应专业的课程
-            val filteredCourses = courses[selectedMajor] ?: emptyList()
+            val filteredCourses = courses[selectedSubject] ?: emptyList()
             val courseAdapter =
                 ArrayAdapter(this, android.R.layout.simple_list_item_1, filteredCourses)
             listViewClass.adapter = courseAdapter
@@ -126,11 +126,11 @@ class classManagement : AppCompatActivity() {
             listViewClass.visibility = View.GONE  // 隐藏课程列表
         }
         buttonAdd.setOnClickListener {
-            val major = editTextMajor.text.toString()
+            val subject = editTextSubject.text.toString()
             val course = editTextClass.text.toString()
 
-            if (major.isNotEmpty() && course.isNotEmpty()) {
-                student.addCourse(major, course)
+            if (subject.isNotEmpty() && course.isNotEmpty()) {
+                student.addCourse(subject, course)
                 // Update the display with numbered format
                 addedClassesAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, student.getNumberedCourseList())
                 listViewAddedClasses.adapter = addedClassesAdapter
