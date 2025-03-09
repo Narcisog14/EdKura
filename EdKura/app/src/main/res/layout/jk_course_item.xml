@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:orientation="vertical"
-        android:background="#479855">>
+        android:background="#54CEFB">>
 
         <TextView
             android:id="@+id/textCourseName"

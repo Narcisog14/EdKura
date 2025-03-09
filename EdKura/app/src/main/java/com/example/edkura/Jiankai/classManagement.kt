@@ -130,6 +130,7 @@ class classManagement : AppCompatActivity() {
 
             if (subject.isNotEmpty() && course.isNotEmpty()) {
                 student.addCourse(subject, course)
+                // Update the display with numbered format
                 addedClassesAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, student.getNumberedCourseList())
                 listViewAddedClasses.adapter = addedClassesAdapter
             }
@@ -146,12 +147,12 @@ class classManagement : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            val updatedClasses = data?.getStringArrayListExtra("updatedClasses")
+        if (requestCode == 1 && resultCode == RESULT_OK) { // 判断请求码和返回结果是否正确
+            val updatedClasses = data?.getStringArrayListExtra("updatedClasses") // 获取返回的课程列表
             if (updatedClasses != null) {
-                student.addedClasses.clear()
-                student.addedClasses.addAll(updatedClasses)
-                addedClassesAdapter.notifyDataSetChanged()
+                student.addedClasses.clear() // 清空旧课程
+                student.addedClasses.addAll(updatedClasses) // 添加新课程
+                addedClassesAdapter.notifyDataSetChanged() // 刷新 ListView 显示
             }
         }
     }
