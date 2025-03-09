@@ -1,1 +1,0 @@
-Narciso Garcia , Jiankai , Bhavyadeep
