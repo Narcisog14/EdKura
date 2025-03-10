@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "1085632509644",
+    "firebase_url": "https://edkura-81d7c-default-rtdb.firebaseio.com",
+    "project_id": "edkura-81d7c",
+    "storage_bucket": "edkura-81d7c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085632509644:android:7a58008fbfdd7958edf469",
+        "android_client_info": {
+          "package_name": "com.edkura.spmatching"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1gcKINLZjNqAqVxSDbDGbYUTPhBKD3EM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085632509644:android:553664a79de4d865edf469",
+        "android_client_info": {
+          "package_name": "com.example.edkura"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1gcKINLZjNqAqVxSDbDGbYUTPhBKD3EM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
