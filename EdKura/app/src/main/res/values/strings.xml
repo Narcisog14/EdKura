@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">EdKura</string>
+    <string name="sender_id">Sender ID</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="send_request">Send Request</string>
 </resources>

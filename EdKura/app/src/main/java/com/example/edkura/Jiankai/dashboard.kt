@@ -40,11 +40,11 @@ class DashboardActivity : AppCompatActivity() {
             student.addedClasses.addAll(addedClasses)
         }
 
-        // ✅ 初始化适配器，并添加点击事件
+        // ✅ Initialize the adapter and add click events
         courseAdapter = CourseAdapter(
             listOf(),
-            { position -> showDeleteDialog(position) }, // 长按删除
-            { course -> goToCourseDetail(course) } // 点击跳转
+            { position -> showDeleteDialog(position) }, // Long press to delete
+            { course -> goToCourseDetail(course) } // Click to jump
         )
         recyclerView.adapter = courseAdapter
 

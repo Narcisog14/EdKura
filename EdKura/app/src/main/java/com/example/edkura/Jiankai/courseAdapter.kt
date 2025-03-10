@@ -8,7 +8,7 @@ import com.example.edkura.R
 class CourseAdapter(
     private var courses: List<Pair<String, String>>,
     private val onLongClick: (Int) -> Unit,
-    private val onItemClick: (Pair<String, String>) -> Unit // ✅ 新增点击事件回调
+    private val onItemClick: (Pair<String, String>) -> Unit // ✅ Added click event callback
 ) : RecyclerView.Adapter<CourseAdapter.CourseViewHolder>() {
 
     class CourseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
