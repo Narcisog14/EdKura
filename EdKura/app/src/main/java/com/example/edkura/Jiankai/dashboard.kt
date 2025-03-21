@@ -1,17 +1,15 @@
 package com.example.edkura
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.edkura.Jiankai.classManagement
 import com.example.edkura.Jiankai.Student
 import CourseAdapter
+import android.view.WindowManager
+import android.widget.ImageButton
 import com.example.edkura.Narciso.CourseDetailActivity
 
 class DashboardActivity : AppCompatActivity() {
@@ -19,16 +17,17 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var courseAdapter: CourseAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.dashboard)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.Dashboard)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-        val buttonSetting: Button = findViewById(R.id.buttonSetting)
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
+            setContentView(R.layout.jk_dashboard)
+
+
+        val buttonSetting: ImageButton = findViewById(R.id.buttonSetting)
         recyclerView = findViewById(R.id.recyclerViewCourses)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -41,11 +40,11 @@ class DashboardActivity : AppCompatActivity() {
             student.addedClasses.addAll(addedClasses)
         }
 
-        // ✅ 初始化适配器，并添加点击事件
+        // ✅ Initialize the adapter and add click events
         courseAdapter = CourseAdapter(
             listOf(),
-            { position -> showDeleteDialog(position) }, // 长按删除
-            { course -> goToCourseDetail(course) } // 点击跳转
+            { position -> showDeleteDialog(position) }, // Long press to delete
+            { course -> goToCourseDetail(course) } // Click to jump
         )
         recyclerView.adapter = courseAdapter
 
@@ -59,10 +58,10 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun updateCourseList() {
         val courseList = student.addedClasses.map { course ->
-            val parts = course.split(" ", limit = 2) // 分割 Major 和 Course
-            val major = if (parts.size > 1) parts[0] else "Unknown"
+            val parts = course.split(" ", limit = 2) // 分割 subject 和 Course
+            val subject = if (parts.size > 1) parts[0] else "Unknown"
             val courseName = if (parts.size > 1) parts[1] else course
-            Pair(major, courseName)
+            Pair(subject, courseName)
         }
 
         courseAdapter.updateData(courseList)
@@ -87,7 +86,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun goToCourseDetail(course: Pair<String, String>) {
         val intent = Intent(this, CourseDetailActivity::class.java)
-        intent.putExtra("major", course.first) // 传递专业
+        intent.putExtra("subject", course.first) // 传递专业
         intent.putExtra("courseName", course.second) // 传递课程名
         startActivity(intent)
     }
