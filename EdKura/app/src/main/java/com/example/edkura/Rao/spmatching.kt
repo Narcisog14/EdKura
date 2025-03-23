@@ -22,7 +22,7 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
     // Predefined users list
     private val predefinedUsers = listOf("user1", "user2", "user3", "user4")
     // Assume current user is user1
-    private val currentUserId = "user1"
+    private val currentUserId = "user3"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

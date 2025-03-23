@@ -129,7 +129,7 @@
         android:id="@+id/buttonNext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Next"
+        android:text="Back"
         android:textSize="18sp"
         android:backgroundTint="#428E54"
         app:layout_constraintTop_toBottomOf="@id/listViewAddedClasses"

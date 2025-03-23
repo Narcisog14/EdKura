@@ -10,10 +10,11 @@ import com.example.edkura.Jiankai.Student
 import CourseAdapter
 import android.view.WindowManager
 import android.widget.ImageButton
+import com.example.edkura.Jiankai.jiankaiUI.CustomCanvasView
 import com.example.edkura.Narciso.CourseDetailActivity
 
 class DashboardActivity : AppCompatActivity() {
-    private lateinit var student: Student // 声明 Student 对象
+    private lateinit var student: Student
     private lateinit var recyclerView: RecyclerView
     private lateinit var courseAdapter: CourseAdapter
 
@@ -29,6 +30,7 @@ class DashboardActivity : AppCompatActivity() {
 
         val buttonSetting: ImageButton = findViewById(R.id.buttonSetting)
         recyclerView = findViewById(R.id.recyclerViewCourses)
+            customCanvasView = findViewById(R.id.customCanvasView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         if (!::student.isInitialized) {
@@ -40,7 +42,7 @@ class DashboardActivity : AppCompatActivity() {
             student.addedClasses.addAll(addedClasses)
         }
 
-        // ✅ Initialize the adapter and add click events
+        // Initialize the adapter and add click events
         courseAdapter = CourseAdapter(
             listOf(),
             { position -> showDeleteDialog(position) }, // Long press to delete
@@ -54,6 +56,7 @@ class DashboardActivity : AppCompatActivity() {
             val intent = Intent(this, classManagement::class.java)
             startActivity(intent)
         }
+
     }
 
     private fun updateCourseList() {
@@ -90,10 +93,12 @@ class DashboardActivity : AppCompatActivity() {
         intent.putExtra("courseName", course.second) // 传递课程名
         startActivity(intent)
     }
+    private lateinit var customCanvasView: CustomCanvasView
 
     override fun onResume() {
         super.onResume()
         student.loadCourses()
         updateCourseList()
+        customCanvasView.resetRectangle()
     }
 }
