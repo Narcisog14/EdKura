@@ -46,6 +46,9 @@
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".Narciso.CourseDetailActivity" />
+        <activity
+            android:name=".Narciso.UserProfileActivity"
+            android:exported="false" />
 
     </application>
 

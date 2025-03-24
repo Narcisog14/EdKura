@@ -1,4 +1,5 @@
 package com.example.edkura
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -11,23 +12,35 @@ import CourseAdapter
 import android.view.WindowManager
 import android.widget.ImageButton
 import com.example.edkura.Narciso.CourseDetailActivity
+import com.example.edkura.Narciso.UserProfileActivity
+import com.example.edkura.Narciso.User
 
 class DashboardActivity : AppCompatActivity() {
-    private lateinit var student: Student // 声明 Student 对象
+    private lateinit var student: Student
     private lateinit var recyclerView: RecyclerView
     private lateinit var courseAdapter: CourseAdapter
 
+    // Pre-defined user data (add major here)
+    private val preDefinedUsers = listOf(
+        User("user1", "Alice Johnson", "alice@example.com", "Computer Science"),
+        User("user2", "Bob Williams", "bob@example.com", "Engineering"),
+        User("user3", "Charlie Brown", "charlie@example.com", "Business")
+        // Add more users here
+    )
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-            setContentView(R.layout.jk_dashboard)
+    // Select the default user
+    private var currentUserId: String = preDefinedUsers[0].id //user1 as default
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+        setContentView(R.layout.jk_dashboard)
 
         val buttonSetting: ImageButton = findViewById(R.id.buttonSetting)
+        val profileButton: ImageButton = findViewById(R.id.profileButton)
         recyclerView = findViewById(R.id.recyclerViewCourses)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -40,11 +53,10 @@ class DashboardActivity : AppCompatActivity() {
             student.addedClasses.addAll(addedClasses)
         }
 
-        // ✅ Initialize the adapter and add click events
         courseAdapter = CourseAdapter(
             listOf(),
-            { position -> showDeleteDialog(position) }, // Long press to delete
-            { course -> goToCourseDetail(course) } // Click to jump
+            { position -> showDeleteDialog(position) },
+            { course -> goToCourseDetail(course) }
         )
         recyclerView.adapter = courseAdapter
 
@@ -54,11 +66,17 @@ class DashboardActivity : AppCompatActivity() {
             val intent = Intent(this, classManagement::class.java)
             startActivity(intent)
         }
+        profileButton.setOnClickListener {
+            val intent = Intent(this, UserProfileActivity::class.java)
+            intent.putExtra("USER_ID", currentUserId) // Pass user ID
+            startActivity(intent)
+        }
+
     }
 
     private fun updateCourseList() {
         val courseList = student.addedClasses.map { course ->
-            val parts = course.split(" ", limit = 2) // 分割 subject 和 Course
+            val parts = course.split(" ", limit = 2)
             val subject = if (parts.size > 1) parts[0] else "Unknown"
             val courseName = if (parts.size > 1) parts[1] else course
             Pair(subject, courseName)
@@ -69,13 +87,12 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun showDeleteDialog(position: Int) {
         val courseToDelete = student.addedClasses[position]
-
         AlertDialog.Builder(this)
             .setTitle("Delete Course")
             .setMessage("Are you sure you want to delete: $courseToDelete?")
             .setPositiveButton("Delete") { _, _ ->
                 student.removeCourseAt(position)
-                updateCourseList() // 刷新列表
+                updateCourseList()
                 val resultIntent = Intent()
                 resultIntent.putStringArrayListExtra("updatedClasses", student.addedClasses)
                 setResult(RESULT_OK, resultIntent)
@@ -86,8 +103,8 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun goToCourseDetail(course: Pair<String, String>) {
         val intent = Intent(this, CourseDetailActivity::class.java)
-        intent.putExtra("subject", course.first) // 传递专业
-        intent.putExtra("courseName", course.second) // 传递课程名
+        intent.putExtra("subject", course.first)
+        intent.putExtra("courseName", course.second)
         startActivity(intent)
     }
 
