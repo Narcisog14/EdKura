@@ -14,8 +14,9 @@ class Student(context: Context) {
 
     // Add course without numbering in stored data
     fun addCourse(subject: String, course: String) {
-        addedClasses.add("$subject $course")
-        saveCourses()
+        val courseString = "$subject $course"
+            addedClasses.add(courseString)
+            saveCourses()
     }
 
     // Remove course by index

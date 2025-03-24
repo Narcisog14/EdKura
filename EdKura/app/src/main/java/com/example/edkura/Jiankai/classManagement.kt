@@ -9,10 +9,8 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.edkura.DashboardActivity
 import com.example.edkura.R
 
@@ -129,10 +127,25 @@ class classManagement : AppCompatActivity() {
             val course = editTextClass.text.toString()
 
             if (subject.isNotEmpty() && course.isNotEmpty()) {
-                student.addCourse(subject, course)
-                // Update the display with numbered format
-                addedClassesAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, student.getNumberedCourseList())
-                listViewAddedClasses.adapter = addedClassesAdapter
+                // 检查课程是否已存在，避免重复添加
+                val courseToAdd = "$subject $course"
+
+                // 从编号列表中提取实际课程名称进行比较
+                val existingCourses = student.getNumberedCourseList().map {
+                    it.substringAfter(". ") // 去掉编号部分，只保留课程信息
+                }
+
+                if (!existingCourses.contains(courseToAdd)) {
+                    student.addCourse(subject, course)
+                    // 更新显示
+                    addedClassesAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, student.getNumberedCourseList())
+                    listViewAddedClasses.adapter = addedClassesAdapter
+                }
+                else {
+                    Toast.makeText(this, "This course has already been added.", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "Please enter a valid subject and course.", Toast.LENGTH_SHORT).show()
             }
         }
 
