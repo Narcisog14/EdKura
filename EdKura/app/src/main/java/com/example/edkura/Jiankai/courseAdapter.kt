@@ -31,7 +31,6 @@ class CourseAdapter(
             true
         }
 
-        // ✅ 添加点击事件
         holder.itemView.setOnClickListener {
             onItemClick(courses[position])
         }

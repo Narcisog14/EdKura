@@ -25,6 +25,11 @@
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_course_item.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_dashboard.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
@@ -43,8 +48,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a619b1ec-aea4-4ca0-861c-81fe87579a41" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/classManagement.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/classManagement.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/student.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/student.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/courseAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/courseAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/jk_course_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/jk_course_item.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
