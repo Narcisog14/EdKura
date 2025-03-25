@@ -30,7 +30,7 @@ class DashboardActivity : AppCompatActivity() {
 
         val buttonSetting: ImageButton = findViewById(R.id.buttonSetting)
         recyclerView = findViewById(R.id.recyclerViewCourses)
-            customCanvasView = findViewById(R.id.customCanvasView)
+        customCanvasView = findViewById(R.id.customCanvasView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         if (!::student.isInitialized) {

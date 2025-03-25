@@ -1,5 +1,6 @@
 package com.example.edkura.Jiankai
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import org.json.JSONArray
