@@ -1,4 +1,4 @@
-package com.example.edkura.Narciso
+package com.example.edkura.FileSharing
 
 data class FileMessage(
     var uploader: String = "", // Who sent the file
