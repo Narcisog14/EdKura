@@ -1,64 +1,69 @@
 package com.example.edkura.Jiankai
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import org.json.JSONArray
+import org.json.JSONObject
 
+data class Course(val subject: String, val course: String)
 class Student(context: Context) {
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("StudentPrefs", Context.MODE_PRIVATE)
-    val addedClasses = ArrayList<String>()
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences("StudentPrefs", Context.MODE_PRIVATE)
+
+    // 存储课程的 ArrayList
+    val addedClasses = ArrayList<Course>()
 
     init {
-        loadCourses()
+        loadCourses() // 初始化时加载数据
     }
-
-    // Add course without numbering in stored data
     fun addCourse(subject: String, course: String) {
-        val courseString = "$subject $course"
-            addedClasses.add(courseString)
-            saveCourses()
-    }
-
-    // Remove course by index
-    fun removeCourseAt(index: Int) {
-        if (index >= 0 && index < addedClasses.size) {
-            addedClasses.removeAt(index)
-            saveCourses()
-        }
-    }
-
-    // Remove course by content
-    fun removeCourse(course: String) {
-        addedClasses.remove(course)
+        val newCourse = Course(subject, course)
+        addedClasses.add(newCourse)
         saveCourses()
     }
-
-    // Get formatted course list for display
     fun getNumberedCourseList(): ArrayList<String> {
         val numberedList = ArrayList<String>()
         for (i in addedClasses.indices) {
-            numberedList.add("${i + 1}. ${addedClasses[i]}")
+            val course = addedClasses[i]
+            numberedList.add("${i + 1}. ${course.subject} - ${course.course}")
         }
         return numberedList
     }
 
+    // 🧹 清空课程
     fun clearCourses() {
         addedClasses.clear()
         saveCourses()
     }
 
+    // 💾 保存课程
     fun saveCourses() {
-        val jsonArray = JSONArray(addedClasses)
+        val jsonArray = JSONArray()
+        for (course in addedClasses) {
+            val jsonObject = JSONObject()
+            jsonObject.put("subject", course.subject)
+            jsonObject.put("course", course.course)
+            jsonArray.put(jsonObject)
+        }
         sharedPreferences.edit().putString("courses", jsonArray.toString()).apply()
     }
+    fun removeCourseAt(index: Int) {
+        if (index >= 0 && index < addedClasses.size) {
+            addedClasses.removeAt(index)
+            saveCourses() // 重新保存更改
+        }
+    }
 
+    // 📥 加载课程
     fun loadCourses() {
         addedClasses.clear()
         val jsonString = sharedPreferences.getString("courses", "[]")
         val jsonArray = JSONArray(jsonString)
         for (i in 0 until jsonArray.length()) {
-            addedClasses.add(jsonArray.getString(i))
+            val jsonObject = jsonArray.getJSONObject(i)
+            val subject = jsonObject.getString("subject")
+            val course = jsonObject.getString("course")
+            addedClasses.add(Course(subject, course))
         }
     }
 }

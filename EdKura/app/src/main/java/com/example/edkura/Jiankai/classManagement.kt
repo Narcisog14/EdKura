@@ -1,4 +1,5 @@
 package com.example.edkura.Jiankai
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -18,15 +19,13 @@ class classManagement : AppCompatActivity() {
     private lateinit var student: Student
     private lateinit var addedClassesAdapter: ArrayAdapter<String>
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-        setContentView(R.layout.`jk_classmanagement`)
-
+        setContentView(R.layout.jk_classmanagement)
 
         val editTextsubject: EditText = findViewById(R.id.editTextsubject)
         val listViewsubject: ListView = findViewById(R.id.listViewsubject)
@@ -36,8 +35,8 @@ class classManagement : AppCompatActivity() {
         val buttonAdd: Button = findViewById(R.id.buttonAdd)
         val listViewAddedClasses: ListView = findViewById(R.id.listViewAddedClasses)
 
-        val subject = listOf("Computer Science", "Mathematics", "Physics", "Biology", "Chemistry")
-        val courses = mapOf(
+        val subjectList = listOf("Computer Science", "Mathematics", "Physics", "Biology", "Chemistry")
+        val coursesMap = mapOf(
             "Computer Science" to listOf("Comp100", "Comp112", "Comp210", "Comp250", "Comp300"),
             "Mathematics" to listOf("Math121", "Math210", "Math250", "Math310", "Math400"),
             "Physics" to listOf("Phys101", "Phys202", "Phys303", "Phys404", "Phys505"),
@@ -45,103 +44,77 @@ class classManagement : AppCompatActivity() {
             "Chemistry" to listOf("Chem101", "Chem202", "Chem303", "Chem404", "Chem505")
         )
 
-        val subjectAdapter =
-            ArrayAdapter(this, android.R.layout.simple_list_item_1, subject.toMutableList())
+        val subjectAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, subjectList)
         listViewsubject.adapter = subjectAdapter
 
         student = Student(this)
         addedClassesAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, student.getNumberedCourseList())
         listViewAddedClasses.adapter = addedClassesAdapter
-        // 监听 EditTextsubject 输入，动态筛选专业
+
+        // search major
         editTextsubject.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if (s.isNullOrEmpty()) {
-                    listViewsubject.visibility = View.GONE  // 输入为空时隐藏 ListView
-                    listViewClass.visibility = View.GONE  // 隐藏课程列表
+                val filteredSubjects = if (s.isNullOrEmpty()) {
+                    subjectList
                 } else {
-                    listViewsubject.visibility = View.VISIBLE  // 输入时显示 ListView
-                    // 筛选专业列表，只显示匹配的专业
-                    val filteredsubjects = subject.filter { it.contains(s, ignoreCase = true) }
-                    val subjectAdapter = ArrayAdapter(
-                        this@classManagement,
-                        android.R.layout.simple_list_item_1,
-                        filteredsubjects
-                    )
-                    listViewsubject.adapter = subjectAdapter
+                    subjectList.filter { it.contains(s, ignoreCase = true) }
                 }
+                listViewsubject.adapter = ArrayAdapter(this@classManagement, android.R.layout.simple_list_item_1, filteredSubjects)
+                listViewsubject.visibility = if (filteredSubjects.isEmpty()) View.GONE else View.VISIBLE
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        // 监听 ListViewsubject 点击，填充 EditText 并显示对应的课程
-        listViewsubject.setOnItemClickListener { parent, view, position, id ->
-            val selectedsubject = parent.getItemAtPosition(position).toString()  // 通过 Item 获取点击的专业名称
-            editTextsubject.setText(selectedsubject)  // 设置选中的专业到 EditText
-            editTextsubject.setSelection(editTextsubject.text.length)  // 设置光标到文本末尾
-            listViewsubject.visibility = View.GONE  // 选完后隐藏 ListView
+        // select class
+        listViewsubject.setOnItemClickListener { parent, _, position, _ ->
+            val selectedSubject = parent.getItemAtPosition(position).toString()
+            editTextsubject.setText(selectedSubject)
+            listViewsubject.visibility = View.GONE
 
-            // 更新 ListViewClass，显示对应专业的课程
-            val filteredCourses = courses[selectedsubject] ?: emptyList()
-            val courseAdapter =
-                ArrayAdapter(this, android.R.layout.simple_list_item_1, filteredCourses)
-            listViewClass.adapter = courseAdapter
-            listViewClass.visibility = View.VISIBLE  // 显示课程列表
-            editTextClass.requestFocus()  // 将焦点设置到课程输入框
-            editTextClass.setSelection(editTextClass.text.length)  // 设置光标到课程输入框末尾
+            val availableCourses = coursesMap[selectedSubject] ?: emptyList()
+            listViewClass.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, availableCourses)
+            listViewClass.visibility = if (availableCourses.isEmpty()) View.GONE else View.VISIBLE
         }
 
-        // 监听 EditTextClass 输入，动态筛选课程
+        // search class
         editTextClass.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if (s.isNullOrEmpty()) {
-                    listViewClass.visibility = View.GONE  // 输入为空时隐藏 ListView
+                val filteredCourses = if (s.isNullOrEmpty()) {
+                    emptyList()
                 } else {
-                    listViewClass.visibility = View.VISIBLE  // 输入时显示 ListView
-                    // 筛选课程列表，只显示匹配的课程
-                    val filteredCourses =
-                        courses.values.flatten().filter { it.contains(s, ignoreCase = true) }
-                    val courseAdapter = ArrayAdapter(
-                        this@classManagement,
-                        android.R.layout.simple_list_item_1,
-                        filteredCourses
-                    )
-                    listViewClass.adapter = courseAdapter
+                    coursesMap.values.flatten().filter { it.contains(s, ignoreCase = true) }
                 }
+                listViewClass.adapter = ArrayAdapter(this@classManagement, android.R.layout.simple_list_item_1, filteredCourses)
+                listViewClass.visibility = if (filteredCourses.isEmpty()) View.GONE else View.VISIBLE
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        // 监听 ListViewClass 点击，填充 EditText
-        listViewClass.setOnItemClickListener { parent, view, position, id ->
-            val selectedCourse = listViewClass.getItemAtPosition(position).toString()
-            editTextClass.setText(selectedCourse)  // 设置选中的课程到 EditText
-            editTextClass.setSelection(editTextClass.text.length)  // 设置光标到文本末尾
-            listViewClass.visibility = View.GONE  // 隐藏课程列表
+        // select class
+        listViewClass.setOnItemClickListener { parent, _, position, _ ->
+            val selectedCourse = parent.getItemAtPosition(position).toString()
+            editTextClass.setText(selectedCourse)
+            listViewClass.visibility = View.GONE
         }
+
+        // add class
         buttonAdd.setOnClickListener {
             val subject = editTextsubject.text.toString()
             val course = editTextClass.text.toString()
 
             if (subject.isNotEmpty() && course.isNotEmpty()) {
-                // 检查课程是否已存在，避免重复添加
-                val courseToAdd = "$subject $course"
+                val courseToAdd = Course(subject, course)
 
-                // 从编号列表中提取实际课程名称进行比较
-                val existingCourses = student.getNumberedCourseList().map {
-                    it.substringAfter(". ") // 去掉编号部分，只保留课程信息
-                }
-
-                if (!existingCourses.contains(courseToAdd)) {
+                if (!student.addedClasses.contains(courseToAdd)) {
                     student.addCourse(subject, course)
-                    // 更新显示
+
+                    // 更新 ArrayAdapter 数据源，并刷新 ListView
                     addedClassesAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, student.getNumberedCourseList())
-                    listViewAddedClasses.adapter = addedClassesAdapter
-                }
-                else {
+                    listViewAddedClasses.adapter = addedClassesAdapter // 重新设置适配器
+                    addedClassesAdapter.notifyDataSetChanged() // 刷新 ListView 显示
+                } else {
                     Toast.makeText(this, "This course has already been added.", Toast.LENGTH_SHORT).show()
                 }
             } else {
@@ -149,23 +122,47 @@ class classManagement : AppCompatActivity() {
             }
         }
 
+        // delete class
+        listViewAddedClasses.setOnItemLongClickListener { _, _, position, _ ->
+            val courseToDelete = student.addedClasses[position]
+
+            AlertDialog.Builder(this)
+                .setTitle("Delete Course")
+                .setMessage("Are you sure you want to delete: ${courseToDelete.subject} ${courseToDelete.course}?")
+                .setPositiveButton("Delete") { _, _ ->
+                    student.removeCourseAt(position)
+                    addedClassesAdapter.notifyDataSetChanged()
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+
+            true
+        }
+
+        // go to Dashboard
         buttonNext.setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
-            intent.putStringArrayListExtra("updatedClasses", student.addedClasses) // 传递课程数据
+            val courseStrings = student.addedClasses.map { "${it.subject} ${it.course}" }
+            intent.putStringArrayListExtra("updatedClasses", ArrayList(courseStrings))
             setResult(RESULT_OK, intent)
             finish()
         }
-
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 1 && resultCode == RESULT_OK) { // 判断请求码和返回结果是否正确
-            val updatedClasses = data?.getStringArrayListExtra("updatedClasses") // 获取返回的课程列表
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            val updatedClasses = data?.getStringArrayListExtra("updatedClasses")
             if (updatedClasses != null) {
-                student.addedClasses.clear() // 清空旧课程
-                student.addedClasses.addAll(updatedClasses) // 添加新课程
-                addedClassesAdapter.notifyDataSetChanged() // 刷新 ListView 显示
+                student.clearCourses()
+                updatedClasses.forEach { courseStr ->
+                    val parts = courseStr.split(" ", limit = 2)
+                    if (parts.size == 2) {
+                        student.addCourse(parts[0], parts[1])
+                    }
+                }
+                addedClassesAdapter.notifyDataSetChanged()
             }
         }
     }
