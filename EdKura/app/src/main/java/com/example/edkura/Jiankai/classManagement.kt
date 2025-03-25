@@ -14,6 +14,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.edkura.DashboardActivity
 import com.example.edkura.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class classManagement : AppCompatActivity() {
     private lateinit var student: Student
@@ -141,11 +143,28 @@ class classManagement : AppCompatActivity() {
 
         // go to Dashboard
         buttonNext.setOnClickListener {
-            val intent = Intent(this, DashboardActivity::class.java)
+            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@setOnClickListener
+            val userCoursesRef = FirebaseDatabase.getInstance().reference.child("users").child(userId).child("courses")
+
+
             val courseStrings = student.addedClasses.map { "${it.subject} ${it.course}" }
-            intent.putStringArrayListExtra("updatedClasses", ArrayList(courseStrings))
-            setResult(RESULT_OK, intent)
-            finish()
+
+            // 将课程数据上传到 Firebase
+            // Upload course data to Firebase
+            userCoursesRef.setValue(courseStrings).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // 如果上传成功，继续跳转到 DashboardActivity
+                    // If upload is successful, continue to DashboardActivity
+                    val intent = Intent(this, DashboardActivity::class.java)
+                    intent.putStringArrayListExtra("updatedClasses", ArrayList(courseStrings))
+                    setResult(RESULT_OK, intent)
+                    finish()
+                } else {
+                    // 如果上传失败，显示错误消息
+                    // If upload fails, show error message
+                    Toast.makeText(this, "Error saving courses", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
