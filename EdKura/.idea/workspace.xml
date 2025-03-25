@@ -8,6 +8,11 @@
       </config>
     </shared>
     <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
@@ -49,6 +54,16 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_dashboard.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/message_item_received.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/message_item_sent.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
@@ -131,23 +146,39 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin File" />
+        <option value="valueResourceFile" />
         <option value="Kotlin Class" />
         <option value="resourceFile" />
-        <option value="valueResourceFile" />
         <option value="layoutResourceFile" />
         <option value="Kotlin Data Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Narcisog14&quot;
-  }
+  &quot;lastFilter&quot;: {}
 }</component>
+  <component name="GitHubPullRequestState"><![CDATA[{
+  "prStates": [
+    {
+      "id": {
+        "id": "PR_kwDON3ay9M6P-1ny",
+        "number": 78
+      },
+      "lastSeen": 1742881960834
+    },
+    {
+      "id": {
+        "id": "PR_kwDON3ay9M6P-3hX",
+        "number": 79
+      },
+      "lastSeen": 1742882336968
+    }
+  ]
+}]]></component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Narcisog14/EdKura.git&quot;,
@@ -173,17 +204,24 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "master",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "git-widget-placeholder": "#78 on Merging BR",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/FileSharing"
+    "last_opened_file_path": "E:/EdKura/EdKura/EdKura"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xxxhdpi" />
       <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\layout" />
       <recent name="E:\COMP350\Sprint2\EdKura\app" />
       <recent name="C:\Users\narci\AndroidStudioProjects\EdKura\EdKura\app\src\main\java\com\example\edkura" />
       <recent name="C:\Users\narci\AndroidStudioProjects\EdKura\EdKura\app\src\main\java\com\example\edkura\Narciso" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xxxhdpi" />
+      <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xhdpi" />
+      <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xxhdpi" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="com.example.edkura.Jiankai" />
@@ -275,6 +313,17 @@
       <updated>1741135930116</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Study Partner Matching Feature Updated. Final App" />
