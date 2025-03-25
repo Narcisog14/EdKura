@@ -31,6 +31,7 @@ class CourseDetailActivity : AppCompatActivity() {
     private lateinit var studyPartnerDashboardContainer: View
     private lateinit var backButton: Button
     private lateinit var studyPartnerButton: Button
+    private lateinit var goToNoteSharingDashboardButton: Button // New button
     private lateinit var addUserItem: CardView
     private lateinit var studentsRecyclerView: RecyclerView
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
@@ -46,6 +47,7 @@ class CourseDetailActivity : AppCompatActivity() {
         studyPartnerDashboardContainer = findViewById(R.id.studyPartnerDashboardContainer)
         backButton = findViewById(R.id.backButton)
         studyPartnerButton = findViewById(R.id.studyPartnerButton)
+        goToNoteSharingDashboardButton = findViewById(R.id.goToNoteSharingDashboardButton) // Find the new button
         addUserItem = findViewById(R.id.addUserItem)
         studentsRecyclerView = findViewById(R.id.studentsRecyclerView)
         studentsRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -55,7 +57,9 @@ class CourseDetailActivity : AppCompatActivity() {
             studyPartnerDashboardContainer.visibility = View.VISIBLE
             loadAcceptedStudyPartners()
         }
-
+        goToNoteSharingDashboardButton.setOnClickListener {
+            startActivity(Intent(this, NoteSharingDashboardActivity::class.java))
+        }
         addUserItem.setOnClickListener {
             startActivity(Intent(this, spmatching::class.java))
         }
