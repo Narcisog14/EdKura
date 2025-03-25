@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.edkura.R
+import com.example.edkura.Rao.StudyPartnerRequest
 
 class RequestsAdapter(
     private var requests: List<StudyPartnerRequest>,
@@ -26,7 +27,16 @@ class RequestsAdapter(
 
     override fun onBindViewHolder(holder: RequestViewHolder, position: Int) {
         val request = requests[position]
-        holder.bind(request)
+
+        holder.senderTextView.text = "From: ${request.senderName}"
+
+        holder.acceptButton.setOnClickListener {
+            listener.onAccept(request)
+        }
+
+        holder.declineButton.setOnClickListener {
+            listener.onDecline(request)
+        }
     }
 
     override fun getItemCount(): Int = requests.size
@@ -38,9 +48,9 @@ class RequestsAdapter(
     }
 
     inner class RequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val senderTextView: TextView = itemView.findViewById(R.id.senderTextView)
-        private val acceptButton: Button = itemView.findViewById(R.id.acceptButton)
-        private val declineButton: Button = itemView.findViewById(R.id.declineButton)
+        val senderTextView: TextView = itemView.findViewById(R.id.senderTextView)
+        val acceptButton: Button = itemView.findViewById(R.id.acceptButton)
+        val declineButton: Button = itemView.findViewById(R.id.declineButton)
 
         @SuppressLint("SetTextI18n")
         fun bind(request: StudyPartnerRequest) {

@@ -15,6 +15,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.edkura.DashboardActivity
 import com.example.edkura.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import android.widget.Toast
 
 class classManagement : AppCompatActivity() {
     private lateinit var student: Student
@@ -52,7 +55,8 @@ class classManagement : AppCompatActivity() {
         listViewsubject.adapter = subjectAdapter
 
         student = Student(this)
-        addedClassesAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, student.getNumberedCourseList())
+        addedClassesAdapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, student.getNumberedCourseList())
         listViewAddedClasses.adapter = addedClassesAdapter
         // 监听 EditTextsubject 输入，动态筛选专业
         editTextsubject.addTextChangedListener(object : TextWatcher {
@@ -79,7 +83,8 @@ class classManagement : AppCompatActivity() {
 
         // 监听 ListViewsubject 点击，填充 EditText 并显示对应的课程
         listViewsubject.setOnItemClickListener { parent, view, position, id ->
-            val selectedsubject = parent.getItemAtPosition(position).toString()  // 通过 Item 获取点击的专业名称
+            val selectedsubject =
+                parent.getItemAtPosition(position).toString()  // 通过 Item 获取点击的专业名称
             editTextsubject.setText(selectedsubject)  // 设置选中的专业到 EditText
             editTextsubject.setSelection(editTextsubject.text.length)  // 设置光标到文本末尾
             listViewsubject.visibility = View.GONE  // 选完后隐藏 ListView
@@ -131,28 +136,42 @@ class classManagement : AppCompatActivity() {
             if (subject.isNotEmpty() && course.isNotEmpty()) {
                 student.addCourse(subject, course)
                 // Update the display with numbered format
-                addedClassesAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, student.getNumberedCourseList())
+                addedClassesAdapter = ArrayAdapter(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    student.getNumberedCourseList()
+                )
                 listViewAddedClasses.adapter = addedClassesAdapter
             }
         }
 
         buttonNext.setOnClickListener {
-            val intent = Intent(this, DashboardActivity::class.java)
-            intent.putStringArrayListExtra("updatedClasses", student.addedClasses) // 传递课程数据
-            setResult(RESULT_OK, intent)
-            finish()
+            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@setOnClickListener
+            val userCoursesRef =
+                FirebaseDatabase.getInstance().reference.child("users").child(userId)
+                    .child("courses")
+
+            userCoursesRef.setValue(student.addedClasses).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val intent = Intent(this, DashboardActivity::class.java)
+                    intent.putStringArrayListExtra("updatedClasses", student.addedClasses)
+                    setResult(RESULT_OK, intent)
+                    finish()
+                } else {
+                    Toast.makeText(this, "Error saving courses", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
+        fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
 
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == 1 && resultCode == RESULT_OK) { // 判断请求码和返回结果是否正确
-            val updatedClasses = data?.getStringArrayListExtra("updatedClasses") // 获取返回的课程列表
-            if (updatedClasses != null) {
-                student.addedClasses.clear() // 清空旧课程
-                student.addedClasses.addAll(updatedClasses) // 添加新课程
-                addedClassesAdapter.notifyDataSetChanged() // 刷新 ListView 显示
+            if (requestCode == 1 && resultCode == RESULT_OK) { // 判断请求码和返回结果是否正确
+                val updatedClasses = data?.getStringArrayListExtra("updatedClasses") // 获取返回的课程列表
+                if (updatedClasses != null) {
+                    student.addedClasses.clear() // 清空旧课程
+                    student.addedClasses.addAll(updatedClasses) // 添加新课程
+                    addedClassesAdapter.notifyDataSetChanged() // 刷新 ListView 显示
+                }
             }
         }
     }

@@ -2,10 +2,33 @@
 <project version="4">
   <component name="AndroidLayouts">
     <shared>
-      <config />
+      <config>
+        <device id="_device_class_phone" />
+        <device id="pixel_9" />
+      </config>
     </shared>
     <layouts>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/classmanagement.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_profile.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_signup.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/br_item_request.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/br_spmatching.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
@@ -15,17 +38,32 @@
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/course_item.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_classmanagement.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dashboard.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_course_item.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_dashboard.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/student_item.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/study_partner_dashboard.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/profile_menu.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
@@ -45,24 +83,64 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\raobh\.android\avd\Pixel_9_Pro_API_35.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="EdKura" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="EdKura" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="EdKura" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="EdKura" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Data Class" />
-        <option value="Kotlin Class" />
-        <option value="layoutResourceFile" />
         <option value="Kotlin File" />
+        <option value="Kotlin Class" />
+        <option value="resourceFile" />
+        <option value="valueResourceFile" />
+        <option value="layoutResourceFile" />
+        <option value="Kotlin Data Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -73,11 +151,11 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Narcisog14/EdKura.git&quot;,
-    &quot;accountId&quot;: &quot;be809d19-18c4-438f-a2ef-e7f2d18e9630&quot;
+    &quot;accountId&quot;: &quot;41dd2af5-3c2b-43fe-8574-f3d2180d4bf2&quot;
   }
 }</component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="_Designer_Tab" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -95,15 +173,23 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "Develop",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/narci/AndroidStudioProjects/EdKura/EdKura - Copy"
+    "last_opened_file_path": "E:/FileSharing"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\layout" />
+      <recent name="E:\COMP350\Sprint2\EdKura\app" />
       <recent name="C:\Users\narci\AndroidStudioProjects\EdKura\EdKura\app\src\main\java\com\example\edkura" />
       <recent name="C:\Users\narci\AndroidStudioProjects\EdKura\EdKura\app\src\main\java\com\example\edkura\Narciso" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.example.edkura.Jiankai" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.example.edkura.auth" />
     </key>
   </component>
   <component name="RunManager">
@@ -165,7 +251,7 @@
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
-        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="System Trace" />
         <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
         <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
       </Profilers>
@@ -190,17 +276,21 @@
     </task>
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Study Partner Matching Feature Updated. Final App" />
+    <option name="LAST_COMMIT_MESSAGE" value="Study Partner Matching Feature Updated. Final App" />
+  </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
       <map>
         <entry key="com.example.edkura">
           <value>
-            <CheckInfo lastCheckTimestamp="1741136659376" />
+            <CheckInfo lastCheckTimestamp="1742797034549" />
           </value>
         </entry>
         <entry key="com.example.edkura.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1741136659373" />
+            <CheckInfo lastCheckTimestamp="1742797034549" />
           </value>
         </entry>
       </map>
