@@ -15,12 +15,24 @@
 
         <!-- MainActivity -->
         <activity
-            android:name=".DashboardActivity"
+            android:name=".auth.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".auth.SignupActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Jiankai.ProfileActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="true">
         </activity>
 
         <!-- DashboardActivity -->
@@ -33,22 +45,22 @@
             android:name=".Narciso.CourseDetailActivity"
             android:exported="false">
         </activity>
+
+        <!-- Chat -->
+        <activity
+                android:name=".chat.ChatActivity"
+                android:exported="false">
+        </activity>
+
         <!-- Student Partner Matching -->
         <activity
             android:name=".Rao.spmatching"
             android:exported="false">
         </activity>
-        <!-- Note Sharing Dashboard Activity -->
         <activity
             android:name=".Narciso.NoteSharingDashboardActivity"
             android:exported="false"
             android:parentActivityName=".Narciso.CourseDetailActivity"/>
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".Narciso.CourseDetailActivity" />
-        <activity
-            android:name=".Narciso.UserProfileActivity"
-            android:exported="false" />
 
     </application>
 

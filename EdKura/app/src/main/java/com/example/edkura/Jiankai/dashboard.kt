@@ -1,5 +1,4 @@
 package com.example.edkura
-
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -11,25 +10,18 @@ import com.example.edkura.Jiankai.Student
 import CourseAdapter
 import android.view.WindowManager
 import android.widget.ImageButton
+import android.widget.PopupMenu
 import com.example.edkura.Narciso.CourseDetailActivity
-import com.example.edkura.Narciso.UserProfileActivity
-import com.example.edkura.Narciso.User
+import com.example.edkura.auth.LoginActivity
+import com.example.edkura.Jiankai.ProfileActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class DashboardActivity : AppCompatActivity() {
-    private lateinit var student: Student
+    private lateinit var student: Student // 声明 Student 对象
     private lateinit var recyclerView: RecyclerView
     private lateinit var courseAdapter: CourseAdapter
+    private lateinit var auth: FirebaseAuth
 
-    // Pre-defined user data (add major here)
-    private val preDefinedUsers = listOf(
-        User("user1", "Alice Johnson", "alice@example.com", "Computer Science"),
-        User("user2", "Bob Williams", "bob@example.com", "Engineering"),
-        User("user3", "Charlie Brown", "charlie@example.com", "Business")
-        // Add more users here
-    )
-
-    // Select the default user
-    private var currentUserId: String = preDefinedUsers[0].id //user1 as default
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,39 +31,50 @@ class DashboardActivity : AppCompatActivity() {
         )
         setContentView(R.layout.jk_dashboard)
 
-        val buttonSetting: ImageButton = findViewById(R.id.buttonSetting)
-        val profileButton: ImageButton = findViewById(R.id.profileButton)
+        auth = FirebaseAuth.getInstance()
+
         recyclerView = findViewById(R.id.recyclerViewCourses)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        if (!::student.isInitialized) {
-            student = Student(this)
-        }
+        student = Student(this)
+        student.addedClasses = intent.getStringArrayListExtra("updatedClasses") ?: arrayListOf()
 
-        val addedClasses = intent.getStringArrayListExtra("updatedClasses") ?: arrayListOf()
-        if (student.addedClasses.isEmpty()) {
-            student.addedClasses.addAll(addedClasses)
-        }
-
-        courseAdapter = CourseAdapter(
-            listOf(),
+        courseAdapter = CourseAdapter(listOf(),
             { position -> showDeleteDialog(position) },
             { course -> goToCourseDetail(course) }
         )
         recyclerView.adapter = courseAdapter
-
         updateCourseList()
 
+        val buttonSetting: ImageButton = findViewById(R.id.buttonSetting)
         buttonSetting.setOnClickListener {
-            val intent = Intent(this, classManagement::class.java)
-            startActivity(intent)
-        }
-        profileButton.setOnClickListener {
-            val intent = Intent(this, UserProfileActivity::class.java)
-            intent.putExtra("USER_ID", currentUserId) // Pass user ID
-            startActivity(intent)
+            startActivity(Intent(this, classManagement::class.java))
         }
 
+        // Profile Button Integration
+        val buttonProfile: ImageButton = findViewById(R.id.buttonProfile)
+        buttonProfile.setOnClickListener { view ->
+            val popup = PopupMenu(this, view)
+            popup.menuInflater.inflate(R.menu.profile_menu, popup.menu)
+            popup.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.menu_profile -> {
+                        startActivity(Intent(this, ProfileActivity::class.java))
+                        true
+                    }
+                    R.id.menu_logout -> {
+                        auth.signOut()
+                        val intent = Intent(this, LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        finish()
+                        true
+                    }
+                    else -> false
+                }
+            }
+            popup.show()
+        }
     }
 
     private fun updateCourseList() {
@@ -81,24 +84,12 @@ class DashboardActivity : AppCompatActivity() {
             val courseName = if (parts.size > 1) parts[1] else course
             Pair(subject, courseName)
         }
-
         courseAdapter.updateData(courseList)
     }
 
     private fun showDeleteDialog(position: Int) {
-        val courseToDelete = student.addedClasses[position]
-        AlertDialog.Builder(this)
-            .setTitle("Delete Course")
-            .setMessage("Are you sure you want to delete: $courseToDelete?")
-            .setPositiveButton("Delete") { _, _ ->
-                student.removeCourseAt(position)
-                updateCourseList()
-                val resultIntent = Intent()
-                resultIntent.putStringArrayListExtra("updatedClasses", student.addedClasses)
-                setResult(RESULT_OK, resultIntent)
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
+        student.removeCourseAt(position)
+        updateCourseList()
     }
 
     private fun goToCourseDetail(course: Pair<String, String>) {

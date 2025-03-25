@@ -4,4 +4,6 @@
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
     <string name="send_request">Send Request</string>
+    <string name="user_icon">User Icon</string>
+    <string name="partner_name">Partner Name</string>
 </resources>
