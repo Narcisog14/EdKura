@@ -6,5 +6,6 @@ data class StudyPartnerRequest(
     var receiverId: String = "",
     var status: String = "pending",
     var senderName: String = ""
+
 )
 
