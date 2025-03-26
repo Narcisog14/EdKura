@@ -52,6 +52,7 @@ class RequestsAdapter(
         val acceptButton: Button = itemView.findViewById(R.id.acceptButton)
         val declineButton: Button = itemView.findViewById(R.id.declineButton)
 
+
         @SuppressLint("SetTextI18n")
         fun bind(request: StudyPartnerRequest) {
             senderTextView.text = "From: ${request.senderId}"

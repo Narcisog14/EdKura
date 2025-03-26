@@ -13,6 +13,7 @@ import com.google.firebase.database.*
 import com.example.edkura.R
 import com.example.edkura.Rao.RequestsAdapter
 
+
 class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener {
 
     private lateinit var database: DatabaseReference
@@ -22,11 +23,14 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
     private lateinit var sendRequestButton: Button
     private val eligibleUsers = mutableListOf<Pair<String, String>>()
 
+    private val eligibleUsers = mutableListOf<Pair<String, String>>()
+
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.br_spmatching)
+
 
         database = FirebaseDatabase.getInstance().reference
 
@@ -137,6 +141,7 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
                                 }
                             }.addOnFailureListener {
                                 Toast.makeText(this@spmatching, "Could not retrieve sender name", Toast.LENGTH_SHORT).show()
+
                             }
                     }
                 }

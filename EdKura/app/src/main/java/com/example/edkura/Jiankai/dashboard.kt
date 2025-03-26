@@ -22,7 +22,6 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var courseAdapter: CourseAdapter
     private lateinit var auth: FirebaseAuth
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(
@@ -42,6 +41,7 @@ class DashboardActivity : AppCompatActivity() {
         courseAdapter = CourseAdapter(listOf(),
             { position -> showDeleteDialog(position) },
             { course -> goToCourseDetail(course) }
+
         )
         recyclerView.adapter = courseAdapter
         updateCourseList()
@@ -96,6 +96,7 @@ class DashboardActivity : AppCompatActivity() {
         val intent = Intent(this, CourseDetailActivity::class.java)
         intent.putExtra("subject", course.first)
         intent.putExtra("courseName", course.second)
+
         startActivity(intent)
     }
 

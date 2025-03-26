@@ -69,6 +69,7 @@ class CourseDetailActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             studyPartnerDashboardContainer.visibility = View.GONE
             courseDetailsContainer.visibility = View.VISIBLE
+
         }
     }
 
@@ -132,3 +133,4 @@ class CourseDetailActivity : AppCompatActivity() {
         }
     }
 }
+
