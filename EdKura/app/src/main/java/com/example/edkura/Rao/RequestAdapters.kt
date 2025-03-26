@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edkura.R
 import com.example.edkura.Rao.StudyPartnerRequest
 
-
 class RequestsAdapter(
     private var requests: List<StudyPartnerRequest>,
     private val listener: OnRequestActionListener
@@ -38,7 +37,6 @@ class RequestsAdapter(
         holder.declineButton.setOnClickListener {
             listener.onDecline(request)
         }
-
     }
 
     override fun getItemCount(): Int = requests.size

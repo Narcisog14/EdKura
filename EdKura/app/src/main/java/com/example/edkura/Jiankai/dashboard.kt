@@ -38,7 +38,6 @@ class DashboardActivity : AppCompatActivity() {
         student = Student(this)
         student.addedClasses = intent.getStringArrayListExtra("updatedClasses") ?: arrayListOf()
 
-
         courseAdapter = CourseAdapter(listOf(),
             { position -> showDeleteDialog(position) },
             { course -> goToCourseDetail(course) }
@@ -81,7 +80,6 @@ class DashboardActivity : AppCompatActivity() {
     private fun updateCourseList() {
         val courseList = student.addedClasses.map { course ->
             val parts = course.split(" ", limit = 2)
-
             val subject = if (parts.size > 1) parts[0] else "Unknown"
             val courseName = if (parts.size > 1) parts[1] else course
             Pair(subject, courseName)

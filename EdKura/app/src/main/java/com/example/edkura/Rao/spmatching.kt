@@ -21,11 +21,11 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
     private lateinit var adapter: RequestsAdapter
     private lateinit var userSpinner: Spinner
     private lateinit var sendRequestButton: Button
+    private val eligibleUsers = mutableListOf<Pair<String, String>>()
 
     private val eligibleUsers = mutableListOf<Pair<String, String>>()
 
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,6 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
 
 
         database = FirebaseDatabase.getInstance().reference
-
 
         userSpinner = findViewById(R.id.userSpinner)
         sendRequestButton = findViewById(R.id.sendRequestButton)
@@ -148,7 +147,6 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-
                     Toast.makeText(this@spmatching, "Database error: ${error.message}", Toast.LENGTH_SHORT).show()
                 }
             })
@@ -172,13 +170,11 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
                         }
                     }
 
-
                     adapter.updateRequests(requests)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(this@spmatching, "Error fetching requests", Toast.LENGTH_SHORT).show()
-
                 }
             })
     }
@@ -191,7 +187,6 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Acceptance failed", Toast.LENGTH_SHORT).show()
-
             }
     }
 
@@ -205,6 +200,5 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
                 Toast.makeText(this, "Decline failed", Toast.LENGTH_SHORT).show()
             }
     }
-
 
 }

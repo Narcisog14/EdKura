@@ -45,11 +45,22 @@
             android:name=".Narciso.CourseDetailActivity"
             android:exported="false">
         </activity>
+
+        <!-- Chat -->
+        <activity
+                android:name=".chat.ChatActivity"
+                android:exported="false">
+        </activity>
+
         <!-- Student Partner Matching -->
         <activity
             android:name=".Rao.spmatching"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".FileSharing.NoteSharingDashboardActivity"
+            android:exported="false"
+            android:parentActivityName=".Narciso.CourseDetailActivity"/>
 
         <!-- Chat -->
         <activity
