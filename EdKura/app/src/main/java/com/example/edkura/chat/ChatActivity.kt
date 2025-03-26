@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,16 +23,18 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var messagesRecyclerView: RecyclerView
     private lateinit var sendButton: Button
     private lateinit var messageEditText: EditText
+    private lateinit var unblockButton: Button
 
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
     private lateinit var chatRoomId: String
-    private lateinit var messagesAdapter: ArrayAdapter<String>
-    private var messagesList = mutableListOf<String>()
+    private var messagesList = mutableListOf<Pair<String, Boolean>>()
+    private var isBlocked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        findViewById<TextView>(R.id.chatPartnerName).text = intent.getStringExtra("partnerName") ?: "Chat"
         val partnerId = intent.getStringExtra("partnerId") ?: ""
         val partnerName = intent.getStringExtra("partnerName") ?: ""
 
@@ -40,40 +43,101 @@ class ChatActivity : AppCompatActivity() {
         messagesRecyclerView = findViewById(R.id.recyclerViewMessages)
         sendButton = findViewById(R.id.buttonSend)
         messageEditText = findViewById(R.id.editTextMessage)
+        unblockButton = findViewById(R.id.buttonUnblock)
 
         messagesRecyclerView.layoutManager = LinearLayoutManager(this)
-        messagesAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, messagesList)
-        messagesRecyclerView.adapter = SimpleMessageAdapter()
-
         database = FirebaseDatabase.getInstance().reference
         chatRoomId = if (currentUserId < partnerId) "${currentUserId}_$partnerId" else "${partnerId}_$currentUserId"
 
+        checkBlockStatus(partnerId)
         loadMessages()
 
         sendButton.setOnClickListener {
-            val message = messageEditText.text.toString()
-            if (message.isNotEmpty()) {
-                sendMessage(message)
+            if (!isBlocked) {
+                val message = messageEditText.text.toString()
+                if (message.isNotEmpty()) {
+                    sendMessage(message)
+                }
+            } else {
+                showToast("This partner is blocked. Unblock to chat.")
             }
         }
+
+        unblockButton.setOnClickListener {
+            unblockPartner(partnerId)
+        }
+    }
+
+    private fun checkBlockStatus(partnerId: String) {
+        database.child("study_partner_requests")
+            .orderByChild("status")
+            .equalTo("blocked")
+            .addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    isBlocked = false
+                    snapshot.children.forEach { child ->
+                        val request = child.getValue(com.example.edkura.Rao.StudyPartnerRequest::class.java)
+                        if (request != null &&
+                            ((request.senderId == currentUserId && request.receiverId == partnerId) ||
+                                    (request.receiverId == currentUserId && request.senderId == partnerId))
+                        ) {
+                            isBlocked = true
+                        }
+                    }
+                    if (isBlocked) {
+                        sendButton.isEnabled = false
+                        messageEditText.isEnabled = false
+                        unblockButton.visibility = View.VISIBLE
+                        showToast("This partner is blocked. Unblock to chat.")
+                    } else {
+                        sendButton.isEnabled = true
+                        messageEditText.isEnabled = true
+                        unblockButton.visibility = View.GONE
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            })
+    }
+
+    private fun unblockPartner(partnerId: String) {
+        database.child("study_partner_requests")
+            .orderByChild("status")
+            .equalTo("blocked")
+            .addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach { child ->
+                        val request = child.getValue(com.example.edkura.Rao.StudyPartnerRequest::class.java)
+                        if (request != null &&
+                            ((request.senderId == currentUserId && request.receiverId == partnerId) ||
+                                    (request.receiverId == currentUserId && request.senderId == partnerId))
+                        ) {
+                            child.ref.child("status").setValue("accepted").addOnSuccessListener {
+                                showToast("Partner unblocked")
+                                checkBlockStatus(partnerId)
+                            }
+                        }
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            })
     }
 
     private fun loadMessages() {
         database.child("chats").child(chatRoomId).child("messages")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val list = snapshot.children.map {
+                    messagesList.clear()
+                    snapshot.children.forEach {
                         val text = it.child("text").getValue(String::class.java) ?: ""
                         val sender = it.child("senderId").getValue(String::class.java)
-                        Pair(if(sender == currentUserId) "$text" else text, sender == currentUserId)
+                        messagesList.add(Pair(text, sender == currentUserId))
                     }
-                    messagesRecyclerView.adapter = ChatMessageAdapter(list)
-                    messagesRecyclerView.scrollToPosition(list.size - 1)
+                    messagesRecyclerView.adapter = ChatMessageAdapter(messagesList)
+                    messagesRecyclerView.scrollToPosition(messagesList.size - 1)
                 }
                 override fun onCancelled(error: DatabaseError) {}
             })
     }
-
 
     private fun sendMessage(text: String) {
         val newMessageRef = database.child("chats").child(chatRoomId).child("messages").push()
@@ -85,21 +149,7 @@ class ChatActivity : AppCompatActivity() {
         messageEditText.setText("")
     }
 
-    inner class SimpleMessageAdapter : RecyclerView.Adapter<SimpleMessageAdapter.MessageHolder>() {
-        inner class MessageHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val messageTextView: TextView = view.findViewById(android.R.id.text1)
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(android.R.layout.simple_list_item_1, parent, false)
-            return MessageHolder(view)
-        }
-
-        override fun getItemCount() = messagesList.size
-
-        override fun onBindViewHolder(holder: MessageHolder, position: Int) {
-            holder.messageTextView.text = messagesList[position]
-        }
+    private fun showToast(msg: String) {
+        android.widget.Toast.makeText(this, msg, android.widget.Toast.LENGTH_SHORT).show()
     }
 }

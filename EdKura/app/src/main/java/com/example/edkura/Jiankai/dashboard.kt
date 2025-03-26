@@ -11,13 +11,15 @@ import CourseAdapter
 import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.PopupMenu
+import android.widget.Toast
 import com.example.edkura.Narciso.CourseDetailActivity
 import com.example.edkura.auth.LoginActivity
 import com.example.edkura.Jiankai.ProfileActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
 class DashboardActivity : AppCompatActivity() {
-    private lateinit var student: Student // 声明 Student 对象
+    private lateinit var student: Student  // Student object that holds courses locally
     private lateinit var recyclerView: RecyclerView
     private lateinit var courseAdapter: CourseAdapter
     private lateinit var auth: FirebaseAuth
@@ -36,22 +38,24 @@ class DashboardActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         student = Student(this)
+        // Get the saved courses passed via intent if available:
         student.addedClasses = intent.getStringArrayListExtra("updatedClasses") ?: arrayListOf()
 
+        // Initialize adapter with empty data; set up listeners in callbacks
         courseAdapter = CourseAdapter(listOf(),
-            { position -> showDeleteDialog(position) },
-            { course -> goToCourseDetail(course) }
-
+            onLongClick = { position -> showDeleteDialog(position) },
+            onItemClick = { course -> goToCourseDetail(course) }
         )
         recyclerView.adapter = courseAdapter
         updateCourseList()
 
+        // Navigate to class management
         val buttonSetting: ImageButton = findViewById(R.id.buttonSetting)
         buttonSetting.setOnClickListener {
             startActivity(Intent(this, classManagement::class.java))
         }
 
-        // Profile Button Integration
+        // Profile button with popup menu for profile and logout
         val buttonProfile: ImageButton = findViewById(R.id.buttonProfile)
         buttonProfile.setOnClickListener { view ->
             val popup = PopupMenu(this, view)
@@ -77,6 +81,7 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
+    // Update the list in the adapter based on the student's addedClasses
     private fun updateCourseList() {
         val courseList = student.addedClasses.map { course ->
             val parts = course.split(" ", limit = 2)
@@ -87,16 +92,40 @@ class DashboardActivity : AppCompatActivity() {
         courseAdapter.updateData(courseList)
     }
 
+    // Show a confirmation dialog to remove a course.
     private fun showDeleteDialog(position: Int) {
-        student.removeCourseAt(position)
-        updateCourseList()
+        val courseToDelete = student.addedClasses[position]
+        AlertDialog.Builder(this)
+            .setTitle("Delete Course")
+            .setMessage("Are you sure you want to delete: $courseToDelete?")
+            .setPositiveButton("Delete") { _, _ ->
+                // Remove from local list and update UI
+                student.removeCourseAt(position)
+                updateCourseList()
+                // Now update Firebase: remove the course from the user's courses node.
+                val userId = auth.currentUser?.uid
+                userId?.let {
+                    FirebaseDatabase.getInstance().reference.child("users")
+                        .child(it)
+                        .child("courses")
+                        .setValue(student.addedClasses)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Course removed successfully", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Error removing course: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
+    // Open CourseDetailActivity with the selected course's data.
     private fun goToCourseDetail(course: Pair<String, String>) {
         val intent = Intent(this, CourseDetailActivity::class.java)
         intent.putExtra("subject", course.first)
         intent.putExtra("courseName", course.second)
-
         startActivity(intent)
     }
 
