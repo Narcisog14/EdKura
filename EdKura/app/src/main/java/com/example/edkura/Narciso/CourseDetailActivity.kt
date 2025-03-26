@@ -19,107 +19,119 @@ import com.google.firebase.database.*
 import com.example.edkura.Narciso.Student
 import com.example.edkura.Narciso.StudentAdapter
 import android.content.Intent
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import com.example.edkura.FileSharing.NoteSharingDashboardActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import com.example.edkura.chat.ChatActivity
 
 class CourseDetailActivity : AppCompatActivity() {
-
     private lateinit var db: DatabaseReference
     private lateinit var courseDetailsContainer: LinearLayout
-    private lateinit var studyPartnerDashboardContainer: LinearLayout
+    private lateinit var studyPartnerDashboardContainer: View
     private lateinit var backButton: Button
     private lateinit var studyPartnerButton: Button
+    private lateinit var goToNoteSharingDashboardButton: Button // New button
     private lateinit var addUserItem: CardView
     private lateinit var studentsRecyclerView: RecyclerView
-    private val currentUserId = "user1"  // Adjust this as needed
+    private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.course_detail)
 
-        // Set up window insets
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.course_detail_activity)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        // Initialize Firebase Realtime Database
         db = FirebaseDatabase.getInstance().reference
 
-        // Initialize views
-        val textsubject: TextView = findViewById(R.id.textsubject)
-        val textCourseName: TextView = findViewById(R.id.textCourseName)
-        studyPartnerButton = findViewById(R.id.studyPartnerButton)
         courseDetailsContainer = findViewById(R.id.courseDetailsContainer)
         studyPartnerDashboardContainer = findViewById(R.id.studyPartnerDashboardContainer)
         backButton = findViewById(R.id.backButton)
+        studyPartnerButton = findViewById(R.id.studyPartnerButton)
+        goToNoteSharingDashboardButton = findViewById(R.id.goToNoteSharingDashboardButton) // Find the new button
         addUserItem = findViewById(R.id.addUserItem)
         studentsRecyclerView = findViewById(R.id.studentsRecyclerView)
         studentsRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        val subject = intent.getStringExtra("subject") ?: "Unknown subject"
-        val courseName = intent.getStringExtra("courseName") ?: "Unknown Course"
-        textsubject.text = "subject: $subject"
-        textCourseName.text = "Course: $courseName"
-
-        // Show dashboard when study partner button is tapped and load accepted study partners.
         studyPartnerButton.setOnClickListener {
             courseDetailsContainer.visibility = View.GONE
             studyPartnerDashboardContainer.visibility = View.VISIBLE
             loadAcceptedStudyPartners()
         }
-
-        // Launch spmatching activity when add button is tapped.
-        addUserItem.setOnClickListener {
-            val intent = Intent(this, spmatching::class.java)
-            startActivity(intent)
+        goToNoteSharingDashboardButton.setOnClickListener {
+            startActivity(Intent(this, NoteSharingDashboardActivity::class.java))
         }
 
-        // Back button returns to course details.
+        addUserItem.setOnClickListener {
+            startActivity(Intent(this, spmatching::class.java))
+        }
+
         backButton.setOnClickListener {
             studyPartnerDashboardContainer.visibility = View.GONE
             courseDetailsContainer.visibility = View.VISIBLE
+
         }
     }
 
-    /**
-     * Loads accepted study partner requests (i.e. added partners) for the current user.
-     * The query fetches accepted requests and then filters for ones where the current user
-     * is either the sender or receiver. The other party is then displayed using StudentAdapter.
-     */
     private fun loadAcceptedStudyPartners() {
         db.child("study_partner_requests")
             .orderByChild("status")
             .equalTo("accepted")
-            .addValueEventListener(object : ValueEventListener {
+            .addListenerForSingleValueEvent(object: ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val partnerList = mutableListOf<Student>()
+
                     snapshot.children.forEach { child ->
-                        val request = child.getValue(StudyPartnerRequest::class.java)
-                        if (request != null) {
-                            // Check if current user is involved in the accepted request.
-                            if (request.senderId == currentUserId) {
-                                // Current user sent the request; partner is receiver.
-                                partnerList.add(Student(id = request.receiverId, name = request.receiverId, course = ""))
-                            } else if (request.receiverId == currentUserId) {
-                                // Current user received the request; partner is sender.
-                                partnerList.add(Student(id = request.senderId, name = request.senderId, course = ""))
+                        val request = child.getValue(StudyPartnerRequest::class.java) ?: return@forEach
+                        val partnerId = if(request.senderId == currentUserId) request.receiverId else request.senderId
+
+                        db.child("users").child(partnerId).child("name")
+                            .get().addOnSuccessListener { nameSnap ->
+                                val partnerName = nameSnap.getValue(String::class.java) ?: "Unknown"
+                                partnerList.add(Student(id = partnerId, name = partnerName, course = ""))
+
+                                studentsRecyclerView.adapter = StudentAdapter(partnerList) { partner ->
+                                    startActivity(Intent(this@CourseDetailActivity, ChatActivity::class.java).apply {
+                                        putExtra("partnerId", partner.id)
+                                        putExtra("partnerName", partner.name)
+                                    })
+                                }
+                                studentsRecyclerView.visibility = View.VISIBLE
                             }
-                        }
                     }
-                    // Update the RecyclerView with accepted study partners.
-                    if (partnerList.isNotEmpty()) {
-                        val adapter = StudentAdapter(partnerList)
-                        studentsRecyclerView.adapter = adapter
-                        studentsRecyclerView.visibility = View.VISIBLE
-                    } else {
+
+                    if(partnerList.isEmpty()) {
                         studentsRecyclerView.visibility = View.GONE
                     }
                 }
-
-                override fun onCancelled(error: DatabaseError) {
-                    // Optionally handle errors here.
-                }
+                override fun onCancelled(error: DatabaseError) { }
             })
     }
+
+    inner class PartnerAdapter(private val items: List<Pair<String,String>>) :
+        RecyclerView.Adapter<PartnerAdapter.Holder>() {
+
+        inner class Holder(view: View): RecyclerView.ViewHolder(view) {
+            val nameTv: TextView = view.findViewById(android.R.id.text1)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            Holder(
+                LayoutInflater.from(parent.context)
+                .inflate(android.R.layout.simple_list_item_1, parent, false))
+
+        override fun getItemCount() = items.size
+
+        override fun onBindViewHolder(holder: Holder, pos: Int) {
+            val (name,id)=items[pos]
+            holder.nameTv.text = name
+            holder.itemView.setOnClickListener {
+                startActivity(Intent(this@CourseDetailActivity, ChatActivity::class.java)
+                    .putExtra("partnerId", id)
+                    .putExtra("partnerName", name))
+            }
+        }
+    }
 }
+
