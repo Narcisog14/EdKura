@@ -14,20 +14,20 @@
         android:background="#FFFFFF">
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- 设置按钮 -->
     <ImageButton
         android:id="@+id/buttonSetting"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.13"
-        app:layout_constraintHeight_percent="0.06"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Settings"
-        android:src="@drawable/jk_icon_settings"
-        android:scaleType="fitCenter"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="25dp" />
+    android:layout_height="0dp"
+    app:layout_constraintWidth_percent="0.15"
+    app:layout_constraintHeight_percent="0.07"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:contentDescription="Settings"
+    android:src="@drawable/jk_icon_settings"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginTop="40dp"
+    android:layout_marginEnd="25dp" />
 
     <!-- Dashboard标题 - 直接约束到参考线 -->
     <TextView
@@ -57,22 +57,21 @@
     <!-- CustomCanvasView -->
     <com.example.edkura.Jiankai.jiankaiUI.CustomCanvasView
         android:id="@+id/customCanvasView"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="match_parent"
         android:fitsSystemWindows="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <ImageButton
         android:id="@+id/buttonProfile"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Profile"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/profile_icon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="49dp"
         android:layout_marginStart="25dp"/>
 
 

@@ -7,15 +7,14 @@
     android:layout_marginEnd="20dp"
     android:layout_gravity="center_horizontal"
     android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="8dp">
+    android:layout_marginBottom="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:orientation="vertical"
-        android:background="#428E54">
+        android:background="#428E54">>
 
         <TextView
             android:id="@+id/textCourseName"
@@ -23,7 +22,6 @@
             android:layout_height="wrap_content"
             android:text="Course Name"
             android:textSize="18sp"
-            android:textColor="#FFFFFF"
             android:textStyle="bold"/>
 
         <TextView
@@ -32,6 +30,6 @@
             android:layout_height="wrap_content"
             android:text="subject"
             android:textSize="14sp"
-            android:textColor="#FFFFFF"/>
+            android:textColor="@android:color/darker_gray"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
