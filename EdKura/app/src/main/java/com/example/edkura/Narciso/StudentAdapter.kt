@@ -7,8 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.edkura.R
 
-class StudentAdapter(private val students: List<Student>) :
-    RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
+class StudentAdapter(
+    private val students: List<Student>,
+    private val onClick: (Student) -> Unit,
+    private val onLongClick: (Student) -> Unit
+) : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
 
     class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val studentNameTextView: TextView = itemView.findViewById(R.id.studentNameTextView)
@@ -21,8 +24,13 @@ class StudentAdapter(private val students: List<Student>) :
     }
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
-        val currentStudent = students[position]
-        holder.studentNameTextView.text = currentStudent.name
+        val student = students[position]
+        holder.studentNameTextView.text = student.name
+        holder.itemView.setOnClickListener { onClick(student) }
+        holder.itemView.setOnLongClickListener {
+            onLongClick(student)
+            true
+        }
     }
 
     override fun getItemCount() = students.size

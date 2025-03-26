@@ -6,7 +6,7 @@ import org.json.JSONArray
 
 class Student(context: Context) {
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences("StudentPrefs", Context.MODE_PRIVATE)
-    val addedClasses = ArrayList<String>()
+    var addedClasses = ArrayList<String>()
 
     init {
         loadCourses()
