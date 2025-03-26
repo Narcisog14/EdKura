@@ -74,7 +74,7 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
 
         // Initialize Firebase Database using your URL
         database = FirebaseDatabase
-            .getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com")
+            .getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com/")
             .reference
 
         listenForFiles()

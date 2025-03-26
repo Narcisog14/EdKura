@@ -42,6 +42,14 @@
             android:layout_gravity="center"
             android:backgroundTint="#428E54"
             android:text="Study Partner" />
+        <Button
+            android:id="@+id/goToNoteSharingDashboardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#428E54"
+            android:text="Note Sharing" />
+
     </LinearLayout>
 
     <!-- Study Partner Dashboard Container -->

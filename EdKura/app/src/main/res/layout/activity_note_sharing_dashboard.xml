@@ -1,57 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#428E54"
-        android:text="Back" />
-    <TextView
-        android:id="@+id/dashboardTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Note Sharing Dashboard"
-        android:textSize="24sp">
-
-    </TextView>
     <LinearLayout
-        android:id="@+id/noteListContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-    </LinearLayout>
-
-    <!-- Add other UI elements for displaying shared notes,
-        search functionality, etc., here -->
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
 
         <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#428E54"
+            android:text="Back" />
+
+        <TextView
+            android:id="@+id/dashboardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Note Sharing Dashboard"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:id="@+id/noteListContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <Button
             android:id="@+id/btnPickFile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pick a File"
             android:layout_marginTop="16dp"
             android:backgroundTint="#428E54"
-            />
+            android:text="Pick a File" />
 
         <ListView
             android:id="@+id/listViewFiles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp" />
     </LinearLayout>
-
-
-</LinearLayout>
+</layout>

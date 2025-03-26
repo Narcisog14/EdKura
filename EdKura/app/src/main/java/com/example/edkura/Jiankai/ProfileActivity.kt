@@ -17,6 +17,7 @@ class ProfileActivity : AppCompatActivity() {
 
         val user = FirebaseAuth.getInstance().currentUser
         findViewById<TextView>(R.id.textUserEmail).text = user?.email ?: "No email available"
+        findViewById<TextView>(R.id.textUserName).text = user?.displayName ?: "No Name available"
 
         findViewById<Button>(R.id.buttonBackDashboard).setOnClickListener {
             finish()
