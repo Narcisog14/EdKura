@@ -1,28 +1,31 @@
-package com.example.edkura.Narciso
+package com.example.edkura.FileSharing
 
-import android.app.Activity
+import android.R
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.util.Base64
 import android.util.Log
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.edkura.R
-import com.example.edkura.databinding.ActivityNoteSharingDashboardBinding
+import com.example.edkura.FileSharing.FileMessage
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.io.File
 import java.io.InputStream
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+import com.example.edkura.databinding.ActivityNoteSharingDashboardBinding
 
 class NoteSharingDashboardActivity : AppCompatActivity() {
 
-    private lateinit var database: com.google.firebase.database.DatabaseReference
+    private lateinit var database: DatabaseReference
     private val RC_PICK_FILE = 101
 
     private lateinit var binding: ActivityNoteSharingDashboardBinding
@@ -55,7 +58,7 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
         }
 
         // Use the displayList for the ListView
-        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, displayList)
+        adapter = ArrayAdapter(this, R.layout.simple_list_item_1, displayList)
         binding.listViewFiles.adapter = adapter
 
         // Set up an item click listener to "download" the file
@@ -71,7 +74,7 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
 
         // Initialize Firebase Database using your URL
         database = FirebaseDatabase
-            .getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com")
+            .getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com/")
             .reference
 
         listenForFiles()
@@ -89,7 +92,7 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_PICK_FILE && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == RC_PICK_FILE && resultCode == RESULT_OK && data != null) {
             val fileUri: Uri? = data.data
             if (fileUri != null) {
                 Log.d("FileSelection", "File URI: $fileUri")

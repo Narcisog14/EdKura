@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.edkura.DashboardActivity
@@ -29,6 +30,15 @@ class LoginActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.editTextPassword)
         loginButton = findViewById(R.id.buttonLogin)
         signupButton = findViewById(R.id.buttonSignup)
+
+        findViewById<TextView>(R.id.textForgotPassword).setOnClickListener {
+            val email = findViewById<EditText>(R.id.editTextEmail).text.toString().trim()
+            if (email.endsWith("myci.csuci.edu")) {
+                auth.sendPasswordResetEmail(email)
+                    .addOnSuccessListener { Toast.makeText(this, "Reset link sent", Toast.LENGTH_SHORT).show() }
+                    .addOnFailureListener { Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show() }
+            } else Toast.makeText(this, "Enter your myci.csuci.edu email first", Toast.LENGTH_SHORT).show()
+        }
 
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()

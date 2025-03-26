@@ -52,15 +52,17 @@
                 android:exported="false">
         </activity>
 
+        <!-- Note Sharing -->
+        <activity
+            android:name=".FileSharing.NoteSharingDashboardActivity"
+            android:exported="false"
+            android:parentActivityName=".Narciso.CourseDetailActivity"/>
+
         <!-- Student Partner Matching -->
         <activity
             android:name=".Rao.spmatching"
             android:exported="false">
         </activity>
-        <activity
-            android:name=".Narciso.NoteSharingDashboardActivity"
-            android:exported="false"
-            android:parentActivityName=".Narciso.CourseDetailActivity"/>
 
     </application>
 

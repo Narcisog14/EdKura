@@ -37,8 +37,8 @@ class SignupActivity : AppCompatActivity()
             val nameEditText: EditText = findViewById(R.id.editTextName)
             val name = nameEditText.text.toString().trim()
 
-            if (!email.endsWith(".edu")) {
-                Toast.makeText(this, "Please use an .edu email", Toast.LENGTH_SHORT).show()
+            if (!email.endsWith("myci.csuci.edu")) {
+                Toast.makeText(this, "Please use an myci.csuci.edu email", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
