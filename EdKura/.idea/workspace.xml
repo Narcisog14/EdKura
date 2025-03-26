@@ -99,7 +99,807 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a619b1ec-aea4-4ca0-861c-81fe87579a41" name="Changes" comment="" />
+    <list default="true" id="a619b1ec-aea4-4ca0-861c-81fe87579a41" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidPluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxCoreLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxEspressoLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibs$BundleAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibs$FirebaseLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibs$GoogleGmsGooglePluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibs$GoogleGmsPluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibs$GooglePluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibs$KotlinPluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibs$PluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibs$VersionAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibs.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidPluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxCoreLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxEspressoLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$BundleAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$FirebaseLibraryAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$GoogleGmsGooglePluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$GoogleGmsPluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$GooglePluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$KotlinPluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$PluginAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$VersionAccessors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/metadata.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/sources/org/gradle/accessors/dm/LibrariesForLibs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/5ac8f64419a6aa825af13ce552c6a64b05061fa1/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/dependencies-accessors/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/8.10.2/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/config.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/file-system.probe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.gradle/vcs-1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.idea/caches/deviceStreaming.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/generated/res/processDebugGoogleServices/values/values.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/gmpAppId.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/annotation_processor_list/debug/javaPreCompileDebug/annotationProcessors.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/apk/debug/app-debug.apk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/apk/debug/output-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/apk_ide_redirect_file/debug/createDebugApkListingFileRedirect/redirect.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/app_metadata/debug/writeDebugAppMetadata/app-metadata.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/compatible_screen_manifest/debug/createDebugCompatibleScreenManifests/output-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/processDebugResources/R.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/dirs_bucket_0/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/dirs_bucket_1/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/dirs_bucket_2/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/dirs_bucket_3/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/dirs_bucket_4/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/dirs_bucket_5/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/dirs_bucket_6/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/dirs_bucket_7/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/jar_157711da8ed58596081e04f9e05fb0a359cf64d1d4965aed90a2910028c9e71b_bucket_0/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/jar_157711da8ed58596081e04f9e05fb0a359cf64d1d4965aed90a2910028c9e71b_bucket_1/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/jar_157711da8ed58596081e04f9e05fb0a359cf64d1d4965aed90a2910028c9e71b_bucket_2/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/jar_157711da8ed58596081e04f9e05fb0a359cf64d1d4965aed90a2910028c9e71b_bucket_3/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/jar_157711da8ed58596081e04f9e05fb0a359cf64d1d4965aed90a2910028c9e71b_bucket_4/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/jar_157711da8ed58596081e04f9e05fb0a359cf64d1d4965aed90a2910028c9e71b_bucket_5/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/jar_157711da8ed58596081e04f9e05fb0a359cf64d1d4965aed90a2910028c9e71b_bucket_6/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/desugar_graph/debug/dexBuilderDebug/out/currentProject/jar_157711da8ed58596081e04f9e05fb0a359cf64d1d4965aed90a2910028c9e71b_bucket_7/graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/dex/debug/mergeProjectDexDebug/10/classes.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/dex/debug/mergeProjectDexDebug/11/classes.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/dex/debug/mergeProjectDexDebug/12/classes.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/dex/debug/mergeProjectDexDebug/14/classes.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/dex/debug/mergeProjectDexDebug/3/classes.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/dex_archive_input_jar_hashes/debug/dexBuilderDebug/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/dex_number_of_buckets_file/debug/dexBuilderDebug/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/merge-state" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/+efZkxXCkeigF6m2Jp+ZgSfeawc=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/0GzdKSvy5m0DWQenJX4rPfcIX4g=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/0eQVm1HXK5fCQPbTVU6dfxHeTGU=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/1TKClOIAt5yLDT4vXahzKdYK7R4=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/2EuXwBAR136FzHU4WONiFf4GBDE=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/2LKyBaAW3QtedZzaslW4ykITEOg=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/2RY773HBAuMP4T70NjQTOKmIIc8=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/3fJuPd6fdGw2U97IFfDttOqo090=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/40kr2Iq4dpn34+9WaPnIgE_QgGw=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/4ASRuUNIBPA53NjsZRSAsyrRqno=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/4doGUhKsMzq6grAEQS4B8XfE89A=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/6XLyom4dsSiHYeZcFCR0aVB1p20=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/7HO529bBDCVoKV_ATDLJWgXlwcI=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/7hcy9eBUOhemUNbG0Mpn7N1kL7s=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/85vPGNTP4SnoJlAqwbpr+SyINBY=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/92zRZ2sp13Kf6KWbjPY4c_ZkqHY=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/AN7+oFa2b0STdswCiXeQHaUVFb8=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/CNKq_V40cX9vocfpnOD4mge9u7M=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/DhPywEbJoTjtfnrcFJ43WdPq3Ow=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/EsOwbu0jhED0rUuxVixCjxsDYm8=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/GFOydSzYCX8ZpCqNwPx22NFkoW4=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/HMdw9R1tfujB546H_MKZZ_Vb_pY=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/HwY8jFnWuLySlb_TrtwG0dCTY84=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/I2XUJeZtokZx2bpHRQZCEKU+nVQ=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/K4eCvdprEi1AfvP4PnKPPtbaGt0=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/KEiBwJbDo_yADHcM2BGsQEe47Ps=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/KKXYJb+mRy0B9lewuSQvokpUyHg=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/KpQwqU9TyEnwaOceNuiOsp8gXbo=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/LTv6YwaFJ2gS+7cqd5PlQaieYtk=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/LnOntnBGaqshrQ2QUiTdN712AS4=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/M+X8fU_FUA4ElGnkNrpl9SIYHwU=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/M7dt0IZOA74mUImEfh7FVjLNDIU=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/M9EBy09L8w4jQj6smiEqJ5Pa7rw=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/M_i0P7MDc3b235CZwKLxaR3YT8k=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/NFWWi4C9Waam601p_gYvGTHCC14=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/OCfG54k34W8qhoQspUdAgHtyfNU=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/T6R1Jfdbc5KLyTnWUkHpMtriyfY=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/TVoS8pkbRcnGo5srs8ZjLZZf2eI=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/Wk3GullyXQIps0WzzbeKiocACE0=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/XHNVOsWLoCn3FzczQskftV3aKjU=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/Xsn61yXbuNY7HYkkyy2DkArYedE=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/YAgIBpYVyPQYXC4oEQhW1i4cyac=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/Z8cFrxiVDZSysebmdSnYsfaOfqA=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/Zokkju5WjpjVBTA7IOfnRrAyt7g=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/e9lGORyZ66_RStziOMo0d66Vm8g=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/fBRveCDXcs9t2FSiihUPVo79h30=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/fZFU9qpY3mNlUEbuL80SKzw8QQ4=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/h8CDpwVLjc6iSpopZ+_xD0bvfYg=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/hNKvLuNt6qaQOiGWOmUgVYOhFuQ=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/hxLnocvsutNTuudtjl1gOLk8mIg=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/iV4ecfnteFm16b1jonQxSZ1LDXg=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/iasjgSJeXZf7D1MfcC8Qs0QGlFQ=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/jIErug1XXcbDAM8G4CTKwmpEXpg=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/jMo5yWJlWUyhn5CscVR8k7dioqs=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/jVcDQkAFrTQRj_MynRsgewEvV1s=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/jvuE_OcNrFjXyww6Bnr0t1si4TE=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/k5Yeb0HdIvycHO6BIVI_GQgYrnA=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/kQG0_CNi4IIb13mu_4GwkOYViuw=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/m+Y8F_qJQt0J_ngpIla8i0KlZjE=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/mLPDEDoV1p9Adi38YGz3nqCO4yU=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/ojWfSfS5bTAasKmMND1p+Jy85cs=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/r_a2C7fD3XKppSoQ1+2nsU7QPaU=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/r_rZuyBx8bgwPBhty6tOwiaKono=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/sbrrljPjUYkesosoE7mZK+rlSG4=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/teZcIGZvdm6EudODM1mHF7N49Dw=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/tzCpxuwzx1UQrSPL9K2ijq1vnbY=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/wbCNhLBkmc6DY2mGMT_1BJvD2d0=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/wrjhCFB9RfhoxQzeoXDl_vZXgSU=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/xmsyR05WZqgQZc99z2EMSuv7z2c=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/zlng42SYiSZCFBCACrx4I+FvxtE=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/compile-file-map.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-af/values-af.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-am/values-am.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ar/values-ar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-as/values-as.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-az/values-az.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-b+es+419/values-b+es+419.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-b+sr+Latn/values-b+sr+Latn.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-be/values-be.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bg/values-bg.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bn/values-bn.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bs/values-bs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ca/values-ca.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-cs/values-cs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-da/values-da.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-de/values-de.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-el/values-el.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rAU/values-en-rAU.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rCA/values-en-rCA.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rGB/values-en-rGB.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rIN/values-en-rIN.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rXC/values-en-rXC.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-es-rUS/values-es-rUS.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-es/values-es.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-et/values-et.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-eu/values-eu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fa/values-fa.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fi/values-fi.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fr-rCA/values-fr-rCA.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fr/values-fr.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-gl/values-gl.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-gu/values-gu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h320dp-port-v13/values-h320dp-port-v13.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h360dp-land-v13/values-h360dp-land-v13.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h480dp-land-v13/values-h480dp-land-v13.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h550dp-port-v13/values-h550dp-port-v13.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h720dp-v13/values-h720dp-v13.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hdpi-v4/values-hdpi-v4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hi/values-hi.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hr/values-hr.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hu/values-hu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hy/values-hy.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-in/values-in.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-is/values-is.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-it/values-it.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-iw/values-iw.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ja/values-ja.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ka/values-ka.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-kk/values-kk.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-km/values-km.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-kn/values-kn.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ko/values-ko.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ky/values-ky.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-land/values-land.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-large-v4/values-large-v4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ldrtl-v17/values-ldrtl-v17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-lo/values-lo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-lt/values-lt.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-lv/values-lv.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-mk/values-mk.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ml/values-ml.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-mn/values-mn.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-mr/values-mr.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ms/values-ms.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-my/values-my.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-nb/values-nb.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ne/values-ne.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-nl/values-nl.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-or/values-or.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pa/values-pa.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pl/values-pl.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-port/values-port.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pt-rBR/values-pt-rBR.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pt-rPT/values-pt-rPT.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pt/values-pt.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ro/values-ro.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ru/values-ru.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-si/values-si.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sk/values-sk.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sl/values-sl.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-small-v4/values-small-v4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sq/values-sq.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sr/values-sr.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sv/values-sv.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sw/values-sw.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sw600dp-v13/values-sw600dp-v13.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ta/values-ta.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-te/values-te.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-th/values-th.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-tl/values-tl.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-tr/values-tr.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-uk/values-uk.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ur/values-ur.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-uz/values-uz.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v16/values-v16.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v17/values-v17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v18/values-v18.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v21/values-v21.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v22/values-v22.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v23/values-v23.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v24/values-v24.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v25/values-v25.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v26/values-v26.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v28/values-v28.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v31/values-v31.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v34/values-v34.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-vi/values-vi.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-w320dp-land-v13/values-w320dp-land-v13.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-w360dp-port-v13/values-w360dp-port-v13.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-w400dp-port-v13/values-w400dp-port-v13.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-w600dp-land-v13/values-w600dp-land-v13.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-watch-v21/values-watch-v21.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-xlarge-v4/values-xlarge-v4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zh-rCN/values-zh-rCN.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zh-rHK/values-zh-rHK.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zh-rTW/values-zh-rTW.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zu/values-zu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values/values.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/mergeDebugResources/merger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir/values-night-v8/values-night-v8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir/values/values.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/debug/packageDebugResources/merger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/mergeDebugAssets/merger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/packageDebug/tmp/debug/zip-cache/androidResources" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/incremental/packageDebug/tmp/debug/zip-cache/javaResources0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/java_res/debug/processDebugJavaRes/out/META-INF/app_debug.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/linked_resources_binary_format/debug/processDebugResources/linked-resources-binary-format-debug.ap_" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/linked_resources_binary_format/debug/processDebugResources/output-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/local_only_symbol_list/debug/parseDebugLocalResources/R-def.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/manifest_merge_blame_file/debug/processDebugMainManifest/manifest-merger-blame-debug-report.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_java_res/debug/mergeDebugJavaResource/base.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_manifest/debug/processDebugMainManifest/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_manifests/debug/processDebugManifest/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_manifests/debug/processDebugManifest/output-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/drawable_ic_launcher_background.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/drawable_ic_launcher_foreground.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/drawable_jk_icon_settings.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/drawable_plus_icon.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/drawable_profile_icon.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/layout_activity_note_sharing_dashboard.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/layout_activity_user_profile.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/layout_br_item_request.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/layout_br_spmatching.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/layout_course_detail.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/layout_jk_classmanagement.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/layout_jk_course_item.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/layout_jk_dashboard.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/layout_student_item.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/mipmap-anydpi-v26_ic_launcher.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/mipmap-anydpi-v26_ic_launcher_round.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/mipmap-hdpi_ic_launcher.webp.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/mipmap-hdpi_ic_launcher_round.webp.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/mipmap-mdpi_ic_launcher.webp.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/mipmap-mdpi_ic_launcher_round.webp.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/mipmap-xhdpi_ic_launcher.webp.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/mipmap-xhdpi_ic_launcher_round.webp.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/mipmap-xxhdpi_ic_launcher.webp.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/mipmap-xxhdpi_ic_launcher_round.webp.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/mipmap-xxxhdpi_edkura.png.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/mipmap-xxxhdpi_ic_launcher.webp.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/mipmap-xxxhdpi_ic_launcher_round.webp.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-af_values-af.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-am_values-am.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ar_values-ar.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-as_values-as.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-az_values-az.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-b+es+419_values-b+es+419.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-b+sr+Latn_values-b+sr+Latn.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-be_values-be.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-bg_values-bg.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-bn_values-bn.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-bs_values-bs.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ca_values-ca.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-cs_values-cs.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-da_values-da.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-de_values-de.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-el_values-el.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-en-rAU_values-en-rAU.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-en-rCA_values-en-rCA.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-en-rGB_values-en-rGB.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-en-rIN_values-en-rIN.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-en-rXC_values-en-rXC.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-es-rUS_values-es-rUS.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-es_values-es.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-et_values-et.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-eu_values-eu.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-fa_values-fa.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-fi_values-fi.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-fr-rCA_values-fr-rCA.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-fr_values-fr.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-gl_values-gl.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-gu_values-gu.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-h320dp-port-v13_values-h320dp-port-v13.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-h360dp-land-v13_values-h360dp-land-v13.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-h480dp-land-v13_values-h480dp-land-v13.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-h550dp-port-v13_values-h550dp-port-v13.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-h720dp-v13_values-h720dp-v13.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-hdpi-v4_values-hdpi-v4.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-hi_values-hi.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-hr_values-hr.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-hu_values-hu.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-hy_values-hy.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-in_values-in.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-is_values-is.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-it_values-it.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-iw_values-iw.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ja_values-ja.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ka_values-ka.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-kk_values-kk.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-km_values-km.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-kn_values-kn.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ko_values-ko.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ky_values-ky.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-land_values-land.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-large-v4_values-large-v4.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ldltr-v21_values-ldltr-v21.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ldrtl-v17_values-ldrtl-v17.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-lo_values-lo.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-lt_values-lt.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-lv_values-lv.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-mk_values-mk.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ml_values-ml.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-mn_values-mn.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-mr_values-mr.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ms_values-ms.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-my_values-my.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-nb_values-nb.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ne_values-ne.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-night-v8_values-night-v8.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-nl_values-nl.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-or_values-or.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-pa_values-pa.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-pl_values-pl.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-port_values-port.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-pt-rBR_values-pt-rBR.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-pt-rPT_values-pt-rPT.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-pt_values-pt.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ro_values-ro.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ru_values-ru.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-si_values-si.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-sk_values-sk.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-sl_values-sl.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-small-v4_values-small-v4.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-sq_values-sq.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-sr_values-sr.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-sv_values-sv.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-sw600dp-v13_values-sw600dp-v13.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-sw_values-sw.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ta_values-ta.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-te_values-te.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-th_values-th.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-tl_values-tl.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-tr_values-tr.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-uk_values-uk.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-ur_values-ur.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-uz_values-uz.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-v16_values-v16.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-v17_values-v17.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-v18_values-v18.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-v21_values-v21.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-v22_values-v22.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-v23_values-v23.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-v24_values-v24.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-v25_values-v25.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-v26_values-v26.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-v28_values-v28.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-v31_values-v31.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-v34_values-v34.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-vi_values-vi.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-w320dp-land-v13_values-w320dp-land-v13.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-w360dp-port-v13_values-w360dp-port-v13.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-w400dp-port-v13_values-w400dp-port-v13.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-w600dp-land-v13_values-w600dp-land-v13.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-watch-v20_values-watch-v20.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-watch-v21_values-watch-v21.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-xlarge-v4_values-xlarge-v4.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-zh-rCN_values-zh-rCN.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-zh-rHK_values-zh-rHK.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-zh-rTW_values-zh-rTW.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values-zu_values-zu.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/values_values.arsc.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/xml_backup_rules.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res/debug/mergeDebugResources/xml_data_extraction_rules.xml.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/mergeDebugResources.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-af.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-am.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ar.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-as.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-az.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-b+es+419.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-b+sr+Latn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-be.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-bg.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-bn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-bs.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ca.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-cs.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-da.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-de.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-el.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-en-rAU.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-en-rCA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-en-rGB.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-en-rIN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-en-rXC.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-es-rUS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-es.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-et.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-eu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-fa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-fi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-fr-rCA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-fr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-gl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-gu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-h320dp-port-v13.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-h360dp-land-v13.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-h480dp-land-v13.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-h550dp-port-v13.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-h720dp-v13.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-hdpi-v4.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-hi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-hr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-hu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-hy.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-in.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-is.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-it.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-iw.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ja.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ka.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-kk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-km.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-kn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ko.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ky.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-land.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-large-v4.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ldltr-v21.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ldrtl-v17.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-lo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-lt.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-lv.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-mk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ml.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-mn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-mr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ms.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-my.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-nb.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ne.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-night-v8.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-nl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-or.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-pa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-pl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-port.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-pt-rBR.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-pt-rPT.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-pt.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ro.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ru.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-si.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-sk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-sl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-small-v4.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-sq.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-sr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-sv.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-sw.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-sw600dp-v13.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ta.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-te.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-th.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-tl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-tr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-uk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-ur.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-uz.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-v16.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-v17.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-v18.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-v21.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-v22.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-v23.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-v24.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-v25.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-v26.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-v28.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-v31.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-v34.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-vi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-w320dp-land-v13.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-w360dp-port-v13.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-w400dp-port-v13.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-w600dp-land-v13.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-watch-v20.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-watch-v21.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-xlarge-v4.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-zh-rCN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-zh-rHK.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-zh-rTW.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values-zu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/multi-v2/values.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/merged_res_blame_folder/debug/mergeDebugResources/out/single/mergeDebugResources.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_manifests/debug/processDebugManifestForPackage/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_manifests/debug/processDebugManifestForPackage/output-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/drawable/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/drawable/jk_icon_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/drawable/plus_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/drawable/profile_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/layout/activity_note_sharing_dashboard.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/layout/activity_user_profile.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/layout/br_item_request.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/layout/br_spmatching.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/layout/course_detail.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/layout/jk_classmanagement.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/layout/jk_course_item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/layout/jk_dashboard.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/layout/student_item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/mipmap-hdpi-v4/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/mipmap-hdpi-v4/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/mipmap-mdpi-v4/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/mipmap-mdpi-v4/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/mipmap-xhdpi-v4/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/mipmap-xhdpi-v4/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/mipmap-xxhdpi-v4/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/mipmap-xxhdpi-v4/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/mipmap-xxxhdpi-v4/edkura.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/mipmap-xxxhdpi-v4/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/mipmap-xxxhdpi-v4/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/values-night-v8/values-night-v8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/values/values.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/xml/backup_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/packaged_res/debug/packageDebugResources/xml/data_extraction_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/CourseAdapter$CourseViewHolder.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/CourseAdapter.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/DashboardActivity$onCreate$1.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/DashboardActivity$onCreate$2.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/DashboardActivity.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Jiankai/Student.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Jiankai/classManagement$onCreate$1.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Jiankai/classManagement$onCreate$3.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Jiankai/classManagement.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Jiankai/jiankaiUI/CustomCanvasView.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Narciso/CourseDetailActivity$loadAcceptedStudyPartners$1.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Narciso/CourseDetailActivity.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Narciso/NoteSharingDashboardActivity.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Narciso/SquareLayout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Narciso/Student.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Narciso/StudentAdapter$StudentViewHolder.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Narciso/StudentAdapter.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Narciso/StudyPartner.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Narciso/User.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Narciso/UserProfileActivity.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Rao/RequestsAdapter$OnRequestActionListener.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Rao/RequestsAdapter$RequestViewHolder.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Rao/RequestsAdapter.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Rao/StudyPartnerRequest.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Rao/spmatching$listenForIncomingRequests$1.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Rao/spmatching$onAccept$1.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Rao/spmatching$onDecline$1.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Rao/spmatching$sendStudyPartnerRequest$1$onDataChange$2.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Rao/spmatching$sendStudyPartnerRequest$1.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/example/edkura/Rao/spmatching.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/e0a9c7842e59b56be3c8a998f8a72c68f420bd20b8d8a7ef56c2b49222554d06_0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/e0a9c7842e59b56be3c8a998f8a72c68f420bd20b8d8a7ef56c2b49222554d06_1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/e0a9c7842e59b56be3c8a998f8a72c68f420bd20b8d8a7ef56c2b49222554d06_2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/e0a9c7842e59b56be3c8a998f8a72c68f420bd20b8d8a7ef56c2b49222554d06_3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/e0a9c7842e59b56be3c8a998f8a72c68f420bd20b8d8a7ef56c2b49222554d06_4.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/e0a9c7842e59b56be3c8a998f8a72c68f420bd20b8d8a7ef56c2b49222554d06_5.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/e0a9c7842e59b56be3c8a998f8a72c68f420bd20b8d8a7ef56c2b49222554d06_6.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/e0a9c7842e59b56be3c8a998f8a72c68f420bd20b8d8a7ef56c2b49222554d06_7.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/runtime_symbol_list/debug/processDebugResources/R.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/signing_config_versions/debug/writeDebugSigningConfigVersions/signing-config-versions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/source_set_path_map/debug/mapDebugSourceSetPaths/file-map.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/stable_resource_ids_file/debug/processDebugResources/stableIds.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/intermediates/symbol_list_with_package_name/debug/processDebugResources/package-aware-r.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/counters.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/cacheable/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/kotlin/compileDebugKotlin/local-state/build-history.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/CourseAdapter$CourseViewHolder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/CourseAdapter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/META-INF/app_debug.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/DashboardActivity$onCreate$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/DashboardActivity$onCreate$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/DashboardActivity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Jiankai/Student.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Jiankai/classManagement$onCreate$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Jiankai/classManagement$onCreate$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Jiankai/classManagement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Jiankai/jiankaiUI/CustomCanvasView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Narciso/CourseDetailActivity$loadAcceptedStudyPartners$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Narciso/CourseDetailActivity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Narciso/NoteSharingDashboardActivity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Narciso/SquareLayout.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Narciso/Student.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Narciso/StudentAdapter$StudentViewHolder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Narciso/StudentAdapter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Narciso/StudyPartner.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Narciso/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Narciso/UserProfileActivity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Rao/RequestsAdapter$OnRequestActionListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Rao/RequestsAdapter$RequestViewHolder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Rao/RequestsAdapter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Rao/StudyPartnerRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Rao/spmatching$listenForIncomingRequests$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Rao/spmatching$onAccept$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Rao/spmatching$onDecline$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Rao/spmatching$sendStudyPartnerRequest$1$onDataChange$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Rao/spmatching$sendStudyPartnerRequest$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/app/build/tmp/kotlin-classes/debug/com/example/edkura/Rao/spmatching.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EdKura-NG/EdKura/local.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/appInsightsSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/appInsightsSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/migrations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/migrations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/app/proguard-rules.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/edkura/ExampleInstrumentedTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/edkura/ExampleInstrumentedTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/ProfileActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/ProfileActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/classManagement.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/classManagement.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/courseAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/courseAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/dashboard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/dashboard.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/jiankaiUI/profileUI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/jiankaiUI/profileUI.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/student.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/student.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Narciso/CourseDetailActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Narciso/CourseDetailActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/jk_icon_settings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/course_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/course_detail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/jk_classmanagement.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/jk_classmanagement.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/jk_course_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/jk_course_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/jk_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/jk_dashboard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/backup_rules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/example/edkura/ExampleUnitTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/example/edkura/ExampleUnitTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -168,10 +968,25 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Narcisog14&quot;
-  }
+  &quot;lastFilter&quot;: {}
+}</component>
+  <component name="GitHubPullRequestState">{
+  &quot;prStates&quot;: [
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDON3ay9M6P-1ny&quot;,
+        &quot;number&quot;: 78
+      },
+      &quot;lastSeen&quot;: 1742881960834
+    },
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDON3ay9M6P-3hX&quot;,
+        &quot;number&quot;: 79
+      },
+      &quot;lastSeen&quot;: 1742882336968
+    }
+  ]
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
@@ -195,6 +1010,7 @@
     "Android App.app.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
@@ -202,7 +1018,7 @@
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "E:/COMP350/Sprint2/EdKura/app/src/main/java/com/example/edkura"
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\java\com\example\edkura" />
@@ -210,6 +1026,17 @@
       <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xxxhdpi" />
       <recent name="E:\COMP350\Sprint2\EdKura\app" />
       <recent name="C:\Users\narci\AndroidStudioProjects\EdKura\EdKura\app\src\main\java\com\example\edkura" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xxxhdpi" />
+      <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xhdpi" />
+      <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xxhdpi" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.example.edkura.Jiankai" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.example.edkura.auth" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xxxhdpi" />
@@ -241,6 +1068,7 @@
       <option name="MODE" value="default_activity" />
       <option name="RESTORE_ENABLED" value="false" />
       <option name="RESTORE_FILE" value="" />
+      <option name="RESTORE_FRESH_INSTALL_ONLY" value="false" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
@@ -307,6 +1135,7 @@
     </task>
     <servers />
   </component>
+
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Study Partner Matching Feature Updated. Final App" />
     <option name="LAST_COMMIT_MESSAGE" value="Study Partner Matching Feature Updated. Final App" />

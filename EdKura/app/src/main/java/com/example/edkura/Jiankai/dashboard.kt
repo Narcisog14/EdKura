@@ -47,7 +47,6 @@ class DashboardActivity : AppCompatActivity() {
             onItemClick = { course -> goToCourseDetail(course) }
         )
         recyclerView.adapter = courseAdapter
-
         updateCourseList()
 
         // Navigate to class management
