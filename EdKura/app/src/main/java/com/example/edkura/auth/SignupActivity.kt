@@ -12,16 +12,14 @@ import com.example.edkura.auth.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
-class SignupActivity : AppCompatActivity()
-    {
+class SignupActivity : AppCompatActivity() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var signupButton: Button
     private lateinit var loginButton: Button
     private lateinit var auth: FirebaseAuth
 
-    override fun onCreate(savedInstanceState: Bundle?)
-        {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
@@ -55,18 +53,32 @@ class SignupActivity : AppCompatActivity()
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val userId = auth.currentUser?.uid ?: return@addOnCompleteListener
+                        // Send verification email
+                        val user = auth.currentUser
+                        user?.sendEmailVerification()?.addOnCompleteListener { verifyTask ->
+                            if (verifyTask.isSuccessful) {
+                                Toast.makeText(this, "Verification email sent. Please verify your email before logging in.", Toast.LENGTH_LONG).show()
+                            } else {
+                                Toast.makeText(this, "Failed to send verification email: ${verifyTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                        // Save user data in Firebase Database
+                        val userId = user?.uid ?: return@addOnCompleteListener
                         val userRef = FirebaseDatabase.getInstance().reference.child("users").child(userId)
 
                         val userData = mapOf(
                             "email" to email,
                             "name" to name,
-                            "courses" to listOf<String>() // empty courses initially
+                            "courses" to listOf<String>()
                         )
 
                         userRef.setValue(userData).addOnCompleteListener {
                             if (it.isSuccessful) {
-                                startActivity(Intent(this, DashboardActivity::class.java))
+                                // Optionally sign out the user after sign up so they must verify
+                                auth.signOut()
+                                // Redirect to login screen
+                                startActivity(Intent(this, LoginActivity::class.java))
                                 finish()
                             } else {
                                 Toast.makeText(this, "Database Error: ${it.exception?.message}", Toast.LENGTH_SHORT).show()
@@ -76,6 +88,10 @@ class SignupActivity : AppCompatActivity()
                         Toast.makeText(this, "Signup Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
-            }
+        }
+
+        loginButton.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
+}

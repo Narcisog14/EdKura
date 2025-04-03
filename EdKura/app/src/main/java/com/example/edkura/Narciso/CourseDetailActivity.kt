@@ -81,57 +81,76 @@ class CourseDetailActivity : AppCompatActivity() {
 
     private fun loadPartners() {
         db.child("study_partner_requests")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val partnerList = mutableListOf<Student>()
                     snapshot.children.forEach { child ->
                         val request = child.getValue(StudyPartnerRequest::class.java) ?: return@forEach
                         if ((request.senderId == currentUserId || request.receiverId == currentUserId)
-                            && (request.status == "accepted" || request.status == "blocked")
+                            && (request.status == "accepted" || (request.status == "blocked" && request.blockedBy == currentUserId))
                         ) {
                             val partnerId = if (request.senderId == currentUserId) request.receiverId else request.senderId
+                            // Fetch partner's name in real time
                             db.child("users").child(partnerId).child("name")
                                 .get().addOnSuccessListener { nameSnap ->
                                     val partnerName = nameSnap.getValue(String::class.java) ?: "Unknown"
-                                    partnerList.add(Student(
-                                        id = partnerId,
-                                        name = partnerName,
-                                        status = request.status,
-                                        blockedBy = request.blockedBy
-                                    ))
+                                    partnerList.add(
+                                        Student(
+                                            id = partnerId,
+                                            name = partnerName,
+                                            status = request.status,
+                                            blockedBy = request.blockedBy
+                                        )
+                                    )
+                                    // Update the adapter once the full snapshot has been processed.
                                     studentsRecyclerView.adapter = PartnerAdapter(partnerList)
-                                    studentsRecyclerView.visibility = View.VISIBLE
+                                    studentsRecyclerView.visibility = if (partnerList.isEmpty()) View.GONE else View.VISIBLE
                                 }
                         }
                     }
-                    if (partnerList.isEmpty()) studentsRecyclerView.visibility = View.GONE
+                    if (partnerList.isEmpty()) {
+                        studentsRecyclerView.adapter = PartnerAdapter(partnerList)
+                        studentsRecyclerView.visibility = View.GONE
+                    }
                 }
-                override fun onCancelled(error: DatabaseError) {}
+                override fun onCancelled(error: DatabaseError) {
+                    // Optionally handle errors here.
+                }
             })
     }
 
     inner class PartnerAdapter(private val items: List<Student>) :
         RecyclerView.Adapter<PartnerAdapter.Holder>() {
+
         inner class Holder(view: View) : RecyclerView.ViewHolder(view) {
             val nameBtn: Button = view.findViewById(R.id.buttonPartnerName)
         }
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            Holder(layoutInflater.inflate(R.layout.item_partner, parent, false))
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+            val view = layoutInflater.inflate(R.layout.item_partner, parent, false)
+            return Holder(view)
+        }
+
         override fun getItemCount() = items.size
+
         override fun onBindViewHolder(holder: Holder, position: Int) {
             val partner = items[position]
-            val blocked = partner.status=="blocked"
-            holder.nameBtn.text = if(blocked) "${partner.name} [BLOCKED]" else partner.name
+            val blocked = partner.status == "blocked"
+            holder.nameBtn.text = if (blocked) "${partner.name} [BLOCKED]" else partner.name
 
             holder.nameBtn.setOnClickListener {
-                if(!blocked) startActivity(Intent(this@CourseDetailActivity, ChatActivity::class.java)
-                    .putExtra("partnerId", partner.id)
-                    .putExtra("partnerName", partner.name))
-                else showToast("Blocked — long‑press to unblock/remove.")
+                if (!blocked) {
+                    startActivity(Intent(this@CourseDetailActivity, ChatActivity::class.java).apply {
+                        putExtra("partnerId", partner.id)
+                        putExtra("partnerName", partner.name)
+                    })
+                } else {
+                    showToast("Partner is blocked. Long press to unblock or remove.")
+                }
             }
             holder.nameBtn.setOnLongClickListener {
-                if(blocked && partner.blockedBy==currentUserId) showBlockedPrompt(partner)
-                else if(!blocked) showRemoveOrBlockPrompt(partner)
+                if (blocked && partner.blockedBy == currentUserId) showBlockedPrompt(partner)
+                else if (!blocked) showRemoveOrBlockPrompt(partner)
                 else showRemoveOnlyPrompt(partner)
                 true
             }
@@ -141,21 +160,24 @@ class CourseDetailActivity : AppCompatActivity() {
     private fun showRemoveOrBlockPrompt(partner: Student) = AlertDialog.Builder(this)
         .setTitle("Warning")
         .setMessage("Remove or Block this partner? You won’t be able to chat until unblocked.")
-        .setPositiveButton("Remove"){_,_->removePartner(partner)}
-        .setNeutralButton("Block"){_,_->blockPartner(partner)}
-        .setNegativeButton("Cancel",null).show()
+        .setPositiveButton("Remove") { _, _ -> removePartner(partner) }
+        .setNeutralButton("Block") { _, _ -> blockPartner(partner) }
+        .setNegativeButton("Cancel", null)
+        .show()
 
     private fun showBlockedPrompt(partner: Student) = AlertDialog.Builder(this)
         .setTitle("Warning")
         .setMessage("This partner is blocked. Unblock or Remove?")
-        .setPositiveButton("Unblock"){_,_->unblockPartner(partner)}
-        .setNegativeButton("Remove"){_,_->removePartner(partner)}.show()
+        .setPositiveButton("Unblock") { _, _ -> unblockPartner(partner) }
+        .setNegativeButton("Remove") { _, _ -> removePartner(partner) }
+        .show()
 
     private fun showRemoveOnlyPrompt(partner: Student) = AlertDialog.Builder(this)
         .setTitle("Warning")
         .setMessage("This partner blocked you. Remove from your list?")
-        .setPositiveButton("Remove"){_,_->removePartner(partner)}
-        .setNegativeButton("Cancel",null).show()
+        .setPositiveButton("Remove") { _, _ -> removePartner(partner) }
+        .setNegativeButton("Cancel", null)
+        .show()
 
     private fun removePartner(p:Student){
         val pid=p.id ?: return

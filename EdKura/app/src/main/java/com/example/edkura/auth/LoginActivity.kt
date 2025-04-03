@@ -32,12 +32,14 @@ class LoginActivity : AppCompatActivity() {
         signupButton = findViewById(R.id.buttonSignup)
 
         findViewById<TextView>(R.id.textForgotPassword).setOnClickListener {
-            val email = findViewById<EditText>(R.id.editTextEmail).text.toString().trim()
+            val email = emailEditText.text.toString().trim()
             if (email.endsWith("myci.csuci.edu")) {
                 auth.sendPasswordResetEmail(email)
                     .addOnSuccessListener { Toast.makeText(this, "Reset link sent", Toast.LENGTH_SHORT).show() }
                     .addOnFailureListener { Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show() }
-            } else Toast.makeText(this, "Enter your myci.csuci.edu email first", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Enter your myci.csuci.edu email first", Toast.LENGTH_SHORT).show()
+            }
         }
 
         loginButton.setOnClickListener {
@@ -57,8 +59,14 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        startActivity(Intent(this, DashboardActivity::class.java))
-                        finish()
+                        val user = auth.currentUser
+                        if (user != null && user.isEmailVerified) {
+                            startActivity(Intent(this, DashboardActivity::class.java))
+                            finish()
+                        } else {
+                            Toast.makeText(this, "Please verify your email before logging in.", Toast.LENGTH_SHORT).show()
+                            auth.signOut()
+                        }
                     } else {
                         Toast.makeText(this, "Authentication Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
