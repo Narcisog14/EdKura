@@ -8,13 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edkura.Jiankai.classManagement
 import com.example.edkura.Jiankai.Student
 import CourseAdapter
+import android.util.Log
+import android.view.MotionEvent
+import android.view.View
 import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.edkura.Narciso.CourseDetailActivity
 import com.example.edkura.auth.LoginActivity
 import com.example.edkura.Jiankai.ProfileActivity
+import com.example.edkura.Jiankai.jiankaiUI.CustomCanvasView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -23,6 +29,9 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var courseAdapter: CourseAdapter
     private lateinit var auth: FirebaseAuth
+
+    private lateinit var customCanvasView: CustomCanvasView
+    private lateinit var sidebarView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +88,38 @@ class DashboardActivity : AppCompatActivity() {
             }
             popup.show()
         }
+        //sidebar
+        customCanvasView = findViewById(R.id.customCanvasView)
+        sidebarView = findViewById(R.id.profileContent)
+        val username: TextView = findViewById(R.id.username) // 这里才能找到视图
+        username.text = "User: Alice"
+
+        // Set up listener for rectWidth changes
+        customCanvasView.setOnRectWidthChangeListener(object : CustomCanvasView.OnRectWidthChangeListener {
+            override fun onRectWidthChanged(rectWidth: Float) {
+                updateSidebarLayout(rectWidth)
+            }
+        })
+
+        // Initial setup
+        sidebarView.post {
+            updateSidebarLayout(customCanvasView.getCurrentRectWidth())
+        }
+    }
+
+    private fun updateSidebarLayout(rectWidth: Float) {
+        // Update the sidebar layout width and position
+        val params = sidebarView.layoutParams as ConstraintLayout.LayoutParams
+
+        // Set width equal to rectWidth
+        params.width = rectWidth.toInt()
+
+        // Keep the sidebar aligned to the start of parent
+        params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+        params.endToEnd = ConstraintLayout.LayoutParams.UNSET
+
+        sidebarView.layoutParams = params
+
     }
 
     // Update the list in the adapter based on the student's addedClasses
@@ -134,4 +175,6 @@ class DashboardActivity : AppCompatActivity() {
         student.loadCourses()
         updateCourseList()
     }
+
+
 }

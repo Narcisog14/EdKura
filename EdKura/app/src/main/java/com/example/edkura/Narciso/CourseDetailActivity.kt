@@ -36,7 +36,6 @@ class CourseDetailActivity : AppCompatActivity() {
     private lateinit var goToNoteSharingDashboardButton: Button // New button
     private lateinit var addUserItem: CardView
     private lateinit var studentsRecyclerView: RecyclerView
-    private lateinit var goToNoteSharingDashboardButton: Button // New button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
