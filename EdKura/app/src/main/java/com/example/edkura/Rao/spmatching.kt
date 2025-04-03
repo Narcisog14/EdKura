@@ -27,6 +27,7 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.br_spmatching)
+
         database = FirebaseDatabase.getInstance().reference
 
         userSpinner = findViewById(R.id.userSpinner)
