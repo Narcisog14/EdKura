@@ -33,6 +33,7 @@ class CourseDetailActivity : AppCompatActivity() {
     private lateinit var studyPartnerDashboardContainer: View
     private lateinit var backButton: Button
     private lateinit var studyPartnerButton: Button
+    private lateinit var goToNoteSharingDashboardButton: Button // New button
     private lateinit var addUserItem: CardView
     private lateinit var studentsRecyclerView: RecyclerView
     private lateinit var goToNoteSharingDashboardButton: Button // New button
@@ -76,6 +77,7 @@ class CourseDetailActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             studyPartnerDashboardContainer.visibility = View.GONE
             courseDetailsContainer.visibility = View.VISIBLE
+
         }
     }
 
@@ -84,6 +86,7 @@ class CourseDetailActivity : AppCompatActivity() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val partnerList = mutableListOf<Student>()
+
                     snapshot.children.forEach { child ->
                         val request = child.getValue(StudyPartnerRequest::class.java) ?: return@forEach
                         if ((request.senderId == currentUserId || request.receiverId == currentUserId)

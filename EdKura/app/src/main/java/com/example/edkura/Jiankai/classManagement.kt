@@ -85,6 +85,7 @@ class classManagement : AppCompatActivity() {
         listViewsubject.setOnItemClickListener { parent, view, position, id ->
             val selectedsubject =
                 parent.getItemAtPosition(position).toString()  // 通过 Item 获取点击的专业名称
+
             editTextsubject.setText(selectedsubject)  // 设置选中的专业到 EditText
             editTextsubject.setSelection(editTextsubject.text.length)  // 设置光标到文本末尾
             listViewsubject.visibility = View.GONE  // 选完后隐藏 ListView
