@@ -5,7 +5,8 @@
     android:id="@+id/classManagement"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Jiankai.classManagement">
+    tools:context=".Jiankai.classManagement"
+    android:fitsSystemWindows="true">
 
     <!-- 选择专业 -->
     <TextView
@@ -18,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp"/>
+        android:layout_marginTop="44dp"/>
 
     <TextView
         android:id="@+id/textViewSelectSubject"

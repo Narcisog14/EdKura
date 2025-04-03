@@ -63,10 +63,6 @@
             android:name=".Rao.spmatching"
             android:exported="false">
         </activity>
-        <activity
-            android:name=".FileSharing.NoteSharingDashboardActivity"
-            android:exported="false"
-            android:parentActivityName=".Narciso.CourseDetailActivity"/>
 
     </application>
 
