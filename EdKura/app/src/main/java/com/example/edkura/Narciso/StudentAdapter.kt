@@ -9,7 +9,8 @@ import com.example.edkura.R
 
 class StudentAdapter(
     private val students: List<Student>,
-    private val onClick: (Student) -> Unit
+    private val onClick: (Student) -> Unit,
+    private val onLongClick: (Student) -> Unit
 ) : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
 
     class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -26,6 +27,10 @@ class StudentAdapter(
         val student = students[position]
         holder.studentNameTextView.text = student.name
         holder.itemView.setOnClickListener { onClick(student) }
+        holder.itemView.setOnLongClickListener {
+            onLongClick(student)
+            true
+        }
     }
 
     override fun getItemCount() = students.size
