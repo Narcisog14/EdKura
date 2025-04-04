@@ -39,6 +39,7 @@ class CourseDetailActivity : AppCompatActivity() {
     private lateinit var studentsRecyclerView: RecyclerView
     private lateinit var goToNoteSharingDashboardButton: Button // New button
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -82,6 +83,7 @@ class CourseDetailActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             studyPartnerDashboardContainer.visibility = View.GONE
             courseDetailsContainer.visibility = View.VISIBLE
+
         }
     }
 
@@ -244,3 +246,4 @@ class CourseDetailActivity : AppCompatActivity() {
         Toast.makeText(this,msg, Toast.LENGTH_SHORT).show()
     }
 }
+
