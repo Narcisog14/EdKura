@@ -37,6 +37,16 @@ class CreateGroupDialogFragment : DialogFragment() {
     private lateinit var searchView: SearchView
     private val selectedUsers = mutableListOf<User>()
     private var currentUserCourses = mutableListOf<String>()
+    private var groupId: String? = null
+    private var isInviteMoreMode = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            groupId = it.getString(ARG_GROUP_ID)
+            isInviteMoreMode = groupId != null // If groupId is not null, then it's in invite more mode
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,40 +85,61 @@ class CreateGroupDialogFragment : DialogFragment() {
             }
         })
         createGroupButton.setOnClickListener {
-            createGroup()
+            if (isInviteMoreMode) {
+                inviteMoreUsers()
+            } else {
+                createGroup()
+            }
+        }
+        if (isInviteMoreMode) {
+            loadGroupInfo()
         }
     }
+    private fun loadGroupInfo() {
+        groupId?.let { groupId ->
+            database.child("projectGroups").child(groupId)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val group = snapshot.getValue(ProjectGroup::class.java)
+                        groupNameEditText.setText(group?.name ?: "")
+                        groupDescriptionEditText.setText(group?.description ?: "")
+                        groupNameEditText.isEnabled = false
+                        groupDescriptionEditText.isEnabled = false
+                        createGroupButton.text = "Invite Users"
+                    }
 
+                    override fun onCancelled(error: DatabaseError) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed to load group info",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
+        }
+    }
     private fun filterUsers(query: String) {
         val filteredUsers = users.filter {
             it.name.contains(query, ignoreCase = true)
         }
         userSearchAdapter.updateData(filteredUsers)
     }
-
-    private fun loadAllUsers() {
-        database.child("users").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                users.clear()
-                for (dataSnapshot in snapshot.children) {
-                    val user = dataSnapshot.getValue(User::class.java)
-                    if (user != null && user.userId != currentUserId) {
-                        users.add(user)
-                    }
-                }
-                userSearchAdapter.updateData(users)
+    private fun inviteMoreUsers() {
+        groupId?.let { groupId ->
+            //get the users to invite
+            for (user in selectedUsers) {
+                val groupReference =
+                    database.child("users").child(user.userId).child("invitedToGroups")
+                        .child(groupId)
+                groupReference.setValue(true)
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(
-                    requireContext(),
-                    "Failed to load users",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
+            //update the projectGroup
+            val invitedUsersMap = selectedUsers.associate { it.userId to true }.toMutableMap()
+            database.child("projectGroups").child(groupId).child("invitedUsers").updateChildren(invitedUsersMap as Map<String, Any>)
+            Toast.makeText(requireContext(), "Users invited", Toast.LENGTH_SHORT).show()
+            dismiss()
+        }
     }
-
     private fun createGroup() {
         //get the inputs
         val groupName = groupNameEditText.text.toString()
@@ -119,28 +150,29 @@ class CreateGroupDialogFragment : DialogFragment() {
             return
         }
         //generate a group id
-        val groupId = UUID.randomUUID().toString()
+        val newGroupId = UUID.randomUUID().toString()
         //add current user to the members list
         val members = mutableMapOf<String, Boolean>()
         members[currentUserId] = true
         // Create ProjectGroup object
         val projectGroup = ProjectGroup(
-            groupId = groupId,
+            groupId = newGroupId,
             name = groupName,
             description = groupDescription,
             course = currentUserCourses[0],
             members = members,
-            invitedUsers = selectedUsers.associate { it.userId to true }.toMutableMap()
+            invitedUsers = selectedUsers.associate { it.userId to true }.toMutableMap(),
+            creator = currentUserId
         )
         //add the group to the users invited groups
         for (user in selectedUsers) {
             val groupReference =
                 database.child("users").child(user.userId).child("invitedToGroups")
-                    .child(groupId)
+                    .child(newGroupId)
             groupReference.setValue(true)
         }
         //save the group
-        database.child("projectGroups").child(groupId).setValue(projectGroup)
+        database.child("projectGroups").child(newGroupId).setValue(projectGroup)
             .addOnSuccessListener {
                 Toast.makeText(requireContext(), "Group created", Toast.LENGTH_SHORT).show()
                 dismiss()
@@ -158,7 +190,7 @@ class CreateGroupDialogFragment : DialogFragment() {
                     val currentUser = snapshot.getValue(User::class.java)
                     if (currentUser != null) {
                         currentUserCourses = currentUser.courses
-                        loadUsersByCourses(currentUserCourses)
+                        loadEligibleUsersForGroup() // Call the new method here
                     }
                 }
 
@@ -171,26 +203,66 @@ class CreateGroupDialogFragment : DialogFragment() {
                 }
             })
     }
-    private fun loadUsersByCourses(courses: List<String>) {
-        database.child("users").addValueEventListener(object : ValueEventListener {
+
+    private fun loadEligibleUsersForGroup() {
+        database.child("users").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                users.clear()
-                for (dataSnapshot in snapshot.children) {
-                    val user = dataSnapshot.getValue(User::class.java)
-                    if (user != null && user.userId != currentUserId && user.courses.any { courses.contains(it) }) {
-                        users.add(user)
+                users.clear() // Clear previous data clearly
+                val currentUserCoursesSet = currentUserCourses.toSet()
+                // Get the already invited or joined members
+                val existingMembers = mutableListOf<String>()
+                if (isInviteMoreMode && groupId != null) {
+                    val groupSnapshot = snapshot.child("projectGroups").child(groupId!!)
+                    groupSnapshot.child("members").children.forEach {
+                        val memberId = it.key
+                        if (memberId != null) {
+                            existingMembers.add(memberId)
+                        }
+                    }
+                    groupSnapshot.child("invitedUsers").children.forEach {
+                        val invitedId = it.key
+                        if (invitedId != null) {
+                            existingMembers.add(invitedId)
+                        }
                     }
                 }
+
+                snapshot.children.forEach { userSnap ->
+                    val userId = userSnap.key ?: return@forEach
+                    if (userId != currentUserId && !existingMembers.contains(userId)) {
+                        val userCourses = userSnap.child("courses")
+                            .children.mapNotNull { it.getValue(String::class.java) }.toSet()
+                        val userName = userSnap.child("name").getValue(String::class.java) ?: "Unknown"
+
+                        if (currentUserCoursesSet.intersect(userCourses).isNotEmpty()) {
+                            val newUser = User(userId = userId, name = userName, courses = userCourses.toMutableList())
+                            users.add(newUser)
+                        }
+                    }
+                }
+
                 userSearchAdapter.updateData(users)
+
+                if (users.isEmpty()) {
+                    Toast.makeText(requireContext(), "No eligible users found", Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(
-                    requireContext(),
-                    "Failed to load users by course",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(), "Error loading users: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+    companion object {
+        private const val ARG_GROUP_ID = "groupId"
+
+        fun newInstance(groupId: String? = null): CreateGroupDialogFragment {
+            val fragment = CreateGroupDialogFragment()
+            val args = Bundle().apply {
+                putString(ARG_GROUP_ID, groupId)
+            }
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

@@ -1,14 +1,14 @@
 package com.example.edkura.GroupProject
 
 import android.os.Bundle
-import android.view.View // Import the View class
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.edkura.R
 import com.example.edkura.models.ProjectGroup
-import com.example.edkura.models.User
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -26,6 +26,8 @@ class GroupDetailActivity : AppCompatActivity() {
     private lateinit var groupDescription: TextView
     private lateinit var groupId: String
     private lateinit var projectGroup: ProjectGroup
+    private lateinit var inviteMoreButton: FloatingActionButton
+    private var isGroupCreator = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +37,14 @@ class GroupDetailActivity : AppCompatActivity() {
         leaveGroupButton = findViewById(R.id.leaveGroupButton)
         groupName = findViewById(R.id.groupName)
         groupDescription = findViewById(R.id.groupDescription)
+        inviteMoreButton = findViewById(R.id.inviteMoreButton)
         groupId = intent.getStringExtra("GROUP_ID") ?: ""
         loadGroup()
         leaveGroupButton.setOnClickListener {
             leaveGroup()
+        }
+        inviteMoreButton.setOnClickListener{
+            inviteMore()
         }
     }
 
@@ -48,11 +54,15 @@ class GroupDetailActivity : AppCompatActivity() {
                 projectGroup = snapshot.getValue(ProjectGroup::class.java) ?: ProjectGroup()
                 groupName.text = projectGroup.name
                 groupDescription.text = projectGroup.description
+                //set the visibility of the buttons
                 if (projectGroup.members.containsKey(currentUserId)) {
                     leaveGroupButton.visibility = View.VISIBLE
                 } else {
                     leaveGroupButton.visibility = View.GONE
                 }
+                // Check if current user is the group creator
+                isGroupCreator = projectGroup.creator == currentUserId
+                inviteMoreButton.visibility = if (isGroupCreator) View.VISIBLE else View.GONE
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -83,5 +93,9 @@ class GroupDetailActivity : AppCompatActivity() {
             }.addOnFailureListener {
                 Toast.makeText(this, "Failed to leave the group", Toast.LENGTH_SHORT).show()
             }
+    }
+    private fun inviteMore() {
+        val dialog = CreateGroupDialogFragment.newInstance(groupId)
+        dialog.show(supportFragmentManager, "CreateGroupDialogFragment")
     }
 }
