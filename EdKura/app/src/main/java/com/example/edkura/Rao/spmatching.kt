@@ -12,7 +12,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.example.edkura.R
 import com.example.edkura.Rao.RequestsAdapter
-
+import com.example.edkura.Rao.StudyPartnerRequest
+import com.example.edkura.Narciso.CourseDetailActivity
 
 class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener {
 
@@ -21,19 +22,18 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
     private lateinit var adapter: RequestsAdapter
     private lateinit var userSpinner: Spinner
     private lateinit var sendRequestButton: Button
-
     private val eligibleUsers = mutableListOf<Pair<String, String>>()
 
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.br_spmatching)
 
+        // Retrieve the current course from the Intent
+        val currentCourse = intent.getStringExtra("courseName") ?: ""
 
         database = FirebaseDatabase.getInstance().reference
-
 
         userSpinner = findViewById(R.id.userSpinner)
         sendRequestButton = findViewById(R.id.sendRequestButton)
@@ -71,28 +71,42 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
     private fun loadEligibleUsers() {
         database.child("users").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                eligibleUsers.clear() // Clear previous data clearly
+                eligibleUsers.clear()
 
-                val currentUserCourses = snapshot.child(currentUserId).child("courses")
-                    .children.mapNotNull { it.getValue(String::class.java) }.toSet()
+                // Current user courses
+                val currentUserCourses = snapshot.child(currentUserId)
+                    .child("courses")
+                    .children.mapNotNull { it.getValue(String::class.java) }
+                    .toSet()
 
+                // Loop over all users
                 snapshot.children.forEach { userSnap ->
                     val userId = userSnap.key ?: return@forEach
-                    if (userId != currentUserId) {
-                        val userCourses = userSnap.child("courses")
-                            .children.mapNotNull { it.getValue(String::class.java) }.toSet()
-                        val userName = userSnap.child("name").getValue(String::class.java) ?: "Unknown"
+                    if (userId == currentUserId) return@forEach // skip ourselves
 
-                        if (currentUserCourses.intersect(userCourses).isNotEmpty()) {
-                            eligibleUsers.add(Pair(userId, userName))
-                        }
+                    // That user's name
+                    val userName = userSnap.child("name").getValue(String::class.java) ?: "Unknown"
+                    // That user's courses
+                    val userCourses = userSnap.child("courses")
+                        .children.mapNotNull { it.getValue(String::class.java) }
+                        .toSet()
+
+                    // Find intersection
+                    val sharedCourses = currentUserCourses.intersect(userCourses)
+                    if (sharedCourses.isNotEmpty()) {
+                        // Build bracket string e.g. (Bio101, Comp210)
+                        val bracketCourses = sharedCourses.joinToString(", ")
+                        val nameWithCourses = "$userName ($bracketCourses)"
+
+                        // Store pair<userId, displayName>
+                        eligibleUsers.add(Pair(userId, nameWithCourses))
                     }
                 }
 
                 val spinnerAdapter = ArrayAdapter(
                     this@spmatching,
                     android.R.layout.simple_spinner_item,
-                    eligibleUsers.map { it.second }
+                    eligibleUsers.map { it.second } // second = displayName
                 )
                 spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 userSpinner.adapter = spinnerAdapter
@@ -110,6 +124,9 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
 
 
     private fun sendStudyPartnerRequest(receiverId: String) {
+        // Retrieve the current course extra again (or use the local variable if you defined it above)
+        val currentCourse = intent.getStringExtra("courseName") ?: ""
+
         database.child("study_partner_requests")
             .orderByChild("senderId").equalTo(currentUserId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -122,37 +139,37 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
                     if (duplicate) {
                         Toast.makeText(this@spmatching, "Already requested or connected", Toast.LENGTH_SHORT).show()
                     } else {
-                        // First retrieve sender's name clearly
                         database.child("users").child(currentUserId).child("name").get()
                             .addOnSuccessListener { nameSnapshot ->
                                 val senderName = nameSnapshot.getValue(String::class.java) ?: "Unknown"
-
                                 val newRequestRef = database.child("study_partner_requests").push()
                                 val requestData = StudyPartnerRequest(
                                     id = newRequestRef.key ?: "",
                                     senderId = currentUserId,
                                     receiverId = receiverId,
                                     status = "pending",
-                                    senderName = senderName  // Now correctly sets sender's name
+                                    senderName = senderName,
+                                    course = currentCourse  // New: assign the current course
                                 )
-                                newRequestRef.setValue(requestData).addOnSuccessListener {
-                                    Toast.makeText(this@spmatching, "Request sent", Toast.LENGTH_SHORT).show()
-                                }.addOnFailureListener {
-                                    Toast.makeText(this@spmatching, "Request failed", Toast.LENGTH_SHORT).show()
-                                }
+                                newRequestRef.setValue(requestData)
+                                    .addOnSuccessListener {
+                                        Toast.makeText(this@spmatching, "Request sent", Toast.LENGTH_SHORT).show()
+                                    }
+                                    .addOnFailureListener {
+                                        Toast.makeText(this@spmatching, "Request failed", Toast.LENGTH_SHORT).show()
+                                    }
                             }.addOnFailureListener {
                                 Toast.makeText(this@spmatching, "Could not retrieve sender name", Toast.LENGTH_SHORT).show()
-
                             }
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-
                     Toast.makeText(this@spmatching, "Database error: ${error.message}", Toast.LENGTH_SHORT).show()
                 }
             })
     }
+
 
     private fun listenForIncomingRequests() {
         database.child("study_partner_requests").orderByChild("receiverId").equalTo(currentUserId)
@@ -172,13 +189,11 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
                         }
                     }
 
-
                     adapter.updateRequests(requests)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(this@spmatching, "Error fetching requests", Toast.LENGTH_SHORT).show()
-
                 }
             })
     }
@@ -191,7 +206,6 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Acceptance failed", Toast.LENGTH_SHORT).show()
-
             }
     }
 
@@ -205,6 +219,5 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
                 Toast.makeText(this, "Decline failed", Toast.LENGTH_SHORT).show()
             }
     }
-
 
 }

@@ -45,11 +45,6 @@
             android:name=".Narciso.CourseDetailActivity"
             android:exported="false">
         </activity>
-        <!-- Student Partner Matching -->
-        <activity
-            android:name=".Rao.spmatching"
-            android:exported="false">
-        </activity>
 
         <!-- Chat -->
         <activity
