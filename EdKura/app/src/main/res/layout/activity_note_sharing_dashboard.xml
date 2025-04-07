@@ -1,46 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:fitsSystemWindows="true"
+    <!-- for best padding android:fitsSystemWindows="true" -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:fitsSystemWindows="true"
         android:padding="16dp">
 
-        <Button
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#428E54"
-            android:text="Back" />
-
-        <TextView
-            android:id="@+id/dashboardTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Note Sharing Dashboard"
-            android:textSize="24sp" />
-
+        <!-- Existing content: a LinearLayout for the notes list -->
         <LinearLayout
-            android:id="@+id/noteListContainer"
+            android:id="@+id/mainContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnPickFile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#428E54"
-            android:text="Pick a File" />
+            <!-- Your back button, title, search bar, etc. -->
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#428E54"
+                android:text="Back" />
 
-        <ListView
-            android:id="@+id/listViewFiles"
-            android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/dashboardTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Note Sharing Dashboard"
+                android:textSize="24sp" />
+
+            <!-- (Other UI elements like search, sort, etc.) -->
+            <!-- Search Bar -->
+            <EditText
+                android:id="@+id/editTextSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_notes"
+                android:padding="8dp"
+                android:layout_marginTop="12dp"/>
+
+            <!-- Sort By Spinner -->
+            <Spinner
+                android:id="@+id/spinnerSortBy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+            <ListView
+                android:id="@+id/listViewFiles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+        </LinearLayout>
+
+        <!-- Floating Action Button at top-right -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabUpload"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
-    </LinearLayout>
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:backgroundTint="#2b77a6"
+            android:src="@drawable/plus_icon" />
+
+    </FrameLayout>
 </layout>
