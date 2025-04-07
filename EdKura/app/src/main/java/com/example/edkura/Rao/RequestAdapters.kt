@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.edkura.R
 import com.example.edkura.Rao.StudyPartnerRequest
+import com.example.edkura.Narciso.CourseDetailActivity
 
 class RequestsAdapter(
     private var requests: List<StudyPartnerRequest>,
