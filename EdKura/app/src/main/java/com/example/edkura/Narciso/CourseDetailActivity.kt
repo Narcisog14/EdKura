@@ -84,25 +84,34 @@ class CourseDetailActivity : AppCompatActivity() {
             startActivity(Intent(this, GroupProjectDashboardActivity::class.java))
         }
         addUserItem.setOnClickListener {
-            startActivity(Intent(this, spmatching::class.java))
+            startActivity(Intent(this, spmatching::class.java).apply {
+                putExtra("courseName", currentCourseName)
+            })
         }
         backButton.setOnClickListener {
             studyPartnerDashboardContainer.visibility = View.GONE
             courseDetailsContainer.visibility = View.VISIBLE
-
         }
     }
 
+    /**
+     * Load study partner requests for the current course. If a partner appears in multiple requests
+     * for the same course, aggregate the courses (if desired). For now, since we're in one course context,
+     * each request's course is the same as currentCourseName.
+     */
     private fun loadPartners() {
         db.child("study_partner_requests")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val partnerList = mutableListOf<Student>()
+                    // Map partnerId -> list of courses (for aggregation)
+                    val partnerMap = mutableMapOf<String, MutableList<String>>()
+
                     snapshot.children.forEach { child ->
                         val request =
                             child.getValue(StudyPartnerRequest::class.java) ?: return@forEach
                         // Check if current user is involved and the request is for the current course.
                         if ((request.senderId == currentUserId || request.receiverId == currentUserId)
+                            && request.course == currentCourseName
                             && (request.status == "accepted" || (request.status == "blocked" && request.blockedBy == currentUserId))
                         ) {
                             val partnerId =
@@ -112,6 +121,9 @@ class CourseDetailActivity : AppCompatActivity() {
                                 if (!partnerMap[partnerId]!!.contains(request.course)) {
                                     partnerMap[partnerId]!!.add(request.course)
                                 }
+                            } else {
+                                partnerMap[partnerId] = mutableListOf(request.course)
+                            }
                         }
                     }
 
@@ -150,7 +162,6 @@ class CourseDetailActivity : AppCompatActivity() {
 
     inner class PartnerAdapter(private val items: List<Student>) :
         RecyclerView.Adapter<PartnerAdapter.Holder>() {
-
         inner class Holder(view: View) : RecyclerView.ViewHolder(view) {
             val nameBtn: Button = view.findViewById(R.id.buttonPartnerName)
         }
@@ -161,12 +172,10 @@ class CourseDetailActivity : AppCompatActivity() {
         }
 
         override fun getItemCount() = items.size
-
         override fun onBindViewHolder(holder: Holder, position: Int) {
             val partner = items[position]
             val blocked = partner.status == "blocked"
             holder.nameBtn.text = if (blocked) "${partner.name} [BLOCKED]" else partner.name
-
             holder.nameBtn.setOnClickListener {
                 if (!blocked) {
                     startActivity(
@@ -182,9 +191,16 @@ class CourseDetailActivity : AppCompatActivity() {
                 }
             }
             holder.nameBtn.setOnLongClickListener {
-                if (blocked && partner.blockedBy == currentUserId) showBlockedPrompt(partner)
-                else if (!blocked) showRemoveOrBlockPrompt(partner)
-                else showRemoveOnlyPrompt(partner)
+                if (blocked) {
+                    // Only allow unblock if I was the blocker; otherwise, allow removal.
+                    if (partner.blockedBy == currentUserId) {
+                        showBlockedPrompt(partner)
+                    } else {
+                        showRemoveOnlyPrompt(partner)
+                    }
+                } else {
+                    showRemoveOrBlockPrompt(partner)
+                }
                 true
             }
         }
