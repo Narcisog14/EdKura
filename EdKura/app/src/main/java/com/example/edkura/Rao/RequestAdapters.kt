@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.edkura.R
 import com.example.edkura.Rao.StudyPartnerRequest
-import com.example.edkura.Narciso.CourseDetailActivity
+
 
 class RequestsAdapter(
     private var requests: List<StudyPartnerRequest>,
@@ -38,6 +38,7 @@ class RequestsAdapter(
         holder.declineButton.setOnClickListener {
             listener.onDecline(request)
         }
+
     }
 
     override fun getItemCount(): Int = requests.size
@@ -52,6 +53,7 @@ class RequestsAdapter(
         val senderTextView: TextView = itemView.findViewById(R.id.senderTextView)
         val acceptButton: Button = itemView.findViewById(R.id.acceptButton)
         val declineButton: Button = itemView.findViewById(R.id.declineButton)
+
 
         @SuppressLint("SetTextI18n")
         fun bind(request: StudyPartnerRequest) {

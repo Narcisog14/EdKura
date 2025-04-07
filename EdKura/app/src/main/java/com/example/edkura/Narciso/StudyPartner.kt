@@ -27,7 +27,7 @@ class StudyPartner : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ArrayAdapter<String>
-    var partnerList = mutableListOf<Pair<String, String>>() // Pair<name, userId>
+    private var partnerList = mutableListOf<Pair<String, String>>() // Pair<name, userId>
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
