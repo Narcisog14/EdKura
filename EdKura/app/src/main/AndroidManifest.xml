@@ -64,6 +64,15 @@
             android:exported="false">
         </activity>
 
+        <activity
+            android:name=".GroupProject.GroupProjectDashboardActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".GroupProject.GroupDetailActivity"
+            android:exported="false">
+        </activity>
+
     </application>
 
 </manifest>

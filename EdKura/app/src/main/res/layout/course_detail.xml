@@ -50,6 +50,14 @@
             android:layout_gravity="center"
             android:backgroundTint="#428E54"
             android:text="Note Sharing" />
+        <Button
+            android:id="@+id/groupProjectButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#428E54"
+            android:text="Group Project" />
+
     </LinearLayout>
 
     <!-- Study Partner Dashboard Container -->
