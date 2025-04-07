@@ -83,6 +83,11 @@
             android:parentActivityName=".Narciso.CourseDetailActivity"/>
 
         <!-- Student Partner Matching -->
+        <activity
+            android:name=".Rao.spmatching"
+            android:exported="false"
+            tools:ignore="DuplicateActivity">
+        </activity>
 
         <activity
             android:name=".GroupProject.GroupProjectDashboardActivity"
