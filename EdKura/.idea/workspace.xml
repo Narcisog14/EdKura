@@ -13,17 +13,7 @@
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_group_detail.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_group_project_dashboard.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
@@ -43,11 +33,6 @@
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/br_item_request.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/br_spmatching.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
@@ -58,67 +43,12 @@
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_create_group.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_group.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_member.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_partner.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_user.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_classmanagement.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_course_item.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_dashboard.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/message_item_received.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/message_item_sent.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/student_item.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_file_message.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/study_partner_dashboard.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/profile_menu.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
@@ -141,7 +71,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\narci\.android\avd\Medium_Phone_API_35_2.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\raobh\.android\avd\Pixel_9_Pro_User_2.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -190,11 +120,11 @@
       <list>
         <option value="Kotlin File" />
         <option value="valueResourceFile" />
-        <option value="resourceFile" />
         <option value="Kotlin Data Class" />
         <option value="Class" />
         <option value="Kotlin Class" />
         <option value="layoutResourceFile" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -214,12 +144,12 @@
       </list>
     </option>
   </component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Narcisog14/EdKura.git&quot;,
-    &quot;accountId&quot;: &quot;be809d19-18c4-438f-a2ef-e7f2d18e9630&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Narcisog14/EdKura.git",
+    "accountId": "41dd2af5-3c2b-43fe-8574-f3d2180d4bf2"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -284,7 +214,6 @@
       <option name="MODE" value="default_activity" />
       <option name="RESTORE_ENABLED" value="false" />
       <option name="RESTORE_FILE" value="" />
-      <option name="RESTORE_FRESH_INSTALL_ONLY" value="false" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
