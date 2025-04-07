@@ -13,16 +13,6 @@
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_group_detail.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_group_project_dashboard.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
@@ -54,31 +44,6 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/course_detail.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_create_group.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_group.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_member.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_partner.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_user.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
@@ -129,10 +94,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a619b1ec-aea4-4ca0-861c-81fe87579a41" name="Changes" comment="Study Partner Matching Feature Updated. Final App">
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a619b1ec-aea4-4ca0-861c-81fe87579a41" name="Changes" comment="Study Partner Matching Feature Updated. Final App" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -199,6 +161,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="BR" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
