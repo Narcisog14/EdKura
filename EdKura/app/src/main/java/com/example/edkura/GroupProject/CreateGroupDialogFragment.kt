@@ -28,8 +28,8 @@ class CreateGroupDialogFragment : DialogFragment() {
     private lateinit var database: DatabaseReference
     private val users = mutableListOf<User>()
     private lateinit var userSearchAdapter: UserSearchAdapter
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val currentUserId = auth.currentUser?.uid ?: ""
+    //private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
     private lateinit var groupNameEditText: EditText
     private lateinit var groupDescriptionEditText: EditText
     private lateinit var membersRecyclerView: RecyclerView
