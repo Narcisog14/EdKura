@@ -54,7 +54,18 @@ class classManagement : AppCompatActivity() {
             ArrayAdapter(this, android.R.layout.simple_list_item_1, subject.toMutableList())
         listViewsubject.adapter = subjectAdapter
 
-        student = Student(this)
+        student = Student()
+
+        student.loadCoursesFromFirebase {
+            // Update the UI after loading courses from Firebase
+            addedClassesAdapter = ArrayAdapter(
+                this,
+                android.R.layout.simple_list_item_1,
+                student.getNumberedCourseList() // Or just use addedClasses if you don't need numbering
+            )
+            listViewAddedClasses.adapter = addedClassesAdapter
+        }
+
         addedClassesAdapter =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, student.getNumberedCourseList())
         listViewAddedClasses.adapter = addedClassesAdapter
@@ -135,26 +146,44 @@ class classManagement : AppCompatActivity() {
             val course = editTextClass.text.toString()
 
             if (subject.isNotEmpty() && course.isNotEmpty()) {
-                student.addCourse(subject, course)
-                // Update the display with numbered format
-                addedClassesAdapter = ArrayAdapter(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    student.getNumberedCourseList()
-                )
-                listViewAddedClasses.adapter = addedClassesAdapter
+                // 先检查该课程是否已经存在
+                val courseToAdd = "$subject $course"
+                if (student.addedClasses.contains(courseToAdd)) {
+                    // 如果课程已经存在，给用户一个提示
+                    Toast.makeText(this, "This course is already added", Toast.LENGTH_SHORT).show()
+                } else {
+                    // 如果课程不存在，添加该课程
+                    student.addCourse(subject, course)
+
+                    // 更新课程列表
+                    addedClassesAdapter = ArrayAdapter(
+                        this,
+                        android.R.layout.simple_list_item_1,
+                        student.getNumberedCourseList()
+                    )
+                    listViewAddedClasses.adapter = addedClassesAdapter
+                }
+            } else {
+                Toast.makeText(this, "Subject and course cannot be empty", Toast.LENGTH_SHORT).show()
             }
         }
 
+
         buttonNext.setOnClickListener {
             val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@setOnClickListener
-            val userCoursesRef =
-                FirebaseDatabase.getInstance().reference.child("users").child(userId)
-                    .child("courses")
+            val userCoursesRef = FirebaseDatabase.getInstance().reference.child("users").child(userId).child("courses")
 
-            userCoursesRef.setValue(student.addedClasses).addOnCompleteListener {
+            // 创建一个 ArrayList 来存储课程
+            val coursesList = ArrayList<String>()
+            for (course in student.addedClasses) {
+                coursesList.add(course)  // 直接将课程添加到列表中
+            }
+
+            // 将课程列表存入 Firebase
+            userCoursesRef.setValue(coursesList).addOnCompleteListener {
                 if (it.isSuccessful) {
                     val intent = Intent(this, DashboardActivity::class.java)
+                    // 传递更新后的课程列表到下一个 Activity
                     intent.putStringArrayListExtra("updatedClasses", student.addedClasses)
                     setResult(RESULT_OK, intent)
                     finish()
@@ -163,17 +192,6 @@ class classManagement : AppCompatActivity() {
                 }
             }
         }
-        fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
 
-            if (requestCode == 1 && resultCode == RESULT_OK) { // 判断请求码和返回结果是否正确
-                val updatedClasses = data?.getStringArrayListExtra("updatedClasses") // 获取返回的课程列表
-                if (updatedClasses != null) {
-                    student.addedClasses.clear() // 清空旧课程
-                    student.addedClasses.addAll(updatedClasses) // 添加新课程
-                    addedClassesAdapter.notifyDataSetChanged() // 刷新 ListView 显示
-                }
-            }
-        }
     }
 }

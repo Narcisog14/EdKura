@@ -1,38 +1,27 @@
 package com.example.edkura.Jiankai
 
-import android.content.Context
-import android.content.SharedPreferences
-import org.json.JSONArray
+import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
-class Student(context: Context) {
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("StudentPrefs", Context.MODE_PRIVATE)
+
+class Student {
     var addedClasses = ArrayList<String>()
 
-    init {
-        loadCourses()
-    }
-
-    // Add course without numbering in stored data
     fun addCourse(subject: String, course: String) {
-        addedClasses.add("$subject $course")
-        saveCourses()
-    }
-
-    // Remove course by index
-    fun removeCourseAt(index: Int) {
-        if (index >= 0 && index < addedClasses.size) {
-            addedClasses.removeAt(index)
-            saveCourses()
+        val courseInfo = "$subject $course"
+        // 确保添加的课程信息符合预期格式
+        if (courseInfo.isNotEmpty()) {
+            addedClasses.add(courseInfo)
         }
     }
 
-    // Remove course by content
-    fun removeCourse(course: String) {
-        addedClasses.remove(course)
-        saveCourses()
+    fun removeCourseAt(index: Int) {
+        if (index >= 0 && index < addedClasses.size) {
+            addedClasses.removeAt(index)
+        }
     }
 
-    // Get formatted course list for display
     fun getNumberedCourseList(): ArrayList<String> {
         val numberedList = ArrayList<String>()
         for (i in addedClasses.indices) {
@@ -41,22 +30,32 @@ class Student(context: Context) {
         return numberedList
     }
 
-    fun clearCourses() {
-        addedClasses.clear()
-        saveCourses()
-    }
-
-    fun saveCourses() {
-        val jsonArray = JSONArray(addedClasses)
-        sharedPreferences.edit().putString("courses", jsonArray.toString()).apply()
-    }
-
-    fun loadCourses() {
-        addedClasses.clear()
-        val jsonString = sharedPreferences.getString("courses", "[]")
-        val jsonArray = JSONArray(jsonString)
-        for (i in 0 until jsonArray.length()) {
-            addedClasses.add(jsonArray.getString(i))
+    fun loadCoursesFromFirebase(onComplete: (() -> Unit)? = null) {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user == null) {
+            Log.w("Student", "No user is logged in")
+            return
         }
+
+        val userId = user.uid
+        val databaseRef = FirebaseDatabase.getInstance().reference
+            .child("users")
+            .child(userId)
+            .child("courses")
+
+        databaseRef.get()
+            .addOnSuccessListener { snapshot ->
+                addedClasses.clear()
+                for (courseSnapshot in snapshot.children) {
+                    val course = courseSnapshot.getValue(String::class.java)
+                    if (course != null) {
+                        addedClasses.add(course)
+                    }
+                }
+                onComplete?.invoke()
+            }
+            .addOnFailureListener { error ->
+                Log.e("Student", "Failed to load courses from Firebase: ${error.message}")
+            }
     }
 }
