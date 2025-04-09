@@ -13,7 +13,7 @@
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_group_project_dashboard.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
@@ -33,11 +33,6 @@
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/br_item_request.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/br_spmatching.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
@@ -48,47 +43,12 @@
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_partner.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_classmanagement.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_course_item.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_dashboard.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/message_item_received.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/message_item_sent.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/student_item.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_file_message.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/study_partner_dashboard.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/profile_menu.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
@@ -99,7 +59,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a619b1ec-aea4-4ca0-861c-81fe87579a41" name="Changes" comment="" />
+    <list default="true" id="a619b1ec-aea4-4ca0-861c-81fe87579a41" name="Changes" comment="Study Partner Matching Feature Updated. Final App">
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -108,7 +71,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\raobh\.android\avd\Pixel_9_Pro_User_3.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\raobh\.android\avd\Pixel_9_Pro_User_1.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -157,10 +120,11 @@
       <list>
         <option value="Kotlin File" />
         <option value="valueResourceFile" />
-        <option value="Kotlin Class" />
-        <option value="resourceFile" />
         <option value="Kotlin Data Class" />
+        <option value="Class" />
+        <option value="Kotlin Class" />
         <option value="layoutResourceFile" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -173,6 +137,13 @@
     &quot;assignee&quot;: &quot;Narcisog14&quot;
   }
 }</component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="rules" />
+      </list>
+    </option>
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Narcisog14/EdKura.git&quot;,
@@ -195,12 +166,13 @@
     "Android App.app.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/COMP350/Sprint3/EdKura",
+    "last_opened_file_path": "E:/COMP350/EdKura-main/EdKura-main/EdKura",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
 }]]></component>
@@ -306,7 +278,27 @@
       <option name="presentableId" value="Default" />
       <updated>1741135930116</updated>
     </task>
+    <task id="LOCAL-00001" summary="Study Partner Matching Feature Updated. Final App">
+      <option name="closed" value="true" />
+      <created>1743734317623</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743734317623</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Study Partner Matching Feature Updated. Final App" />
@@ -317,12 +309,12 @@
       <map>
         <entry key="com.example.edkura">
           <value>
-            <CheckInfo lastCheckTimestamp="1743005493193" />
+            <CheckInfo lastCheckTimestamp="1744169415491" />
           </value>
         </entry>
         <entry key="com.example.edkura.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1743005493199" />
+            <CheckInfo lastCheckTimestamp="1744169415490" />
           </value>
         </entry>
       </map>

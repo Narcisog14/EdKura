@@ -6,4 +6,11 @@
     <string name="send_request">Send Request</string>
     <string name="user_icon">User Icon</string>
     <string name="partner_name">Partner Name</string>
+    <string name="back">Back</string>
+    <string name="note_sharing_dashboard">Note Sharing Dashboard</string>
+    <string name="search_notes">Search notes...</string>
+    <string name="enter_note_title">Enter note title</string>
+    <string name="select_class_date">Select Class Date</string>
+    <string name="pick_a_file">Pick a File</string>
+
 </resources>

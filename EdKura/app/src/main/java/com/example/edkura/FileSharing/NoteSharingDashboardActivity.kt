@@ -1,6 +1,6 @@
 package com.example.edkura.FileSharing
 
-import android.R
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,9 +8,19 @@ import android.provider.OpenableColumns
 import android.util.Base64
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
+import androidx.core.widget.addTextChangedListener
 import com.example.edkura.FileSharing.FileMessage
+import com.example.edkura.FileSharing.FileMessageAdapter
+import com.example.edkura.R
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -22,92 +32,140 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import com.example.edkura.databinding.ActivityNoteSharingDashboardBinding
+import java.util.Calendar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
 class NoteSharingDashboardActivity : AppCompatActivity() {
 
-    private lateinit var database: DatabaseReference
-    private val RC_PICK_FILE = 101
-
     private lateinit var binding: ActivityNoteSharingDashboardBinding
+    private lateinit var database: DatabaseReference
 
-    // Store the actual FileMessage objects
-    private val fileMessages = ArrayList<FileMessage>()
-
-    // Parallel list of strings for the ListView
-    private val displayList = ArrayList<String>()
-    private lateinit var adapter: ArrayAdapter<String>
-
-    // Get the name and id of the user
+    // User info
     private var currentUserId: String = ""
     private var currentUserProfileName: String = ""
     private var currentUserCourse: String = ""
+
+    // Data
+    private val fileMessages = mutableListOf<FileMessage>()
+    private lateinit var adapter: FileMessageAdapter
+
+    // For storing the selected file URI from the upload dialog
+    private var selectedFileUri: Uri? = null
+
+    // Using the new Activity Result API to pick a file
+    private val pickFileLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            selectedFileUri = uri
+            Toast.makeText(this, "File selected", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteSharingDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //get the extras from the intent
-        currentUserId = intent.getStringExtra("USER_ID") ?: ""
+        // Retrieve extras from Intent
+        currentUserId = intent.getStringExtra("USER_ID") ?: FirebaseAuth.getInstance().currentUser?.uid ?: ""
         currentUserProfileName = intent.getStringExtra("USER_NAME") ?: ""
         currentUserCourse = intent.getStringExtra("USER_COURSE") ?: ""
 
-        // Initialize the button using the binding
-        binding.btnPickFile.setOnClickListener {
-            pickFile()
-        }
+        // Initialize Firebase
+        database = FirebaseDatabase.getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com/").reference
 
-        // Use the displayList for the ListView
-        adapter = ArrayAdapter(this, R.layout.simple_list_item_1, displayList)
+        // Fetch the current user's course from Firebase
+        fetchUserCourseAndLoadNotes()
+
+        // Initialize custom adapter for ListView
+        adapter = FileMessageAdapter(
+            context = this,
+            fileMessages = fileMessages,
+            onDownload = { fileMsg -> downloadFile(fileMsg) }
+        )
         binding.listViewFiles.adapter = adapter
 
-        // Set up an item click listener to "download" the file
-        binding.listViewFiles.setOnItemClickListener { _, _, position, _ ->
-            val selectedMessage = fileMessages[position]
-            if (selectedMessage.fileData.isNotEmpty()) {
-                // Decode and save to local storage
-                downloadFile(selectedMessage)
-            } else {
-                Toast.makeText(this, "No file data found", Toast.LENGTH_SHORT).show()
-            }
+        // Setup FloatingActionButton (plus button) for upload
+        binding.fabUpload.setOnClickListener { showUploadDialog() }
+
+        // Back button to exit dashboard
+        binding.backButton.setOnClickListener { finish() }
+
+        // Setup search bar filtering
+        binding.editTextSearch.addTextChangedListener { text ->
+            filterNotes(text.toString())
         }
 
-        // Initialize Firebase Database using your URL
-        database = FirebaseDatabase
-            .getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com/")
-            .reference
+        // Setup sort spinner (for further extension; not fully implemented here)
+        val sortOptions = listOf("Sort by Timestamp", "Sort by Title")
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, sortOptions)
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerSortBy.adapter = spinnerAdapter
 
+        // Listen for file messages in real time
         listenForFiles()
+    }
 
-        binding.backButton.setOnClickListener {
-            finish()
+    private fun showUploadDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.upload_note_dialog, null)
+        val noteTitleEdit = dialogView.findViewById<EditText>(R.id.editTextNoteTitle)
+        val classDateText = dialogView.findViewById<TextView>(R.id.textViewClassDate)
+        val pickFileButton = dialogView.findViewById<Button>(R.id.buttonPickFile)
+        val uploadButton = dialogView.findViewById<Button>(R.id.buttonUpload)
+
+        // Default date text
+        classDateText.text = "Select Class Date"
+        classDateText.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            DatePickerDialog(this,
+                { _, year, month, dayOfMonth ->
+                    val selectedDate = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month + 1, dayOfMonth)
+                    classDateText.text = selectedDate
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ).show()
         }
-    }
 
-    private fun pickFile() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "*/*" //Corrected type
-        startActivityForResult(Intent.createChooser(intent, "Select a file"), RC_PICK_FILE)
-    }
+        pickFileButton.setOnClickListener {
+            pickFileLauncher.launch("*/*")
+        }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_PICK_FILE && resultCode == RESULT_OK && data != null) {
-            val fileUri: Uri? = data.data
-            if (fileUri != null) {
-                Log.d("FileSelection", "File URI: $fileUri")
-                val fileName = getFileName(fileUri)
-                val fileData = readFileAsBase64(fileUri)
-                if (fileData != null) {
-                    sendFile(fileName, fileData)
-                }
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("Upload Note")
+            .setView(dialogView)
+            .setNegativeButton("Cancel", null)
+            .create()
+
+        uploadButton.setOnClickListener {
+            val title = noteTitleEdit.text.toString().trim()
+            val classDate = classDateText.text.toString().trim()
+            if (title.isEmpty() || classDate == "Select Class Date") {
+                Toast.makeText(this, "Enter a title and select a date", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (selectedFileUri == null) {
+                Toast.makeText(this, "Please pick a file", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val fileName = getFileName(selectedFileUri!!)
+            val fileData = readFileAsBase64(selectedFileUri!!)
+            if (fileData != null) {
+                sendFile(title, classDate, fileName, fileData)
+                dialog.dismiss()
             } else {
-                Log.e("FileSelection", "fileUri is null")
+                Toast.makeText(this, "Error processing file", Toast.LENGTH_SHORT).show()
             }
         }
+
+        dialog.show()
     }
 
-    // Get file name from Uri using content resolver
     private fun getFileName(uri: Uri): String {
         var result = ""
         contentResolver.query(uri, null, null, null, null)?.use { cursor ->
@@ -116,112 +174,162 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
                 result = cursor.getString(nameIndex)
             }
         }
-        Log.d("getFileName", "File Name: $result")
         return result
     }
 
-    // Read file bytes and convert to a Base64-encoded string
     private fun readFileAsBase64(uri: Uri): String? {
         return try {
             val inputStream: InputStream? = contentResolver.openInputStream(uri)
             val bytes = inputStream?.readBytes()
             inputStream?.close()
-            if (bytes != null) {
-                val encoded = Base64.encodeToString(bytes, Base64.DEFAULT)
-                Log.d("readFileAsBase64", "Encoded data: $encoded")
-                return encoded
-            } else {
-                Log.e("readFileAsBase64", "Bytes are null")
-                return null
-            }
+            bytes?.let { Base64.encodeToString(it, Base64.DEFAULT) }
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e("readFileAsBase64", "Error reading file", e)
-            return null
+            null
         }
     }
 
-    // Create a FileMessage object and push it to Firebase
-    private fun sendFile(fileName: String, fileData: String) {
+    private fun sendFile(title: String, classDate: String, fileName: String, fileData: String) {
         val message = FileMessage(
-            uploader = currentUserProfileName, // Send user name
+            title = title,
+            classDate = classDate,
+            uploader = currentUserProfileName,
             fileName = fileName,
             fileData = fileData,
             timestamp = System.currentTimeMillis(),
-            userId = currentUserId // Send user ID
+            userId = currentUserId
         )
-        database.child("courses").child(currentUserCourse).push().setValue(message)
+        database.child("noteSharing").child(currentUserCourse).push().setValue(message)
             .addOnSuccessListener {
-                Log.d("SendFile", "File sent successfully")
                 Toast.makeText(this, "File sent", Toast.LENGTH_SHORT).show()
+                selectedFileUri = null
             }
             .addOnFailureListener {
-                Log.e("SendFile", "Failed to send file", it)
                 Toast.makeText(this, "Failed to send file", Toast.LENGTH_SHORT).show()
             }
     }
 
-    // Listen for incoming file messages where the receiver matches the current user
-    private fun listenForFiles() {
-        database.child("courses").child(currentUserCourse)
-            .addValueEventListener(object : ValueEventListener {
+    private fun fetchUserCourseAndLoadNotes() {
+        // Assume currentUserId is already set from Intent extras or FirebaseAuth
+        FirebaseDatabase.getInstance().reference.child("users").child(currentUserId)
+            .child("course")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    // Clear both lists
-                    fileMessages.clear()
-                    displayList.clear()
-
-                    for (fileSnapshot in snapshot.children) {
-                        val fileMessage = fileSnapshot.getValue(FileMessage::class.java)
-                        if (fileMessage != null) {
-                            fileMessages.add(fileMessage)
-
-                            // Prepare a display string for the ListView
-                            val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-                                .format(Date(fileMessage.timestamp))
-                            val displayText = """
-                                From: ${fileMessage.uploader}
-                                File: ${fileMessage.fileName}
-                                Time: $time
-                                (Tap to download)
-                            """.trimIndent()
-
-                            displayList.add(displayText)
-                        }
+                    val noteSharing = snapshot.getValue(String::class.java)
+                    if (noteSharing != null && noteSharing.isNotEmpty()) {
+                        currentUserCourse = noteSharing
+                        // Now load only the notes for this course.
+                        listenForFiles()
+                    } else {
+                        Toast.makeText(this@NoteSharingDashboardActivity, "Course not set for user.", Toast.LENGTH_SHORT).show()
                     }
-                    adapter.notifyDataSetChanged()
                 }
-
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(
-                        this@NoteSharingDashboardActivity,
-                        "Failed to load files",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@NoteSharingDashboardActivity, "Error fetching course: ${error.message}", Toast.LENGTH_SHORT).show()
                 }
             })
     }
 
-    // Decode and save the file locally
+    private fun listenForFiles() {
+        database.child("noteSharing").child(currentUserCourse)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    fileMessages.clear()
+                    val displayStrings = mutableListOf<String>()
+                    for (fileSnapshot in snapshot.children) {
+                        val fileMessage = fileSnapshot.getValue(FileMessage::class.java)
+                        if (fileMessage != null) {
+                            fileMessages.add(fileMessage)
+                            val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+                                .format(Date(fileMessage.timestamp))
+                            val displayText = "${fileMessage.title}\n" +
+                                    "From: ${fileMessage.uploader}\n" +
+                                    "File: ${fileMessage.fileName}\n" +
+                                    "Date: ${fileMessage.classDate}\n" +
+                                    "Time: $time\n(Tap to preview)"
+                            displayStrings.add(displayText)
+                        }
+                    }
+                    // Use the custom adapter for preview if desired, or update your ListView with displayStrings
+                    adapter.notifyDataSetChanged()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@NoteSharingDashboardActivity, "Failed to load files", Toast.LENGTH_SHORT).show()
+                }
+            })
+    }
+
+    private fun filterNotes(query: String) {
+        val filtered = fileMessages.filter { fileMsg ->
+            fileMsg.title.contains(query, ignoreCase = true) ||
+                    fileMsg.fileName.contains(query, ignoreCase = true) ||
+                    fileMsg.uploader.contains(query, ignoreCase = true) ||
+                    fileMsg.classDate.contains(query, ignoreCase = true)
+        }
+        val displayStrings = filtered.map { fileMsg ->
+            val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+                .format(Date(fileMsg.timestamp))
+            "${fileMsg.title}\n" +
+                    "From: ${fileMsg.uploader}\n" +
+                    "File: ${fileMsg.fileName}\n" +
+                    "Date: ${fileMsg.classDate}\n" +
+                    "Time: $time\n(Tap to preview)"
+        }
+        val newAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, displayStrings)
+        binding.listViewFiles.adapter = newAdapter
+    }
+
+
     private fun downloadFile(fileMessage: FileMessage) {
         try {
-            // Decode Base64
+            // Decode the Base64-encoded file data
             val decodedBytes = Base64.decode(fileMessage.fileData, Base64.DEFAULT)
 
-            // Save the file to app-specific external storage (visible to the user but only removable by uninstall)
-            val outFile = File(getExternalFilesDir(null), fileMessage.fileName)
+            // Get the public Downloads folder
+            val downloadsFolder = android.os.Environment.getExternalStoragePublicDirectory(
+                android.os.Environment.DIRECTORY_DOWNLOADS
+            )
+
+            // Create output file in the Downloads folder
+            val outFile = File(downloadsFolder, fileMessage.fileName)
             outFile.outputStream().use { it.write(decodedBytes) }
 
-            Toast.makeText(
-                this,
-                "File saved to: ${outFile.absolutePath}",
-                Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(this, "File downloaded to: ${outFile.absolutePath}", Toast.LENGTH_LONG).show()
 
-            // OPTIONAL: You could also launch an intent to open the saved file
+            // Get a content URI using FileProvider
+            val contentUri = FileProvider.getUriForFile(
+                this,
+                "${applicationContext.packageName}.fileprovider",
+                outFile
+            )
+
+            // Determine MIME type from file extension
+            val extension = fileMessage.fileName.substringAfterLast('.', "")
+            val mimeType = android.webkit.MimeTypeMap.getSingleton()
+                .getMimeTypeFromExtension(extension.lowercase()) ?: "*/*"
+
+            // Prompt user to open file
+            AlertDialog.Builder(this)
+                .setTitle("Download Complete")
+                .setMessage("Do you want to open this file?")
+                .setPositiveButton("Open") { _, _ ->
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        setDataAndType(contentUri, mimeType)
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    }
+                    try {
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        Toast.makeText(this, "No application found to open this file", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+
         } catch (e: Exception) {
-            // Handle exceptions (e.g., file system errors)
             e.printStackTrace()
-            Toast.makeText(this, "Failed to save file", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Failed to download file", Toast.LENGTH_SHORT).show()
         }
     }
 }
