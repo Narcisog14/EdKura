@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edkura.Jiankai.classManagement
 import com.example.edkura.Jiankai.Student
 import CourseAdapter
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.PopupMenu
@@ -15,8 +17,12 @@ import android.widget.Toast
 import com.example.edkura.Narciso.CourseDetailActivity
 import com.example.edkura.auth.LoginActivity
 import com.example.edkura.Jiankai.ProfileActivity
+import com.example.edkura.chat.AllChatsActivity
+import com.example.edkura.chat.ChatActivity
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.messaging.FirebaseMessaging
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var student: Student  // Student object that holds courses locally
@@ -49,6 +55,27 @@ class DashboardActivity : AppCompatActivity() {
         recyclerView.adapter = courseAdapter
 
         updateCourseList()
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            val msg = getString(R.string.msg_token_fmt, token)
+            Log.d(TAG, msg)
+            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+        })
+
+        // Chat button
+        val buttonChat: ImageButton = findViewById(R.id.buttonChat)
+        buttonChat.setOnClickListener {
+            startActivity(Intent(this, AllChatsActivity::class.java))
+        }
 
         // Navigate to class management
         val buttonSetting: ImageButton = findViewById(R.id.buttonSetting)

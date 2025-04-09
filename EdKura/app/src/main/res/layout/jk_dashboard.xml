@@ -7,13 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".DashboardActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/dashboardLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF">
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <!-- 设置按钮 -->
     <ImageButton
         android:id="@+id/buttonSetting"
@@ -54,6 +47,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewDashboardTitle" />
 
+
+
     <!-- CustomCanvasView -->
     <com.example.edkura.Jiankai.jiankaiUI.CustomCanvasView
         android:id="@+id/customCanvasView"
@@ -75,6 +70,18 @@
         android:layout_marginTop="49dp"
         android:layout_marginStart="25dp"/>
 
+    <ImageButton
+        android:id="@+id/buttonChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginStart="328dp"
+        android:layout_marginBottom="44dp"
+        android:backgroundTint="#428E54"
+        android:contentDescription="Chat"
+        android:src="@android:drawable/ic_dialog_email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
