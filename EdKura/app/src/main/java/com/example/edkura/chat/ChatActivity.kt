@@ -35,6 +35,7 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
 
         findViewById<TextView>(R.id.chatPartnerName).text = intent.getStringExtra("partnerName") ?: "Chat"
+
         val partnerId = intent.getStringExtra("partnerId") ?: ""
         val partnerName = intent.getStringExtra("partnerName") ?: ""
 

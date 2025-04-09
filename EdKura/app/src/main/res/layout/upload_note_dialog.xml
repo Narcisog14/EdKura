@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextNoteTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Note Title"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/textViewClassDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select Class Date"
+        android:padding="12dp"
+        android:background="#EEEEEE"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/buttonPickFile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pick a File"
+        android:backgroundTint="#428E54"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="12dp" />
+
+    <Button
+        android:id="@+id/buttonUpload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload"
+        android:backgroundTint="#428E54"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="12dp" />
+</LinearLayout>

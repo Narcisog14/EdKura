@@ -20,13 +20,19 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
     private lateinit var adapter: RequestsAdapter
     private lateinit var userSpinner: Spinner
     private lateinit var sendRequestButton: Button
-    private val eligibleUsers = mutableListOf<Pair<String, String>>()
 
+    private val eligibleUsers = mutableListOf<Pair<String, String>>()
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
+    // NEW: retrieve 'courseName' from the Intent extras
+    private val currentCourse: String by lazy {
+        intent.getStringExtra("courseName") ?: ""
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.br_spmatching)
+
         database = FirebaseDatabase.getInstance().reference
 
         userSpinner = findViewById(R.id.userSpinner)
@@ -53,31 +59,40 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
     }
 
     private fun ensureUserExistsAndLoadEligibleUsers() {
-        database.child("users").child(currentUserId).child("email").setValue(FirebaseAuth.getInstance().currentUser?.email)
-        database.child("users").child(currentUserId).child("courses").get().addOnSuccessListener { snapshot ->
-            if (!snapshot.exists()) {
-                database.child("users").child(currentUserId).child("courses").setValue(listOf("Comp210", "Math250"))
+        database.child("users").child(currentUserId).child("email")
+            .setValue(FirebaseAuth.getInstance().currentUser?.email)
+
+        // If user has no courses, set some default (optional)
+        database.child("users").child(currentUserId).child("courses")
+            .get().addOnSuccessListener { snapshot ->
+                if (!snapshot.exists()) {
+                    database.child("users").child(currentUserId).child("courses")
+                        .setValue(listOf("Comp210", "Math250"))
+                }
+                loadEligibleUsers()
             }
-            loadEligibleUsers()
-        }
     }
 
     private fun loadEligibleUsers() {
         database.child("users").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                eligibleUsers.clear() // Clear previous data clearly
+                eligibleUsers.clear()
 
+                // Get the current user's courses
                 val currentUserCourses = snapshot.child(currentUserId).child("courses")
                     .children.mapNotNull { it.getValue(String::class.java) }.toSet()
 
                 snapshot.children.forEach { userSnap ->
                     val userId = userSnap.key ?: return@forEach
                     if (userId != currentUserId) {
+                        // The other user's courses
                         val userCourses = userSnap.child("courses")
                             .children.mapNotNull { it.getValue(String::class.java) }.toSet()
                         val userName = userSnap.child("name").getValue(String::class.java) ?: "Unknown"
 
+                        // They are only eligible if there's at least one common course
                         if (currentUserCourses.intersect(userCourses).isNotEmpty()) {
+                            // Add to spinner
                             eligibleUsers.add(Pair(userId, userName))
                         }
                     }
@@ -102,7 +117,6 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
         })
     }
 
-
     private fun sendStudyPartnerRequest(receiverId: String) {
         database.child("study_partner_requests")
             .orderByChild("senderId").equalTo(currentUserId)
@@ -110,13 +124,18 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val duplicate = snapshot.children.any {
                         it.child("receiverId").getValue(String::class.java) == receiverId &&
-                                (it.child("status").getValue(String::class.java) in listOf("pending", "accepted"))
+                                (it.child("status").getValue(String::class.java) in listOf("pending", "accepted")) &&
+                                it.child("course").getValue(String::class.java) == currentCourse
                     }
 
                     if (duplicate) {
-                        Toast.makeText(this@spmatching, "Already requested or connected", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@spmatching,
+                            "Already requested or connected in $currentCourse",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     } else {
-                        // First retrieve sender's name clearly
+                        // Retrieve sender's name
                         database.child("users").child(currentUserId).child("name").get()
                             .addOnSuccessListener { nameSnapshot ->
                                 val senderName = nameSnapshot.getValue(String::class.java) ?: "Unknown"
@@ -127,34 +146,53 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
                                     senderId = currentUserId,
                                     receiverId = receiverId,
                                     status = "pending",
-                                    senderName = senderName  // Now correctly sets sender's name
+                                    senderName = senderName,
+                                    course = currentCourse // new field
                                 )
-                                newRequestRef.setValue(requestData).addOnSuccessListener {
-                                    Toast.makeText(this@spmatching, "Request sent", Toast.LENGTH_SHORT).show()
-                                }.addOnFailureListener {
-                                    Toast.makeText(this@spmatching, "Request failed", Toast.LENGTH_SHORT).show()
-                                }
-                            }.addOnFailureListener {
-                                Toast.makeText(this@spmatching, "Could not retrieve sender name", Toast.LENGTH_SHORT).show()
+                                newRequestRef.setValue(requestData)
+                                    .addOnSuccessListener {
+                                        Toast.makeText(
+                                            this@spmatching,
+                                            "Request sent for $currentCourse",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                    .addOnFailureListener {
+                                        Toast.makeText(this@spmatching, "Request failed", Toast.LENGTH_SHORT).show()
+                                    }
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(
+                                    this@spmatching,
+                                    "Could not retrieve sender name",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@spmatching, "Database error: ${error.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@spmatching,
+                        "Database error: ${error.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
     }
 
     private fun listenForIncomingRequests() {
-        database.child("study_partner_requests").orderByChild("receiverId").equalTo(currentUserId)
+        // Listen for requests where receiverId equals currentUserId
+        database.child("study_partner_requests")
+            .orderByChild("receiverId")
+            .equalTo(currentUserId)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val requests = mutableListOf<StudyPartnerRequest>()
-
                     snapshot.children.forEach { child ->
                         val request = child.getValue(StudyPartnerRequest::class.java)
                         if (request != null && request.status == "pending") {
+                            // Retrieve the sender's name to show in the adapter
                             database.child("users").child(request.senderId).child("name")
                                 .get().addOnSuccessListener { nameSnapshot ->
                                     request.senderName = nameSnapshot.getValue(String::class.java) ?: "Unknown"
@@ -163,21 +201,25 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
                             requests.add(request)
                         }
                     }
-
                     adapter.updateRequests(requests)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@spmatching, "Error fetching requests", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@spmatching,
+                        "Error fetching requests: ${error.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
     }
 
+    // Implementation for RequestsAdapter.OnRequestActionListener
     override fun onAccept(request: StudyPartnerRequest) {
         database.child("study_partner_requests").child(request.id)
             .child("status").setValue("accepted")
             .addOnSuccessListener {
-                Toast.makeText(this, "Accepted ${request.senderName}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Accepted ${request.senderName} for ${request.course}", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Acceptance failed", Toast.LENGTH_SHORT).show()
@@ -194,5 +236,4 @@ class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener 
                 Toast.makeText(this, "Decline failed", Toast.LENGTH_SHORT).show()
             }
     }
-
 }
