@@ -1,0 +1,64 @@
+<!-- res/layout/item_file_message.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <!-- Title row (File Name) -->
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title: File Name"
+        android:textSize="20sp"
+        android:textColor="#428E54"
+        android:textStyle="bold"/>
+
+    <!-- File format row -->
+    <TextView
+        android:id="@+id/textFileFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="File Format: "
+        android:textColor="#2b77a6"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"/>
+
+    <!-- Date row -->
+    <TextView
+        android:id="@+id/textDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date:"
+        android:textColor="#2b77a6"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"/>
+
+    <!-- Uploader row -->
+    <TextView
+        android:id="@+id/textUploader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="From:"
+        android:textColor="#2b77a6"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"/>
+
+    <!-- Buttons row: Preview / Download -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+
+        <Button
+            android:id="@+id/buttonDownload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#428E54"
+            android:text="Download"/>
+    </LinearLayout>
+</LinearLayout>

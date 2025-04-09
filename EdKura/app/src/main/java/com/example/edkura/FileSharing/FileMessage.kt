@@ -1,9 +1,11 @@
 package com.example.edkura.FileSharing
 
 data class FileMessage(
-    var uploader: String = "", // Who sent the file
-    var fileName: String = "", // The name of the file
-    var fileData: String = "", // The Base64-encoded file content
-    var timestamp: Long = 0, // When the file was sent
-    var userId: String = "" // The ID of the user who sent the file
+    var title: String = "",         // New: Title of the note
+    var classDate: String = "",     // New: Date of the class the note is for
+    var uploader: String = "",      // Uploader's name
+    var fileName: String = "",      // File name
+    var fileData: String = "",      // Base64-encoded file content
+    var timestamp: Long = 0,        // When the file was sent
+    var userId: String = ""         // ID of the uploader
 )

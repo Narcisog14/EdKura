@@ -11,7 +11,18 @@
         android:roundIcon="@mipmap/edkura"
         android:supportsRtl="true"
         android:theme="@style/Theme.EdKura"
+        android:requestLegacyExternalStorage="true"
         tools:targetApi="31">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <!-- MainActivity -->
         <activity
@@ -64,10 +75,6 @@
             android:parentActivityName=".Narciso.CourseDetailActivity"/>
 
         <!-- Student Partner Matching -->
-        <activity
-            android:name=".Rao.spmatching"
-            android:exported="false">
-        </activity>
 
         <activity
             android:name=".GroupProject.GroupProjectDashboardActivity"

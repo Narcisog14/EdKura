@@ -30,6 +30,11 @@ class CourseDetailActivity : AppCompatActivity() {
     private val db = FirebaseDatabase.getInstance().reference
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
+    // Retrieve the current course from the Intent
+    private val currentCourseName: String by lazy {
+        intent.getStringExtra("courseName") ?: ""
+    }
+
     private lateinit var courseDetailsContainer: LinearLayout
     private lateinit var studyPartnerDashboardContainer: View
     private lateinit var backButton: Button
@@ -39,16 +44,15 @@ class CourseDetailActivity : AppCompatActivity() {
     private lateinit var studentsRecyclerView: RecyclerView
     private lateinit var goToNoteSharingDashboardButton: Button // New button
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.course_detail)
 
+        // Retrieve the subject and course from the Intent
         val subject = intent.getStringExtra("subject") ?: "Unknown subject"
-        val courseName = intent.getStringExtra("courseName") ?: "Unknown course"
         findViewById<TextView>(R.id.textsubject).text = "Subject: $subject"
-        findViewById<TextView>(R.id.textCourseName).text = "Course: $courseName"
+        findViewById<TextView>(R.id.textCourseName).text = "Course: $currentCourseName"
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.course_detail_activity)) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -60,7 +64,7 @@ class CourseDetailActivity : AppCompatActivity() {
         studyPartnerDashboardContainer = findViewById(R.id.studyPartnerDashboardContainer)
         backButton = findViewById(R.id.backButton)
         studyPartnerButton = findViewById(R.id.studyPartnerButton)
-        goToNoteSharingDashboardButton = findViewById(R.id.goToNoteSharingDashboardButton) // Find the new button
+        goToNoteSharingDashboardButton = findViewById(R.id.goToNoteSharingDashboardButton)
         groupProjectButton = findViewById(R.id.groupProjectButton)
         addUserItem = findViewById(R.id.addUserItem)
         studentsRecyclerView = findViewById(R.id.studentsRecyclerView)
@@ -78,52 +82,77 @@ class CourseDetailActivity : AppCompatActivity() {
             startActivity(Intent(this, GroupProjectDashboardActivity::class.java))
         }
         addUserItem.setOnClickListener {
-            startActivity(Intent(this, spmatching::class.java))
+            startActivity(Intent(this, spmatching::class.java).apply {
+                putExtra("courseName", currentCourseName)
+            })
         }
         backButton.setOnClickListener {
             studyPartnerDashboardContainer.visibility = View.GONE
             courseDetailsContainer.visibility = View.VISIBLE
-
         }
     }
 
+    /**
+     * Load all study-partner requests where:
+     * - The user is involved.
+     * - The request's 'course' == currentCourseName.
+     * - Status == accepted or user-blocked requests.
+     * Then display them with aggregator logic if desired.
+     */
     private fun loadPartners() {
         db.child("study_partner_requests")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val partnerList = mutableListOf<Student>()
+                    val partnerMap = mutableMapOf<String, MutableSet<String>>()
+                    val partnerStatusMap = mutableMapOf<String, String>()
+                    val partnerBlockedByMap = mutableMapOf<String, String?>()
+
                     snapshot.children.forEach { child ->
-                        val request = child.getValue(StudyPartnerRequest::class.java) ?: return@forEach
-                        if ((request.senderId == currentUserId || request.receiverId == currentUserId)
-                            && (request.status == "accepted" || (request.status == "blocked" && request.blockedBy == currentUserId))
+                        val req = child.getValue(StudyPartnerRequest::class.java) ?: return@forEach
+                        if ((req.senderId == currentUserId || req.receiverId == currentUserId)
+                            && req.course == currentCourseName
+                            && (req.status == "accepted" || (req.status == "blocked" && req.blockedBy == currentUserId))
                         ) {
-                            val partnerId = if (request.senderId == currentUserId) request.receiverId else request.senderId
-                            // Fetch partner's name in real time
-                            db.child("users").child(partnerId).child("name")
-                                .get().addOnSuccessListener { nameSnap ->
-                                    val partnerName = nameSnap.getValue(String::class.java) ?: "Unknown"
-                                    partnerList.add(
-                                        Student(
-                                            id = partnerId,
-                                            name = partnerName,
-                                            status = request.status,
-                                            blockedBy = request.blockedBy
-                                        )
-                                    )
-                                    // Update the adapter once the full snapshot has been processed.
-                                    studentsRecyclerView.adapter = PartnerAdapter(partnerList)
-                                    studentsRecyclerView.visibility = if (partnerList.isEmpty()) View.GONE else View.VISIBLE
-                                }
+                            // Identify partner ID
+                            val partnerId = if (req.senderId == currentUserId) req.receiverId else req.senderId
+                            if (!partnerMap.containsKey(partnerId)) {
+                                partnerMap[partnerId] = mutableSetOf()
+                            }
+                            partnerMap[partnerId]?.add(req.course)
+                            partnerStatusMap[partnerId] = req.status
+                            partnerBlockedByMap[partnerId] = req.blockedBy
                         }
                     }
-                    if (partnerList.isEmpty()) {
-                        studentsRecyclerView.adapter = PartnerAdapter(partnerList)
+
+                    val partnerList = mutableListOf<Student>()
+                    partnerMap.forEach { (partnerId, coursesSet) ->
+                        db.child("users").child(partnerId).child("name").get()
+                            .addOnSuccessListener { nameSnap ->
+                                val partnerName = nameSnap.getValue(String::class.java) ?: "Unknown"
+                                val coursesStr = coursesSet.joinToString(", ")
+                                val status = partnerStatusMap[partnerId] ?: "accepted"
+                                val blockedBy = partnerBlockedByMap[partnerId]
+
+                                // Display partner name with aggregated courses
+                                val nameWithCourses = "$partnerName ($coursesStr)"
+                                partnerList.add(Student(
+                                    id = partnerId,
+                                    name = nameWithCourses,
+                                    status = status,
+                                    blockedBy = blockedBy
+                                ))
+                                studentsRecyclerView.adapter = PartnerAdapter(partnerList)
+                                studentsRecyclerView.visibility = if (partnerList.isEmpty()) View.GONE else View.VISIBLE
+                            }
+                    }
+
+                    if (partnerMap.isEmpty()) {
+                        studentsRecyclerView.adapter = PartnerAdapter(emptyList())
                         studentsRecyclerView.visibility = View.GONE
                     }
                 }
-                override fun onCancelled(error: DatabaseError) {
-                    // Optionally handle errors here.
-                }
+
+                override fun onCancelled(error: DatabaseError) {}
             })
     }
 
@@ -143,7 +172,7 @@ class CourseDetailActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: Holder, position: Int) {
             val partner = items[position]
-            val blocked = partner.status == "blocked"
+            val blocked = (partner.status == "blocked")
             holder.nameBtn.text = if (blocked) "${partner.name} [BLOCKED]" else partner.name
 
             holder.nameBtn.setOnClickListener {
@@ -156,6 +185,7 @@ class CourseDetailActivity : AppCompatActivity() {
                     showToast("Partner is blocked. Long press to unblock or remove.")
                 }
             }
+
             holder.nameBtn.setOnLongClickListener {
                 if (blocked && partner.blockedBy == currentUserId) showBlockedPrompt(partner)
                 else if (!blocked) showRemoveOrBlockPrompt(partner)
@@ -187,63 +217,78 @@ class CourseDetailActivity : AppCompatActivity() {
         .setNegativeButton("Cancel", null)
         .show()
 
-    private fun removePartner(p:Student){
-        val pid=p.id ?: return
-        db.child("study_partner_requests").orderByChild("status").equalTo(p.status)
-            .addListenerForSingleValueEvent(object:ValueEventListener{
-                override fun onDataChange(s:DataSnapshot){
-                    s.children.forEach{c->
-                        val r=c.getValue(StudyPartnerRequest::class.java) ?: return@forEach
-                        if((r.senderId==currentUserId&&r.receiverId==pid)||(r.receiverId==currentUserId&&r.senderId==pid)){
-                            c.ref.removeValue().addOnSuccessListener{ showToast("Removed"); loadPartners() }
+    private fun removePartner(p: Student) {
+        val pid = p.id ?: return
+        db.child("study_partner_requests")
+            .orderByChild("course")
+            .equalTo(currentCourseName)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(s: DataSnapshot) {
+                    s.children.forEach { c ->
+                        val r = c.getValue(StudyPartnerRequest::class.java) ?: return@forEach
+                        if (isThisRequest(r, pid)) {
+                            c.ref.removeValue().addOnSuccessListener {
+                                showToast("Partner removed from $currentCourseName")
+                                loadPartners()
+                            }
                         }
                     }
                 }
-                override fun onCancelled(e:DatabaseError){}
+                override fun onCancelled(e: DatabaseError) {}
             })
     }
 
-    private fun blockPartner(p:Student){
-        val pid=p.id ?: return
+    private fun blockPartner(p: Student) {
+        val pid = p.id ?: return
         db.child("study_partner_requests")
-            .addListenerForSingleValueEvent(object:ValueEventListener{
-                override fun onDataChange(s:DataSnapshot){
-                    s.children.forEach{c->
-                        val r=c.getValue(StudyPartnerRequest::class.java)?:return@forEach
-                        if(isThisRequest(r,pid)){
+            .orderByChild("course")
+            .equalTo(currentCourseName)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(s: DataSnapshot) {
+                    s.children.forEach { c ->
+                        val r = c.getValue(StudyPartnerRequest::class.java) ?: return@forEach
+                        if (isThisRequest(r, pid)) {
                             c.ref.child("status").setValue("blocked")
                             c.ref.child("blockedBy").setValue(currentUserId)
-                                .addOnSuccessListener{ showToast("Blocked"); loadPartners() }
+                                .addOnSuccessListener {
+                                    showToast("Partner blocked in $currentCourseName")
+                                    loadPartners()
+                                }
                         }
                     }
                 }
-                override fun onCancelled(e:DatabaseError){}
+                override fun onCancelled(e: DatabaseError) {}
             })
     }
 
-    private fun unblockPartner(p:Student){
-        val pid=p.id ?: return
+    private fun unblockPartner(p: Student) {
+        val pid = p.id ?: return
         db.child("study_partner_requests")
-            .addListenerForSingleValueEvent(object:ValueEventListener{
-                override fun onDataChange(s:DataSnapshot){
-                    s.children.forEach{c->
-                        val r=c.getValue(StudyPartnerRequest::class.java)?:return@forEach
-                        if(isThisRequest(r,pid)&&r.blockedBy==currentUserId){
+            .orderByChild("course")
+            .equalTo(currentCourseName)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(s: DataSnapshot) {
+                    s.children.forEach { c ->
+                        val r = c.getValue(StudyPartnerRequest::class.java) ?: return@forEach
+                        if (isThisRequest(r, pid) && r.blockedBy == currentUserId) {
                             c.ref.child("status").setValue("accepted")
                             c.ref.child("blockedBy").removeValue()
-                                .addOnSuccessListener{ showToast("Unblocked"); loadPartners() }
+                                .addOnSuccessListener {
+                                    showToast("Partner unblocked in $currentCourseName")
+                                    loadPartners()
+                                }
                         }
                     }
                 }
-                override fun onCancelled(e:DatabaseError){}
+                override fun onCancelled(e: DatabaseError) {}
             })
     }
 
-    private fun isThisRequest(r:StudyPartnerRequest,pid:String)=
-        (r.senderId==currentUserId&&r.receiverId==pid)||(r.receiverId==currentUserId&&r.senderId==pid)
+    private fun isThisRequest(r: StudyPartnerRequest, pid: String) =
+        (r.senderId == currentUserId && r.receiverId == pid) ||
+                (r.receiverId == currentUserId && r.senderId == pid)
 
-    private fun showToast(msg:String){
-        Toast.makeText(this,msg, Toast.LENGTH_SHORT).show()
+    private fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }
-
