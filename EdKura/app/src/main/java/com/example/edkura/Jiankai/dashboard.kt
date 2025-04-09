@@ -81,7 +81,6 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
         settings = findViewById(R.id.sidebar_setting)
         userName = findViewById(R.id.username)
         userEmail = findViewById(R.id.useremail)
-        chat = findViewById(R.id.chat_icon)
         studyPartner = findViewById(R.id.sp_icon)
         logoutButton = findViewById(R.id.logout)
 
@@ -129,10 +128,10 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
 
     private fun updateSidebarLayout(rectWidth: Float) {
         if (rectWidth <= 20f) {
-            // 设置为 GONE 完全不占空间
+
             sidebarView.visibility = View.GONE
 
-            // 确保宽度真的为 0
+
             val params = sidebarView.layoutParams as ConstraintLayout.LayoutParams
             params.width = 0
             sidebarView.layoutParams = params
@@ -140,6 +139,7 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
         }
 
         // 否则显示它
+        //Otherwise display it
         sidebarView.visibility = View.VISIBLE
 
         val params = sidebarView.layoutParams as ConstraintLayout.LayoutParams
@@ -152,23 +152,23 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
 
     // Update the list in the adapter based on the student's addedClasses
     private fun updateCourseList() {
-        // 解析课程数据：以空格分隔课程信息，返回一个 subject 和 courseName 的 Pair
+
         val courseList = student.addedClasses.map { course ->
             if (course.startsWith("Computer Science")) {
-                // 如果课程名称是 Computer Science，就手动修正
+                // only for computer science
                 val subject = "Computer Science"
-                // 获取课程编号（例如 Comp100），即空格后的部分
+
                 val courseName = course.substring("Computer Science".length).trim()
                 Pair(subject, courseName)
             } else {
-                // 对其他课程正常处理
+
                 val parts = course.split(" ", limit = 2)  // 按空格分割课程信息
                 val subject = if (parts.size > 1) parts[0] else "Unknown"  // 如果分割成功，取第一个部分为科目
                 val courseName = if (parts.size > 1) parts[1] else course  // 第二部分为课程名
                 Pair(subject, courseName)
             }
         }
-        // 将转换后的课程列表传给适配器
+
         courseAdapter.updateData(courseList)
     }
 
@@ -242,7 +242,6 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
     private fun loadRequests() {
         val userId = authUser.currentUser?.uid ?: return
 
-        // 使用正确的路径：study_partner_requests，而不是 studyPartnerRequests
         val ref = FirebaseDatabase.getInstance().getReference("study_partner_requests")
             .orderByChild("receiverId").equalTo(userId)
 
@@ -255,7 +254,6 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
                     if (request != null && request.status == "pending") {
                         requestList.add(request)
 
-                        // 如果发送者名称为空，尝试获取
                         if (request.senderName.isNullOrEmpty() || request.senderName == "Unknown") {
                             FirebaseDatabase.getInstance().getReference("users")
                                 .child(request.senderId)
@@ -270,6 +268,7 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
                 }
 
                 // 更新适配器数据
+                // Update adapter data
                 requestsAdapter.updateRequests(requestList)
             }
 
@@ -292,7 +291,6 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
             }
     }
 
-    // 修改 onDecline 方法
     override fun onDecline(request: StudyPartnerRequest) {
         database.child("study_partner_requests").child(request.id)
             .child(request.id)

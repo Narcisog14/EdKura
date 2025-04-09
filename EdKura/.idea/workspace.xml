@@ -13,11 +13,6 @@
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_group_project_dashboard.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_note_sharing_dashboard.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
@@ -33,6 +28,11 @@
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/br_item_request.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/br_spmatching.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
@@ -43,12 +43,37 @@
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_file_message.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_partner.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_course_item.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_dashboard.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_sidebar_view.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/message_item_received.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/message_item_sent.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/sidebar_request_adapter.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/student_item.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
@@ -64,8 +89,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c1e041ae-8055-4ef6-8bae-0361ad55ef06" name="Changes" comment="">
+    <list default="true" id="a619b1ec-aea4-4ca0-861c-81fe87579a41" name="Changes" comment="Study Partner Matching Feature Updated. Final App">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/courseAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/courseAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/dashboard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Jiankai/dashboard.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Narciso/CourseDetailActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Narciso/CourseDetailActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Rao/spmatching.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/edkura/Rao/spmatching.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/br_item_request.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/br_item_request.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/jk_sidebar_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/jk_sidebar_view.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/sidebar_request_adapter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/sidebar_request_adapter.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -127,9 +158,9 @@
         <option value="valueResourceFile" />
         <option value="Kotlin Data Class" />
         <option value="Class" />
-        <option value="Kotlin Class" />
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -159,8 +190,8 @@
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 7
-}</component>
+        &quot;associatedIndex&quot;: 7
+        }</component>
   <component name="ProjectId" id="2tsLeKJuVvT9ABD4DJBvasZyKsV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -279,7 +310,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c1e041ae-8055-4ef6-8bae-0361ad55ef06" name="Changes" comment="" />
+      <changelist id="a619b1ec-aea4-4ca0-861c-81fe87579a41" name="Changes" comment="" />
       <created>1741135930116</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -316,12 +347,12 @@
       <map>
         <entry key="com.example.edkura">
           <value>
-            <CheckInfo lastCheckTimestamp="1744155456115" />
+            <CheckInfo lastCheckTimestamp="1744177688191" />
           </value>
         </entry>
         <entry key="com.example.edkura.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1744155456115" />
+            <CheckInfo lastCheckTimestamp="1744177688188" />
           </value>
         </entry>
       </map>
