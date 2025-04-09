@@ -12,5 +12,6 @@
     <string name="enter_note_title">Enter note title</string>
     <string name="select_class_date">Select Class Date</string>
     <string name="pick_a_file">Pick a File</string>
+    <string name="msg_token_fmt">Token: %1$s</string>
 
 </resources>
