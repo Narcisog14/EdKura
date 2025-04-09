@@ -8,11 +8,6 @@
       </config>
     </shared>
     <layouts>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_all_chats.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
@@ -53,12 +48,7 @@
           <theme>@style/Theme.EdKura</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_partner.xml">
-        <config>
-          <theme>@style/Theme.EdKura</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_dashboard.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_course_item.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
@@ -75,8 +65,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1e041ae-8055-4ef6-8bae-0361ad55ef06" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/jk_icon_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/profile_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/sidebar_request_adapter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/sidebar_request_adapter.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,13 +123,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Kotlin File" />
         <option value="valueResourceFile" />
         <option value="Kotlin Data Class" />
         <option value="Class" />
         <option value="Kotlin Class" />
-        <option value="resourceFile" />
-        <option value="Kotlin File" />
         <option value="layoutResourceFile" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -177,22 +167,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Android App.app.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "JK",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/narci/Downloads/EdKura-NG/EdKura-NG/EdKura",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;JK&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/narci/Downloads/EdKura-NG/EdKura-NG/EdKura&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\java\com\example\edkura" />
@@ -202,7 +192,6 @@
       <recent name="C:\Users\narci\AndroidStudioProjects\EdKura\EdKura\app\src\main\java\com\example\edkura" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\EdKura\EdKura\EdKura\app" />
       <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xxxhdpi" />
       <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xhdpi" />
       <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xxhdpi" />
