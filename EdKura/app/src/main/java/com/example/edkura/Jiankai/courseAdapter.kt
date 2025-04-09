@@ -31,15 +31,15 @@ class CourseAdapter(
             true
         }
 
-        // 直接传递 Pair 类型的课程信息
+
         holder.itemView.setOnClickListener {
-            onItemClick(courses[position])  // 传递 Pair 类型
+            onItemClick(courses[position])
         }
     }
 
     override fun getItemCount(): Int = courses.size
 
-    // 更新数据，重新设置 courses 为新的 List<Pair<String, String>>
+    //
     fun updateData(newCourses: List<Pair<String, String>>) {
         courses = newCourses
         notifyDataSetChanged()
