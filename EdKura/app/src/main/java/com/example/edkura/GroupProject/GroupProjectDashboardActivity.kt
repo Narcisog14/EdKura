@@ -2,6 +2,7 @@ package com.example.edkura.GroupProject
 
 import android.os.Bundle
 import android.view.View
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -9,7 +10,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.edkura.R
 import com.example.edkura.models.ProjectGroup
-import com.example.edkura.GroupProject.CreateGroupDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -27,8 +27,9 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
     private lateinit var addUserItem: FloatingActionButton
     private lateinit var promptMessage: TextView
     private lateinit var groupDescription: TextView
-    private val groups = mutableListOf<ProjectGroup>()
-    private var groupName = "" // Declared as class property
+    private lateinit var leaveGroupButton: FloatingActionButton
+    private var groupId: String? = null // Changed from val to var
+    private var currentGroup: ProjectGroup? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,8 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         addUserItem = findViewById(R.id.addUserItem)
         promptMessage = findViewById(R.id.promptMessage)
         groupDescription = findViewById(R.id.groupDescription)
+        leaveGroupButton = findViewById(R.id.leaveGroupButton)
+
 
         database = FirebaseDatabase
             .getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com")
@@ -47,6 +50,10 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         // Initially hide the group list and show the prompt
         groupDescription.visibility = View.GONE
         promptMessage.visibility = View.VISIBLE
+
+        leaveGroupButton.setOnClickListener {
+            showLeaveGroupConfirmationDialog()
+        }
 
         // Set the click listener for the card view
         addUserItem.setOnClickListener {
@@ -79,22 +86,14 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         database.child("projectGroups").orderByChild("members/$currentUserId").equalTo(true)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    groups.clear()
-
-                    for (dataSnapshot in snapshot.children) {
-                        val group = dataSnapshot.getValue(ProjectGroup::class.java)
-                        group?.let {
-                            groups.add(it)
-                            if (groups.isNotEmpty()){
-                                groupName = it.name
-                                updateUI(it)
-                            }else{
-                                updateUI(null)
-                            }
-
+                    if (snapshot.exists()) {
+                        for (dataSnapshot in snapshot.children) {
+                            groupId = dataSnapshot.key
+                            loadGroupDetails()
                         }
+                    } else {
+                        updateUI(null)
                     }
-
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -107,18 +106,76 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
             })
     }
 
+    private fun loadGroupDetails() {
+        if (groupId != null) {
+            database.child("projectGroups").child(groupId!!)
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        currentGroup = snapshot.getValue(ProjectGroup::class.java)
+                        updateUI(currentGroup)
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e(
+                            "GroupProjectDashboardActivity",
+                            "Error loading group details: ${error.message}"
+                        )
+                    }
+                })
+        }
+    }
+
     private fun updateUI(group: ProjectGroup?) {
         if (group != null) {
             // Show group name if there are groups
             dashboardTitle.text = group.name
             groupDescription.visibility = View.VISIBLE
-            groupDescription.text = "${group.description}"//Replace with the actual group description
+            groupDescription.text =
+                "${group.description}"//Replace with the actual group description
             promptMessage.visibility = View.GONE
         } else {
             // Show prompt if there are no groups
             dashboardTitle.text = ""
             groupDescription.visibility = View.GONE
             promptMessage.visibility = View.VISIBLE
+        }
+    }
+
+    private fun showLeaveGroupConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Leave Group")
+            .setMessage("Are you sure you want to leave this group?")
+            .setPositiveButton("Leave") { _, _ ->
+                leaveGroup()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun leaveGroup() {
+        if (groupId != null && currentGroup != null) {
+            //remove current user from the group
+            database.child("projectGroups").child(groupId!!).child("members")
+                .child(currentUserId).removeValue().addOnSuccessListener {
+                    //delete group if there are no members
+                    if (currentGroup?.members?.size == 1) {
+                        database.child("projectGroups").child(groupId!!).removeValue()
+                    }
+                    Toast.makeText(
+                        this@GroupProjectDashboardActivity,
+                        "You have left the group",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    updateUI(null)
+                }.addOnFailureListener {
+                    Toast.makeText(
+                        this@GroupProjectDashboardActivity,
+                        "Failed to leave the group",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
         }
     }
 }

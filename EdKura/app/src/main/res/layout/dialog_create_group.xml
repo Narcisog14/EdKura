@@ -33,5 +33,6 @@
         android:id="@+id/createGroupButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="#428E54"
         android:text="Create Group" />
 </LinearLayout>
