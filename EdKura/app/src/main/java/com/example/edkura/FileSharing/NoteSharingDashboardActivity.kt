@@ -220,8 +220,6 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
                         currentUserCourse = noteSharing
                         // Now load only the notes for this course.
                         listenForFiles()
-                    } else {
-                        Toast.makeText(this@NoteSharingDashboardActivity, "Course not set for user.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
