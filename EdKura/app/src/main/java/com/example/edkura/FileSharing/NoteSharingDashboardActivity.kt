@@ -20,6 +20,7 @@ import androidx.core.content.FileProvider
 import androidx.core.widget.addTextChangedListener
 import com.example.edkura.FileSharing.FileMessage
 import com.example.edkura.FileSharing.FileMessageAdapter
+import com.example.edkura.Narciso.Student
 import com.example.edkura.R
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -45,6 +46,10 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
     private var currentUserId: String = ""
     private var currentUserProfileName: String = ""
     private var currentUserCourse: String = ""
+    private val currentCourse: String by lazy {
+        intent.getStringExtra("courseName") ?: ""
+    }
+    private var senderName: String = "Unknown"
 
     // Data
     private val fileMessages = mutableListOf<FileMessage>()
@@ -65,21 +70,31 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
         }
     }
 
+    private var partnerList: List<Student> = listOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteSharingDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Log.d("currentCourse", currentCourse)
+
+        partnerList = intent.getParcelableArrayListExtra<Student>("partnerList") ?: listOf()
 
         // Retrieve extras from Intent
         currentUserId = intent.getStringExtra("USER_ID") ?: FirebaseAuth.getInstance().currentUser?.uid ?: ""
+        FirebaseDatabase.getInstance().reference
+            .child("users")
+            .child(currentUserId)
+            .child("name")
+            .get()
+            .addOnSuccessListener { snapshot ->
+                senderName = snapshot.getValue(String::class.java) ?: "Unknown"
+            }
         currentUserProfileName = intent.getStringExtra("USER_NAME") ?: ""
         currentUserCourse = intent.getStringExtra("USER_COURSE") ?: ""
 
         // Initialize Firebase
         database = FirebaseDatabase.getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com/").reference
-
-        // Fetch the current user's course from Firebase
-        fetchUserCourseAndLoadNotes()
 
         // Initialize custom adapter for ListView
         adapter = FileMessageAdapter(
@@ -189,15 +204,16 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun sendFile(title: String, classDate: String, fileName: String, fileData: String) {
+    private fun sendFile(title: String, classDate: String, fileName: String, fileData: String ) {
         val message = FileMessage(
             title = title,
             classDate = classDate,
-            uploader = currentUserProfileName,
             fileName = fileName,
             fileData = fileData,
             timestamp = System.currentTimeMillis(),
-            userId = currentUserId
+            userId = currentUserId ,
+            uploader = senderName,
+            courseName = currentCourse
         )
         database.child("noteSharing").child(currentUserCourse).push().setValue(message)
             .addOnSuccessListener {
@@ -209,54 +225,64 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
             }
     }
 
-    private fun fetchUserCourseAndLoadNotes() {
-        // Assume currentUserId is already set from Intent extras or FirebaseAuth
-        FirebaseDatabase.getInstance().reference.child("users").child(currentUserId)
-            .child("course")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val noteSharing = snapshot.getValue(String::class.java)
-                    if (noteSharing != null && noteSharing.isNotEmpty()) {
-                        currentUserCourse = noteSharing
-                        // Now load only the notes for this course.
-                        listenForFiles()
-                    }
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@NoteSharingDashboardActivity, "Error fetching course: ${error.message}", Toast.LENGTH_SHORT).show()
-                }
-            })
-    }
 
     private fun listenForFiles() {
-        database.child("noteSharing").child(currentUserCourse)
-            .addValueEventListener(object : ValueEventListener {
+        val course = currentUserCourse
+        // Step 1: 读取当前用户的 partnerList
+        database.child("study_partner_requests").child(course).child(currentUserId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    fileMessages.clear()
-                    val displayStrings = mutableListOf<String>()
-                    for (fileSnapshot in snapshot.children) {
-                        val fileMessage = fileSnapshot.getValue(FileMessage::class.java)
-                        if (fileMessage != null) {
-                            fileMessages.add(fileMessage)
-                            val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-                                .format(Date(fileMessage.timestamp))
-                            val displayText = "${fileMessage.title}\n" +
-                                    "From: ${fileMessage.uploader}\n" +
-                                    "File: ${fileMessage.fileName}\n" +
-                                    "Date: ${fileMessage.classDate}\n" +
-                                    "Time: $time\n(Tap to preview)"
-                            displayStrings.add(displayText)
-                        }
+                    val partnerId = partnerList.joinToString("\n") { student ->
+                        "id: ${student.id}"
                     }
-                    // Use the custom adapter for preview if desired, or update your ListView with displayStrings
-                    adapter.notifyDataSetChanged()
+                    // Step 2: 读取文件数据
+                    database.child("noteSharing").child(course)
+                        .addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(fileSnapshot: DataSnapshot) {
+                                fileMessages.clear()
+                                val displayStrings = mutableListOf<String>()
+                                Log.d("PartnerInfo", partnerId)
+
+                                for (snapshot in fileSnapshot.children) {
+                                    val fileMessage = snapshot.getValue(FileMessage::class.java) ?: continue
+                                    val uploaderId = fileMessage.userId
+
+                                    // 展示条件：1. 自己上传的；2. partner上传的 3.firebase课程是当前课程
+                                    //Display conditions:1. Uploaded by yourself; 2. 3. The firebase course is the current course
+                                    if ((uploaderId == currentUserId || partnerId.contains(uploaderId)) && fileMessage.courseName == currentCourse) {
+                                        Log.d("FileMessage courseName", fileMessage.courseName)
+                                        fileMessages.add(fileMessage)
+
+                                        val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+                                            .format(Date(fileMessage.timestamp))
+                                        val displayText = "${fileMessage.title}\n" +
+                                                "From: ${fileMessage.uploader}\n" +
+                                                "File: ${fileMessage.fileName}\n" +
+                                                "Date: ${fileMessage.classDate}\n" +
+                                                "Time: $time\n(Tap to preview)"
+                                        displayStrings.add(displayText)
+                                    }
+                                }
+
+                                adapter.notifyDataSetChanged()
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                Toast.makeText(this@NoteSharingDashboardActivity, "Failed to load files", Toast.LENGTH_SHORT).show()
+                            }
+                        })
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@NoteSharingDashboardActivity, "Failed to load files", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@NoteSharingDashboardActivity, "Failed to load partner data", Toast.LENGTH_SHORT).show()
                 }
             })
+
     }
+
+
+
+
 
     private fun filterNotes(query: String) {
         val filtered = fileMessages.filter { fileMsg ->
