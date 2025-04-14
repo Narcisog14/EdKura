@@ -96,6 +96,7 @@ class CourseDetailActivity : AppCompatActivity() {
         }
         groupProjectButton.setOnClickListener {
             startActivity(Intent(this, GroupProjectDashboardActivity::class.java))
+
         }
         addUserItem.setOnClickListener {
             startActivity(Intent(this, spmatching::class.java).apply {
