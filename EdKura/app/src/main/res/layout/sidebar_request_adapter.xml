@@ -1,0 +1,33 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+
+    <TextView
+        android:id="@+id/requestTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxLines="2"
+        android:text="From: sender"
+        android:textSize="16sp" />
+
+
+    <Button
+        android:id="@+id/acceptButton"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#428E54"
+        android:text="yes" />
+
+
+    <Button
+        android:id="@+id/declineButton"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#8E4250"
+        android:text="No" />
+</LinearLayout>

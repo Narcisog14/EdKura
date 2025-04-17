@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.example.edkura.R
-import com.example.edkura.Rao.RequestsAdapter
 
 class spmatching : AppCompatActivity(), RequestsAdapter.OnRequestActionListener {
 

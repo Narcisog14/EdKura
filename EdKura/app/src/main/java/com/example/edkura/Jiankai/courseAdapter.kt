@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edkura.R
 
 class CourseAdapter(
-    private var courses: List<Pair<String, String>>,
+    private var courses: List<Pair<String, String>>,  // 变为 List<Pair<String, String>>
     private val onLongClick: (Int) -> Unit,
-    private val onItemClick: (Pair<String, String>) -> Unit // ✅ Added click event callback
+    private val onItemClick: (Pair<String, String>) -> Unit  // 接收 Pair 类型
 ) : RecyclerView.Adapter<CourseAdapter.CourseViewHolder>() {
 
     class CourseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -22,7 +22,7 @@ class CourseAdapter(
     }
 
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
-        val (subject, course) = courses[position]
+        val (subject, course) = courses[position]  // 直接从 Pair 中提取 subject 和 course
         holder.courseName.text = course
         holder.subject.text = subject
 
@@ -31,7 +31,7 @@ class CourseAdapter(
             true
         }
 
-        // ✅ 添加点击事件
+
         holder.itemView.setOnClickListener {
             onItemClick(courses[position])
         }
@@ -39,6 +39,7 @@ class CourseAdapter(
 
     override fun getItemCount(): Int = courses.size
 
+    //
     fun updateData(newCourses: List<Pair<String, String>>) {
         courses = newCourses
         notifyDataSetChanged()

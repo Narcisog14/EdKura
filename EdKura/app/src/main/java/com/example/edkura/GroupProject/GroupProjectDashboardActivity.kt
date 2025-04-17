@@ -1,15 +1,17 @@
 package com.example.edkura.GroupProject
 
 import android.os.Bundle
-import android.view.View
 import android.util.Log
-import android.widget.Button
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.edkura.R
 import com.example.edkura.models.ProjectGroup
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -28,8 +30,20 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
     private lateinit var promptMessage: TextView
     private lateinit var groupDescription: TextView
     private lateinit var leaveGroupButton: FloatingActionButton
-    private var groupId: String? = null // Changed from val to var
+    private var groupId: String? = null
     private var currentGroup: ProjectGroup? = null
+    private lateinit var groupInviteList: MutableList<GroupInvite>
+    private lateinit var buttonsLinearLayout: LinearLayout
+
+
+    data class GroupInvite(
+        val inviteId: String = "",
+        val groupId: String = "",
+        val invitedBy: String = "",
+        val groupName: String = "",
+        val invitedByUserName: String = "",
+        var status: String = ""
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,15 +55,21 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         promptMessage = findViewById(R.id.promptMessage)
         groupDescription = findViewById(R.id.groupDescription)
         leaveGroupButton = findViewById(R.id.leaveGroupButton)
+        groupInviteList = mutableListOf()
+        buttonsLinearLayout = findViewById(R.id.buttonsLinearLayout)
 
 
         database = FirebaseDatabase
             .getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com")
             .reference
 
-        // Initially hide the group list and show the prompt
+        // Initially hide the group description and show the prompt
         groupDescription.visibility = View.GONE
         promptMessage.visibility = View.VISIBLE
+        // Initially hide leave group button and the cardviews
+        leaveGroupButton.visibility = View.GONE
+        buttonsLinearLayout.visibility = View.GONE
+
 
         leaveGroupButton.setOnClickListener {
             showLeaveGroupConfirmationDialog()
@@ -63,6 +83,7 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         loadGroups()
     }
 
+
     private fun showCreateOrJoinDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Create or Join a Group")
@@ -74,9 +95,17 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         }
 
         builder.setNegativeButton("Join Group") { dialog, _ ->
-            // Show join group dialog or navigate to join group activity
-            Toast.makeText(this, "Join Group Clicked", Toast.LENGTH_SHORT).show()
+            loadGroupInvites()
             dialog.dismiss()
+        }
+
+        // Check if the user is in a group before showing the "Invite to Group" button
+        if (groupId != null) {
+            builder.setNeutralButton("Invite to Group") { dialog, _ ->
+                val inviteMoreDialogFragment = InviteMoreDialogFragment.newInstance(groupId ?: "")
+                inviteMoreDialogFragment.show(supportFragmentManager, "inviteMoreDialogFragment")
+                dialog.dismiss()
+            }
         }
 
         builder.show()
@@ -91,8 +120,12 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
                             groupId = dataSnapshot.key
                             loadGroupDetails()
                         }
+                        //show the buttons
+                        updateButtonsVisibility(true)
                     } else {
                         updateUI(null)
+                        //hide the buttons
+                        updateButtonsVisibility(false)
                     }
                 }
 
@@ -116,10 +149,11 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        Log.e(
-                            "GroupProjectDashboardActivity",
-                            "Error loading group details: ${error.message}"
-                        )
+                        Toast.makeText(
+                            this@GroupProjectDashboardActivity,
+                            "Failed to load group details",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 })
         }
@@ -127,17 +161,26 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
 
     private fun updateUI(group: ProjectGroup?) {
         if (group != null) {
-            // Show group name if there are groups
-            dashboardTitle.text = group.name
-            groupDescription.visibility = View.VISIBLE
-            groupDescription.text =
-                "${group.description}"//Replace with the actual group description
+            // If a group exists, update the UI to reflect the group's information
             promptMessage.visibility = View.GONE
+            groupDescription.visibility = View.VISIBLE
+            dashboardTitle.text = group.name
+            groupDescription.text = group.description
+
         } else {
-            // Show prompt if there are no groups
-            dashboardTitle.text = ""
-            groupDescription.visibility = View.GONE
+            // If no group exists, update the UI to prompt the user to create or join one
             promptMessage.visibility = View.VISIBLE
+            groupDescription.visibility = View.GONE
+            dashboardTitle.text = getString(R.string.group_dashboard_title)
+        }
+    }
+    private fun updateButtonsVisibility(isMember:Boolean){
+        if(isMember){
+            leaveGroupButton.isVisible = true
+            buttonsLinearLayout.isVisible = true
+        } else {
+            leaveGroupButton.isVisible = false
+            buttonsLinearLayout.isVisible = false
         }
     }
 
@@ -145,37 +188,170 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle("Leave Group")
             .setMessage("Are you sure you want to leave this group?")
-            .setPositiveButton("Leave") { _, _ ->
-                leaveGroup()
-            }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
+            .setPositiveButton("Leave") { _, _ -> leaveGroup() }
+            .setNegativeButton("Cancel", null)
             .show()
     }
 
     private fun leaveGroup() {
-        if (groupId != null && currentGroup != null) {
-            //remove current user from the group
-            database.child("projectGroups").child(groupId!!).child("members")
-                .child(currentUserId).removeValue().addOnSuccessListener {
-                    //delete group if there are no members
-                    if (currentGroup?.members?.size == 1) {
-                        database.child("projectGroups").child(groupId!!).removeValue()
+        if (groupId != null && currentUserId.isNotEmpty()) {
+            val groupRef = database.child("projectGroups").child(groupId!!)
+            groupRef.child("members").child(currentUserId).removeValue()
+                .addOnSuccessListener {
+                    Toast.makeText(this, "You have left the group", Toast.LENGTH_SHORT).show()
+                    loadGroups() // Reload groups to update the UI
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Failed to leave group", Toast.LENGTH_SHORT).show()
+                    Log.e("GroupProjectDashboard", "Failed to leave group", it)
+                }
+        }
+    }
+
+    private fun loadGroupInvites() {
+        database.child("groupInvites").orderByChild("userId").equalTo(currentUserId)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    groupInviteList.clear()
+                    if (snapshot.exists()) {
+                        val totalInvites = snapshot.childrenCount.toInt()
+                        var processedInvites = 0
+
+                        for (inviteSnapshot in snapshot.children) {
+                            val inviteId = inviteSnapshot.key ?: ""
+                            val groupId = inviteSnapshot.child("groupId").getValue(String::class.java) ?: ""
+
+                            // Retrieve group details for each invite
+                            database.child("projectGroups").child(groupId)
+                                .addListenerForSingleValueEvent(object : ValueEventListener {
+                                    override fun onDataChange(groupSnapshot: DataSnapshot) {
+                                        val group = groupSnapshot.getValue(ProjectGroup::class.java)
+                                        if (group != null) {
+                                            val invitedBy = group.creator
+                                            val invitedByUserNameRef = database.child("users").child(invitedBy).child("name")
+                                            invitedByUserNameRef.get().addOnSuccessListener { userNameSnapshot ->
+                                                val invitedByUserName = userNameSnapshot.getValue(String::class.java) ?: ""
+
+                                                val groupInvite = GroupInvite(
+                                                    inviteId = inviteId,
+                                                    groupId = groupId,
+                                                    invitedBy = invitedBy,
+                                                    groupName = group.name,
+                                                    invitedByUserName = invitedByUserName,
+                                                    status = "Pending"
+                                                )
+                                                groupInviteList.add(groupInvite)
+
+                                                // Show invites if all are loaded
+                                                processedInvites++
+                                                if (processedInvites == totalInvites) {
+                                                    showGroupInvitesDialog()
+                                                }
+                                            }.addOnFailureListener {
+                                                Toast.makeText(
+                                                    this@GroupProjectDashboardActivity,
+                                                    "failed to load the invited by",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                    }
+
+                                    override fun onCancelled(error: DatabaseError) {
+                                        Toast.makeText(
+                                            this@GroupProjectDashboardActivity,
+                                            "failed to load group details",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                })
+                        }
+                    } else {
+                        showGroupInvitesDialog()
                     }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(
                         this@GroupProjectDashboardActivity,
-                        "You have left the group",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    updateUI(null)
-                }.addOnFailureListener {
-                    Toast.makeText(
-                        this@GroupProjectDashboardActivity,
-                        "Failed to leave the group",
+                        "Failed to load invites",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+            })
+    }
+
+    private fun showGroupInvitesDialog() {
+        val builder = MaterialAlertDialogBuilder(this)
+        builder.setTitle("Group Invites")
+
+        if (groupInviteList.isEmpty()) {
+            builder.setMessage("No pending group invites.")
+            builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+        } else {
+            val inviteNames = groupInviteList.map {
+                "${it.groupName} by ${it.invitedByUserName}"
+            }.toTypedArray()
+
+            builder.setItems(inviteNames) { _, which ->
+                val selectedInvite = groupInviteList[which]
+                showAcceptOrRejectDialog(selectedInvite)
+            }
         }
+
+        builder.show()
+    }
+
+    private fun showAcceptOrRejectDialog(invite: GroupInvite) {
+        val builder = MaterialAlertDialogBuilder(this)
+        builder.setTitle("Invite to ${invite.groupName} by ${invite.invitedByUserName}")
+        builder.setMessage("Do you want to accept or reject this invitation?")
+
+        builder.setPositiveButton("Accept") { dialog, _ ->
+            acceptGroupInvite(invite)
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Reject") { dialog, _ ->
+            rejectGroupInvite(invite)
+            dialog.dismiss()
+        }
+
+        builder.show()
+    }
+    private fun acceptGroupInvite(invite: GroupInvite) {
+        // Update projectGroups
+        val groupRef = database.child("projectGroups").child(invite.groupId)
+        groupRef.child("members").child(currentUserId).setValue(true)
+            .addOnSuccessListener {
+                groupRef.child("invitedUsers").child(currentUserId).removeValue()
+                    .addOnSuccessListener {
+                        // Update user
+                        database.child("groupInvites").child(invite.inviteId).removeValue()
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "Joined group successfully", Toast.LENGTH_SHORT).show()
+                                loadGroups()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(this, "Failed to remove invite", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this,"failed to remove the user from the invitedUsers",Toast.LENGTH_SHORT).show()
+                    }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to join group", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun rejectGroupInvite(invite: GroupInvite) {
+        database.child("groupInvites").child(invite.inviteId).removeValue()
+            .addOnSuccessListener {
+                Toast.makeText(this, "Invite rejected", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to reject invite", Toast.LENGTH_SHORT).show()
+            }
     }
 }

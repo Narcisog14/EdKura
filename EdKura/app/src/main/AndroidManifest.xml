@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -67,6 +70,11 @@
                 android:name=".chat.ChatActivity"
                 android:exported="false">
         </activity>
+        <activity
+            android:name=".chat.AllChatsActivity"
+            android:exported="false">
+        </activity>
+
 
         <!-- Note Sharing -->
         <activity
@@ -75,11 +83,25 @@
             android:parentActivityName=".Narciso.CourseDetailActivity"/>
 
         <!-- Student Partner Matching -->
+        <activity
+            android:name=".Rao.spmatching"
+            android:exported="false"
+            tools:ignore="DuplicateActivity">
+        </activity>
 
         <activity
             android:name=".GroupProject.GroupProjectDashboardActivity"
             android:exported="false">
         </activity>
+
+        <!-- Notifications -->
+        <service
+            android:name=".fcm.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
     </application>
 
