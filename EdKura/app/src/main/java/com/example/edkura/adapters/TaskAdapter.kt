@@ -12,6 +12,8 @@ import java.util.Locale
 
 class TaskAdapter(private val tasks: MutableList<Task>) :
     RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+    var onLongClick: ((Task) -> Unit)? = null
+
 
     class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val taskNameTextView: TextView = itemView.findViewById(R.id.taskNameTextView)
@@ -31,7 +33,14 @@ class TaskAdapter(private val tasks: MutableList<Task>) :
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         val formattedDeadline = currentTask.deadline?.let { dateFormat.format(it) } ?: "N/A"
         holder.deadlineTextView.text = "Deadline: $formattedDeadline"
+
+        // 🔴 Add long-click listener here
+        holder.itemView.setOnLongClickListener {
+            onLongClick?.invoke(currentTask)
+            true
+        }
     }
+
 
     override fun getItemCount(): Int {
         return tasks.size
