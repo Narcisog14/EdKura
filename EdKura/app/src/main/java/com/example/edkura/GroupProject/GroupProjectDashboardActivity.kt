@@ -9,8 +9,11 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import android.content.Intent
 import com.example.edkura.R
 import com.example.edkura.models.ProjectGroup
+import com.example.edkura.Deadlines.DeadlinesActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
@@ -34,6 +37,8 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
     private var currentGroup: ProjectGroup? = null
     private lateinit var groupInviteList: MutableList<GroupInvite>
     private lateinit var buttonsLinearLayout: LinearLayout
+    private lateinit var cardViewDeadlines: CardView
+
 
 
     data class GroupInvite(
@@ -56,6 +61,7 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         groupDescription = findViewById(R.id.groupDescription)
         leaveGroupButton = findViewById(R.id.leaveGroupButton)
         groupInviteList = mutableListOf()
+        cardViewDeadlines = findViewById(R.id.cardViewDeadlines)
         buttonsLinearLayout = findViewById(R.id.buttonsLinearLayout)
 
 
@@ -78,6 +84,11 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         // Set the click listener for the card view
         addUserItem.setOnClickListener {
             showCreateOrJoinDialog()
+        }
+        cardViewDeadlines.setOnClickListener {
+            Log.d("GroupProjectDashboard", "Deadlines button clicked!")
+            val intent = Intent(this, DeadlinesActivity::class.java)
+            startActivity(intent)
         }
 
         loadGroups()

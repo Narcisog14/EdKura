@@ -119,7 +119,6 @@
                 android:layout_height="wrap_content"
                 android:background="#428E54"
                 android:padding="16dp"
-                android:clickable="true"
                 android:text="Deadlines"
                 android:textStyle="bold"
                 android:textSize="18sp"

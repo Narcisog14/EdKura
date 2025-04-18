@@ -93,6 +93,9 @@
             android:name=".GroupProject.GroupProjectDashboardActivity"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".Deadlines.DeadlinesActivity"
+            android:exported="false"/>
 
         <!-- Notifications -->
         <service
