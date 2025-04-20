@@ -14,6 +14,7 @@ import android.content.Intent
 import com.example.edkura.R
 import com.example.edkura.models.ProjectGroup
 import com.example.edkura.Deadlines.DeadlinesActivity
+import com.example.edkura.FileSharing.FileMessage
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
@@ -39,6 +40,8 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
     private lateinit var buttonsLinearLayout: LinearLayout
     private lateinit var cardViewDeadlines: CardView
 
+    private var currentUserCourse: String = ""
+
 
 
     data class GroupInvite(
@@ -63,6 +66,8 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         groupInviteList = mutableListOf()
         cardViewDeadlines = findViewById(R.id.cardViewDeadlines)
         buttonsLinearLayout = findViewById(R.id.buttonsLinearLayout)
+
+        currentUserCourse = intent.getStringExtra("courseName") ?: ""
 
 
         database = FirebaseDatabase
@@ -128,8 +133,13 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         for (dataSnapshot in snapshot.children) {
-                            groupId = dataSnapshot.key
-                            loadGroupDetails()
+                            val projectGroup = dataSnapshot.getValue(ProjectGroup::class.java) ?: continue
+                            Log.d("projectGroupCourse", projectGroup.course)
+                            if (projectGroup.course.contains(currentUserCourse)) {
+                                groupId = dataSnapshot.key
+                                Log.d("currentUserCourse2", currentUserCourse)
+                                loadGroupDetails()
+                            }
                         }
                         //show the buttons
                         updateButtonsVisibility(true)
