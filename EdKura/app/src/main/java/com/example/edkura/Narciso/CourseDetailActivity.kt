@@ -31,8 +31,6 @@ class CourseDetailActivity : AppCompatActivity() {
     private val db = FirebaseDatabase.getInstance().reference
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
-    private var loadedPartnerIds: List<String> = listOf()
-
     // Retrieve the current course from the Intent
     private val currentCourseName: String by lazy {
         intent.getStringExtra("courseName") ?: ""
@@ -95,8 +93,16 @@ class CourseDetailActivity : AppCompatActivity() {
             }
         }
         groupProjectButton.setOnClickListener {
-            startActivity(Intent(this, GroupProjectDashboardActivity::class.java))
+            loadPartnerIdList {
+                Log.d("LoadedPartnerIds", loadedPartners.joinToString("\n"))
 
+                val intent = Intent(this, GroupProjectDashboardActivity::class.java).apply {
+                    putExtra("courseName", currentCourseName)
+                    putExtra("USER_ID", currentUserId)
+                    putParcelableArrayListExtra("partnerList", loadedPartners)
+                }
+                startActivity(intent)
+            }
         }
         addUserItem.setOnClickListener {
             startActivity(Intent(this, spmatching::class.java).apply {
