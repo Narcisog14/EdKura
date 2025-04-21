@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
 
         if (user != null && user.isEmailVerified) {
             startActivity(Intent(this, DashboardActivity::class.java))
-            finish() // 关闭登录页
+            finish()
             return
         }
 

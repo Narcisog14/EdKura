@@ -1,6 +1,7 @@
 package com.example.edkura.GroupProject
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +11,9 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.edkura.R
 import com.example.edkura.models.ProjectGroup
-import com.example.edkura.models.User
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import java.util.UUID
 
 class CreateGroupDialogFragment : DialogFragment() {
@@ -27,7 +24,7 @@ class CreateGroupDialogFragment : DialogFragment() {
     private lateinit var database: DatabaseReference
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val currentUserId = auth.currentUser?.uid ?: ""
-    private var currentUserCourses = mutableListOf<String>()
+    private var currentUserCourses: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,7 +61,7 @@ class CreateGroupDialogFragment : DialogFragment() {
             name = groupName,
             description = groupDescription,
             creator = currentUserId,
-            course = currentUserCourses[0]
+            course = currentUserCourses
         )
         newGroup.members =
             mutableMapOf(currentUserId to true) // Add current user to members
@@ -80,22 +77,16 @@ class CreateGroupDialogFragment : DialogFragment() {
             }
     }
     private fun loadCurrentUserCourses() {
-        database.child("users").child(currentUserId)
-            .addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val currentUser = snapshot.getValue(User::class.java)
-                    if (currentUser != null) {
-                        currentUserCourses = currentUser.courses
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Failed to load current user",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            })
+        currentUserCourses = arguments?.getString("courseId") ?: ""
+        Log.d("currentUserCourses",currentUserCourses )
+    }
+    companion object {
+        fun newInstance(course: String): CreateGroupDialogFragment {
+            val fragment = CreateGroupDialogFragment()
+            val args = Bundle()
+            args.putString("courseId", course)
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

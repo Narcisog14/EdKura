@@ -105,7 +105,7 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         builder.setTitle("Create or Join a Group")
 
         builder.setPositiveButton("Create Group") { dialog, _ ->
-            val createGroupDialog = CreateGroupDialogFragment()
+            val createGroupDialog = CreateGroupDialogFragment.newInstance(currentUserCourse)
             createGroupDialog.show(supportFragmentManager, "CreateGroupDialog")
             dialog.dismiss()
         }
