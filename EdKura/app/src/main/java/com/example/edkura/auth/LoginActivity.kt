@@ -26,6 +26,14 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+
+        if (user != null && user.isEmailVerified) {
+            startActivity(Intent(this, DashboardActivity::class.java))
+            finish() // 关闭登录页
+            return
+        }
+
         emailEditText = findViewById(R.id.editTextEmail)
         passwordEditText = findViewById(R.id.editTextPassword)
         loginButton = findViewById(R.id.buttonLogin)
