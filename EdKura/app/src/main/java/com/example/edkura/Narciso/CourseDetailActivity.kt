@@ -98,8 +98,6 @@ class CourseDetailActivity : AppCompatActivity() {
 
                 val intent = Intent(this, GroupProjectDashboardActivity::class.java).apply {
                     putExtra("courseName", currentCourseName)
-                    putExtra("USER_ID", currentUserId)
-                    putParcelableArrayListExtra("partnerList", loadedPartners)
                 }
                 startActivity(intent)
             }
@@ -346,7 +344,7 @@ class CourseDetailActivity : AppCompatActivity() {
 
                     if (totalPartners == 0) {
                         loadedPartners = arrayListOf()
-                        onLoaded() // ✅ 没人，直接回调
+                        onLoaded()
                         return
                     }
 
@@ -370,7 +368,7 @@ class CourseDetailActivity : AppCompatActivity() {
                                 loadedCount++
                                 if (loadedCount == totalPartners) {
                                     loadedPartners = ArrayList(partnerList)
-                                    onLoaded() // ✅ 所有数据加载完毕，调用回调
+                                    onLoaded()
                                 }
                             }
                     }

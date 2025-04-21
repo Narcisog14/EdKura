@@ -82,6 +82,12 @@
             android:exported="false"
             android:parentActivityName=".Narciso.CourseDetailActivity"/>
 
+        <!-- Group Note Sharing -->
+        <activity
+            android:name=".GroupFileSharing.GroupNoteSharingDashboard"
+            android:exported="false"
+            android:parentActivityName=".GroupProject.GroupProjectDashboardActivity"/>
+
         <!-- Student Partner Matching -->
         <activity
             android:name=".Rao.spmatching"
