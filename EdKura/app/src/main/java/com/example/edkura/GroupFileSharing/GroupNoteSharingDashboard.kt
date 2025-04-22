@@ -42,7 +42,7 @@ class GroupNoteSharingDashboard : AppCompatActivity() {
 
     private lateinit var binding: ActivityNoteSharingDashboardBinding
     private lateinit var database: DatabaseReference
-
+    private lateinit var dashboardTitle: TextView
     // User info
     private var currentUserId: String = ""
     private var groupId: String = ""
@@ -78,7 +78,8 @@ class GroupNoteSharingDashboard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteSharingDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Log.d("currentCourse", currentCourse)
+        dashboardTitle = findViewById(R.id.dashboardTitle)
+        dashboardTitle.text = "Group Note"
 
         partnerList = intent.getParcelableArrayListExtra<Student>("partnerList") ?: listOf()
         groupId = intent.getStringExtra("GROUP_ID") ?: ""

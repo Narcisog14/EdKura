@@ -31,7 +31,8 @@
         android:text="Create a group or join a group"
         android:textSize="18sp"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/headerLayout" />
+        app:layout_constraintTop_toBottomOf="@id/headerLayout"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/groupDescription"
@@ -68,12 +69,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#428E54"
-                android:padding="16dp"
                 android:clickable="true"
+                android:padding="16dp"
                 android:text="Members"
-                android:textStyle="bold"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp"
-                android:textColor="#FFFFFF" />
+                android:textStyle="bold" />
 
         </androidx.cardview.widget.CardView>
 
@@ -93,12 +94,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#2b77a6"
-                android:padding="16dp"
                 android:clickable="true"
+                android:padding="16dp"
                 android:text="Project Files"
-                android:textStyle="bold"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp"
-                android:textColor="#FFFFFF" />
+                android:textStyle="bold" />
 
         </androidx.cardview.widget.CardView>
 
@@ -120,9 +121,9 @@
                 android:background="#428E54"
                 android:padding="16dp"
                 android:text="Deadlines"
-                android:textStyle="bold"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp"
-                android:textColor="#FFFFFF" />
+                android:textStyle="bold" />
 
         </androidx.cardview.widget.CardView>
     </LinearLayout>
