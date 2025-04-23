@@ -9,4 +9,5 @@ data class GroupFile (
     var fileData: String = "",      // Base64-encoded file content
     var timestamp: Long = 0,        // When the file was sent
     var userId: String = "",        // ID of the uploader
+
 )
