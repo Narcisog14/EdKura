@@ -18,16 +18,16 @@
 
     <Button
         android:id="@+id/acceptButton"
-        android:layout_width="80dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#428E54"
-        android:text="yes" />
+        android:text="Accept" />
 
 
     <Button
         android:id="@+id/declineButton"
-        android:layout_width="80dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#8E4250"
-        android:text="No" />
+        android:text="Decline" />
 </LinearLayout>

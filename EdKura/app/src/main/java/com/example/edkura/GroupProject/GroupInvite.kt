@@ -8,3 +8,4 @@ data class GroupInvite(
     val invitedByUserName: String = "",
     val status: String = ""
 )
+

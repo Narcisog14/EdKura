@@ -1,4 +1,5 @@
 package com.example.edkura
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -9,26 +10,44 @@ import com.example.edkura.Jiankai.classManagement
 import com.example.edkura.Jiankai.Student
 import com.example.edkura.Jiankai.CustomRequestsAdapter
 import CourseAdapter
+import android.content.pm.PackageManager
+import android.os.Build
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import com.example.edkura.Narciso.CourseDetailActivity
 import com.example.edkura.auth.LoginActivity
 import com.example.edkura.Jiankai.ProfileActivity
 import com.example.edkura.Jiankai.jiankaiUI.CustomCanvasView
 import com.example.edkura.Rao.StudyPartnerRequest
+import com.example.edkura.chat.AllChatsActivity
+import com.example.edkura.utils.NotificationUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.messaging.FirebaseMessaging
 
 class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestActionListener {
+
+    companion object {
+        private const val REQUEST_NOTIF = 1001
+    }
+
     private lateinit var student: Student  // Student object that holds courses locally
     private lateinit var recyclerViewCourse: RecyclerView
     private lateinit var courseAdapter: CourseAdapter
     private lateinit var authUser: FirebaseAuth
+
+    // these two point at the little red badges
+    private lateinit var chatBadge: TextView
+
+    // counters
+    private var unreadChatCount = 0
+
+    // remember which message‐IDs we already notified on
+    private val seenMessages = mutableSetOf<String>()
 
     private lateinit var customCanvasView: CustomCanvasView
     private lateinit var sidebarView: View
@@ -45,6 +64,17 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
     private lateinit var requestRecyclerView: RecyclerView
     private lateinit var requestsAdapter: CustomRequestsAdapter
 
+    private val prefs by lazy {
+        getSharedPreferences("chat_prefs", MODE_PRIVATE)
+    }
+
+    /** When did I last read this room? (millis) */
+    private fun getLastRead(roomId: String): Long =
+        prefs.getLong("last_read_$roomId", 0L)
+
+    /** Update the “last read” marker for this room */
+    private fun setLastRead(roomId: String, ts: Long) =
+        prefs.edit().putLong("last_read_$roomId", ts).apply()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +86,8 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
 
         authUser = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
+
+        chatBadge = findViewById(R.id.chatBadge)
 
         recyclerViewCourse = findViewById(R.id.recyclerViewCourses)
         recyclerViewCourse.layoutManager = LinearLayoutManager(this)
@@ -70,31 +102,22 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
         recyclerViewCourse.adapter = courseAdapter
         updateCourseList()
 
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
-
-            // Get new FCM registration token
-            val token = task.result
-
-            // Log and toast
-            val msg = getString(R.string.msg_token_fmt, token)
-            Log.d(TAG, msg)
-            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-        })
-
-        // Chat button
-        val buttonChat: ImageButton = findViewById(R.id.buttonChat)
-        buttonChat.setOnClickListener {
-            startActivity(Intent(this, AllChatsActivity::class.java))
-        }
-
         // Navigate to class management
         val buttonSetting: ImageButton = findViewById(R.id.buttonSetting)
         buttonSetting.setOnClickListener {
             startActivity(Intent(this, classManagement::class.java))
+        }
+
+        // Navigate to all chats
+        findViewById<ImageButton>(R.id.buttonChat).setOnClickListener {
+            // reset counter + hide badge
+            unreadChatCount = 0
+            updateBadge(chatBadge, 0)
+            // also clear our seen‐set so future chats can notify again
+
+            startActivity(
+                Intent(this, AllChatsActivity::class.java)
+            )
         }
 
         //sidebar
@@ -103,7 +126,6 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
         settings = findViewById(R.id.sidebar_setting)
         userName = findViewById(R.id.username)
         userEmail = findViewById(R.id.useremail)
-        studyPartner = findViewById(R.id.sp_icon)
         logoutButton = findViewById(R.id.logout)
 
         requestRecyclerView = findViewById(R.id.requestRecyclerView)
@@ -146,7 +168,126 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
                 updateSidebarLayout(rectWidth)
             }
         })
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ActivityCompat.checkSelfPermission(
+                    this, Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    REQUEST_NOTIF
+                )
+            }
+        }
+
+        listenForIncomingRequests()
+        listenForIncomingChats()
     }
+
+    // Listen for incoming study-partner requests
+    private fun listenForIncomingRequests() {
+        val me = authUser.currentUser?.uid ?: return
+        database.child("study_partner_requests")
+            .orderByChild("receiverId")
+            .equalTo(me)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    // if you still want the popup—
+                    snapshot.children.forEach {
+                        val req = it.getValue(StudyPartnerRequest::class.java) ?: return@forEach
+                        if (req.status == "pending") {
+                            NotificationUtils.sendNotification(
+                                this@DashboardActivity,
+                                "New study-partner request",
+                                "${req.senderName} wants to connect"
+                            )
+                        }
+                    }
+                }
+                override fun onCancelled(e: DatabaseError) {}
+            })
+    }
+
+    private fun listenForIncomingChats() {
+        val me = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val chatsRef = database.child("chats")
+
+        chatsRef.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(roomSnap: DataSnapshot, prev: String?) {
+                val roomId = roomSnap.key ?: return
+                if (!roomId.contains(me)) return
+
+                // for each new message in that room…
+                roomSnap.child("messages").ref
+                    .addChildEventListener(object : ChildEventListener {
+                        override fun onChildAdded(msgSnap: DataSnapshot, p2: String?) {
+                            val sender = msgSnap.child("senderId").getValue(String::class.java) ?: return
+                            if (sender == me) return
+
+                            val ts = msgSnap.child("timestamp").getValue(Long::class.java) ?: return
+                            val lastRead = getLastRead(roomId)
+                            if (ts <= lastRead) {
+                                // I’ve already “read” up to here
+                                return
+                            }
+
+                            // bump our in-app badge
+                            unreadChatCount++
+                            updateBadge(chatBadge, unreadChatCount)
+
+                            // fire a system notification
+                            val text = msgSnap.child("text").getValue(String::class.java) ?: ""
+                            database.child("users").child(sender).child("name")
+                                .get().addOnSuccessListener { nameSnap ->
+                                    val otherName = nameSnap.getValue(String::class.java) ?: sender
+                                    NotificationUtils.sendNotification(
+                                        this@DashboardActivity,
+                                        "New message from $otherName",
+                                        text
+                                    )
+                                }
+                        }
+                        override fun onChildChanged(s: DataSnapshot, p2: String?) {}
+                        override fun onChildRemoved(s: DataSnapshot) {}
+                        override fun onChildMoved(s: DataSnapshot, p2: String?) {}
+                        override fun onCancelled(err: DatabaseError) {}
+                    })
+            }
+
+            override fun onChildChanged(s: DataSnapshot, p: String?) {}
+            override fun onChildRemoved(s: DataSnapshot) {}
+            override fun onChildMoved(s: DataSnapshot, p: String?) {}
+            override fun onCancelled(err: DatabaseError) {}
+        })
+    }
+
+    // handle the POST_NOTIFICATIONS permission result (optional)
+    private fun updateBadge(badge: TextView, count: Int) {
+        if (count > 0) {
+            badge.text = count.toString()
+            badge.visibility = View.VISIBLE
+        } else {
+            badge.visibility = View.GONE
+        }
+    }
+
+    // … your existing onAccept / onDecline etc. …
+
+    // (optional) handle user’s response to the POST_NOTIFICATIONS permission request
+    override fun onRequestPermissionsResult(
+        requestCode: Int, perms: Array<out String>, results: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, perms, results)
+        if (requestCode == REQUEST_NOTIF &&
+            results.firstOrNull() == PackageManager.PERMISSION_GRANTED
+        ) {
+            Toast.makeText(this, "Notifications enabled", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     private fun updateSidebarLayout(rectWidth: Float) {
         if (rectWidth <= 20f) {
@@ -303,10 +444,9 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
     // Handle request actions
     override fun onAccept(request: StudyPartnerRequest) {
         database.child("study_partner_requests").child(request.id)
-            .child(request.id)
             .child("status").setValue("accepted")
             .addOnSuccessListener {
-                Toast.makeText(this, "Accepted ${request.senderName}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Accepted ${request.senderName} for ${request.course}", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Acceptance failed", Toast.LENGTH_SHORT).show()
@@ -315,7 +455,6 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
 
     override fun onDecline(request: StudyPartnerRequest) {
         database.child("study_partner_requests").child(request.id)
-            .child(request.id)
             .child("status").setValue("declined")
             .addOnSuccessListener {
                 Toast.makeText(this, "Declined ${request.senderName}", Toast.LENGTH_SHORT).show()
