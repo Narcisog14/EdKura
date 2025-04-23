@@ -1,6 +1,5 @@
 package com.example.edkura.GroupProject
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -71,7 +70,6 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         database = FirebaseDatabase
             .getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com")
             .reference
-
         // initial UI
         promptMsg.visibility      = View.GONE
         descriptionTv.visibility  = View.GONE
