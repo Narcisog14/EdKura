@@ -8,6 +8,11 @@
       </config>
     </shared>
     <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_all_chats.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
@@ -79,6 +84,16 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/student_item.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_partner.xml">
+        <config>
+          <theme>@style/Theme.EdKura</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/jk_dashboard.xml">
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
@@ -155,7 +170,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin File" />
         <option value="valueResourceFile" />
         <option value="Kotlin Data Class" />
         <option value="layoutResourceFile" />
@@ -224,6 +238,7 @@
       <recent name="C:\Users\narci\AndroidStudioProjects\EdKura\EdKura\app\src\main\java\com\example\edkura" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\EdKura\EdKura\EdKura\app" />
       <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xxxhdpi" />
       <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xhdpi" />
       <recent name="E:\COMP350\Sprint2\EdKura\app\src\main\res\mipmap-xxhdpi" />
