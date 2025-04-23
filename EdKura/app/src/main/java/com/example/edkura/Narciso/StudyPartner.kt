@@ -2,14 +2,10 @@ package com.example.edkura.Narciso
 
 import android.content.Intent
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.example.edkura.R
-import com.example.edkura.Rao.spmatching
 import com.example.edkura.Rao.StudyPartnerRequest
 import com.example.edkura.chat.ChatActivity
 

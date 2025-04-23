@@ -30,6 +30,13 @@ class ChatActivity : AppCompatActivity() {
     private var messagesList = mutableListOf<Pair<String, Boolean>>()
     private var isBlocked = false
 
+    private val prefs by lazy { getSharedPreferences("chat_prefs", MODE_PRIVATE) }
+
+    // helper to persist each room’s “last read” timestamp
+    private fun setLastRead(roomId: String, ts: Long) {
+        prefs.edit().putLong("last_read_$roomId", ts).apply()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -67,6 +74,12 @@ class ChatActivity : AppCompatActivity() {
         unblockButton.setOnClickListener {
             unblockPartner(partnerId)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // mark “everything up to right now” as read
+        setLastRead(chatRoomId, System.currentTimeMillis())
     }
 
     private fun checkBlockStatus(partnerId: String) {

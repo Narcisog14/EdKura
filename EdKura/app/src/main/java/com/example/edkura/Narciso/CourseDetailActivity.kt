@@ -2,6 +2,7 @@ package com.example.edkura.Narciso
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -44,6 +45,8 @@ class CourseDetailActivity : AppCompatActivity() {
     private lateinit var studentsRecyclerView: RecyclerView
     private lateinit var goToNoteSharingDashboardButton: Button // New button
 
+    private var loadedPartners: ArrayList<Student> = arrayListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -76,10 +79,28 @@ class CourseDetailActivity : AppCompatActivity() {
             loadPartners()
         }
         goToNoteSharingDashboardButton.setOnClickListener {
-            startActivity(Intent(this, NoteSharingDashboardActivity::class.java))
+            loadPartnerIdList {
+                // 这里是数据加载完成之后再执行的代码
+                //Here's the code that will be executed after the data is loaded
+                Log.d("LoadedPartnerIds", loadedPartners.joinToString("\n"))
+
+                val intent = Intent(this, NoteSharingDashboardActivity::class.java).apply {
+                    putExtra("courseName", currentCourseName)
+                    putExtra("USER_ID", currentUserId)
+                    putParcelableArrayListExtra("partnerList", loadedPartners)
+                }
+                startActivity(intent)
+            }
         }
         groupProjectButton.setOnClickListener {
-            startActivity(Intent(this, GroupProjectDashboardActivity::class.java))
+            loadPartnerIdList {
+                Log.d("LoadedPartnerIds", loadedPartners.joinToString("\n"))
+
+                val intent = Intent(this, GroupProjectDashboardActivity::class.java).apply {
+                    putExtra("courseName", currentCourseName)
+                }
+                startActivity(intent)
+            }
         }
         addUserItem.setOnClickListener {
             startActivity(Intent(this, spmatching::class.java).apply {
@@ -141,6 +162,7 @@ class CourseDetailActivity : AppCompatActivity() {
                                     status = status,
                                     blockedBy = blockedBy
                                 ))
+                                loadedPartners = ArrayList(partnerList)
                                 studentsRecyclerView.adapter = PartnerAdapter(partnerList)
                                 studentsRecyclerView.visibility = if (partnerList.isEmpty()) View.GONE else View.VISIBLE
                             }
@@ -291,4 +313,69 @@ class CourseDetailActivity : AppCompatActivity() {
     private fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
+
+    private fun loadPartnerIdList(onLoaded: () -> Unit) {
+        db.child("study_partner_requests")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val partnerMap = mutableMapOf<String, MutableSet<String>>()
+                    val partnerStatusMap = mutableMapOf<String, String>()
+                    val partnerBlockedByMap = mutableMapOf<String, String?>()
+
+                    snapshot.children.forEach { child ->
+                        val req = child.getValue(StudyPartnerRequest::class.java) ?: return@forEach
+                        if ((req.senderId == currentUserId || req.receiverId == currentUserId)
+                            && req.course == currentCourseName
+                            && (req.status == "accepted" || (req.status == "blocked" && req.blockedBy == currentUserId))
+                        ) {
+                            val partnerId = if (req.senderId == currentUserId) req.receiverId else req.senderId
+                            if (!partnerMap.containsKey(partnerId)) {
+                                partnerMap[partnerId] = mutableSetOf()
+                            }
+                            partnerMap[partnerId]?.add(req.course)
+                            partnerStatusMap[partnerId] = req.status
+                            partnerBlockedByMap[partnerId] = req.blockedBy
+                        }
+                    }
+
+                    val partnerList = mutableListOf<Student>()
+                    val totalPartners = partnerMap.size
+                    var loadedCount = 0
+
+                    if (totalPartners == 0) {
+                        loadedPartners = arrayListOf()
+                        onLoaded()
+                        return
+                    }
+
+                    partnerMap.forEach { (partnerId, coursesSet) ->
+                        db.child("users").child(partnerId).child("name").get()
+                            .addOnSuccessListener { nameSnap ->
+                                val partnerName = nameSnap.getValue(String::class.java) ?: "Unknown"
+                                val coursesStr = coursesSet.joinToString(", ")
+                                val status = partnerStatusMap[partnerId] ?: "accepted"
+                                val blockedBy = partnerBlockedByMap[partnerId]
+                                val nameWithCourses = "$partnerName ($coursesStr)"
+
+                                partnerList.add(
+                                    Student(
+                                        id = partnerId,
+                                        name = nameWithCourses,
+                                        status = status,
+                                        blockedBy = blockedBy
+                                    )
+                                )
+                                loadedCount++
+                                if (loadedCount == totalPartners) {
+                                    loadedPartners = ArrayList(partnerList)
+                                    onLoaded()
+                                }
+                            }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
+    }
+
 }

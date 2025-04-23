@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:allowBackup="true"
@@ -82,16 +82,52 @@
             android:exported="false"
             android:parentActivityName=".Narciso.CourseDetailActivity"/>
 
+        <!-- Group Note Sharing -->
+        <activity
+            android:name=".GroupFileSharing.GroupNoteSharingDashboard"
+            android:exported="false"
+            android:parentActivityName=".GroupProject.GroupProjectDashboardActivity"/>
+
         <!-- Student Partner Matching -->
+        <activity
+            android:name=".Rao.spmatching"
+            android:exported="false"
+            tools:ignore="DuplicateActivity">
+        </activity>
 
         <activity
             android:name=".GroupProject.GroupProjectDashboardActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".GroupProject.GroupDetailActivity"
+            android:name=".GroupProject.GroupMembersActivity"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".GroupProject.GroupChatActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".Deadlines.DeadlinesActivity"
+            android:exported="false"/>
+
+        <!-- Notifications -->
+        <service
+            android:name=".fcm.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Notifications -->
+        <service
+            android:name=".fcm.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <!-- Notifications -->
         <service
