@@ -49,4 +49,5 @@ class UserSearchAdapter(
         users = newUsers
         notifyDataSetChanged()
     }
+
 }
