@@ -1,4 +1,4 @@
-package com.example.edkura.FileSharing
+package com.example.edkura.GroupFileSharing
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,6 +18,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.widget.addTextChangedListener
+import com.example.edkura.FileSharing.FileMessage
+import com.example.edkura.FileSharing.FileMessageAdapter
 import com.example.edkura.Narciso.Student
 import com.example.edkura.R
 import com.google.firebase.database.DataSnapshot
@@ -30,16 +33,19 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import com.example.edkura.databinding.ActivityNoteSharingDashboardBinding
+import com.example.edkura.models.ProjectGroup
 import java.util.Calendar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
-class NoteSharingDashboardActivity : AppCompatActivity() {
+class GroupNoteSharingDashboard : AppCompatActivity() {
 
     private lateinit var binding: ActivityNoteSharingDashboardBinding
     private lateinit var database: DatabaseReference
-
+    private lateinit var dashboardTitle: TextView
     // User info
     private var currentUserId: String = ""
+    private var groupId: String = ""
     private var currentUserProfileName: String = ""
     private var currentUserCourse: String = ""
     private val currentCourse: String by lazy {
@@ -72,9 +78,11 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteSharingDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Log.d("currentCourse", currentCourse)
+        dashboardTitle = findViewById(R.id.dashboardTitle)
+        dashboardTitle.text = "Group Note"
 
         partnerList = intent.getParcelableArrayListExtra<Student>("partnerList") ?: listOf()
+        groupId = intent.getStringExtra("GROUP_ID") ?: ""
 
         // Retrieve extras from Intent
         currentUserId = intent.getStringExtra("USER_ID") ?: FirebaseAuth.getInstance().currentUser?.uid ?: ""
@@ -211,7 +219,7 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
             uploader = senderName,
             courseName = currentCourse
         )
-        database.child("noteSharing").child(currentUserCourse).push().setValue(message)
+        database.child("GroupNoteSharing").child(currentUserCourse).push().setValue(message)
             .addOnSuccessListener {
                 Toast.makeText(this, "File sent", Toast.LENGTH_SHORT).show()
                 selectedFileUri = null
@@ -224,29 +232,22 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
 
     private fun listenForFiles() {
         val course = currentUserCourse
-        // Step 1: 读取当前用户的 partnerList
-        database.child("study_partner_requests").child(course).child(currentUserId)
+        //get the partner list
+        database.child("projectGroups").child(groupId).child("members")
             .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val partnerId = partnerList.joinToString("\n") { student ->
-                        "id: ${student.id}"
-                    }
-                    // Step 2: 读取文件数据
-                    database.child("noteSharing").child(course)
+                override fun onDataChange(memberSnapshot: DataSnapshot) {
+                    val members = memberSnapshot.children.mapNotNull { it.key }.toSet()
+                    database.child("GroupNoteSharing").child(currentUserCourse)
                         .addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(fileSnapshot: DataSnapshot) {
                                 fileMessages.clear()
                                 val displayStrings = mutableListOf<String>()
-                                Log.d("PartnerInfo", partnerId)
 
                                 for (snapshot in fileSnapshot.children) {
                                     val fileMessage = snapshot.getValue(FileMessage::class.java) ?: continue
                                     val uploaderId = fileMessage.userId
 
-                                    // 展示条件：1. 自己上传的；2. partner上传的 3.firebase课程是当前课程
-                                    //Display conditions:1. Uploaded by yourself; 2. 3. The firebase course is the current course
-                                    if ((uploaderId == currentUserId || partnerId.contains(uploaderId)) && fileMessage.courseName == currentCourse) {
-                                        Log.d("FileMessage courseName", fileMessage.courseName)
+                                    if ((uploaderId == currentUserId || members.contains(uploaderId)) && fileMessage.courseName == currentCourse) {
                                         fileMessages.add(fileMessage)
 
                                         val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
@@ -264,13 +265,14 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
                             }
 
                             override fun onCancelled(error: DatabaseError) {
-                                Toast.makeText(this@NoteSharingDashboardActivity, "Failed to load files", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@GroupNoteSharingDashboard, "Failed to load files", Toast.LENGTH_SHORT).show()
                             }
                         })
                 }
 
+
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@NoteSharingDashboardActivity, "Failed to load partner data", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@GroupNoteSharingDashboard, "Failed to load partner data", Toast.LENGTH_SHORT).show()
                 }
             })
 

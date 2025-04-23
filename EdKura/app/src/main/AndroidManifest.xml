@@ -82,6 +82,12 @@
             android:exported="false"
             android:parentActivityName=".Narciso.CourseDetailActivity"/>
 
+        <!-- Group Note Sharing -->
+        <activity
+            android:name=".GroupFileSharing.GroupNoteSharingDashboard"
+            android:exported="false"
+            android:parentActivityName=".GroupProject.GroupProjectDashboardActivity"/>
+
         <!-- Student Partner Matching -->
         <activity
             android:name=".Rao.spmatching"
@@ -96,6 +102,33 @@
         <activity
             android:name=".Deadlines.DeadlinesActivity"
             android:exported="false"/>
+
+        <!-- Notifications -->
+        <service
+            android:name=".fcm.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Notifications -->
+        <service
+            android:name=".fcm.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Notifications -->
+        <service
+            android:name=".fcm.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <!-- Notifications -->
         <service

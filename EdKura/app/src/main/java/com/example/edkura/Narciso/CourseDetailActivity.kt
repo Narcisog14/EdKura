@@ -31,8 +31,6 @@ class CourseDetailActivity : AppCompatActivity() {
     private val db = FirebaseDatabase.getInstance().reference
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
-    private var loadedPartnerIds: List<String> = listOf()
-
     // Retrieve the current course from the Intent
     private val currentCourseName: String by lazy {
         intent.getStringExtra("courseName") ?: ""
@@ -95,8 +93,14 @@ class CourseDetailActivity : AppCompatActivity() {
             }
         }
         groupProjectButton.setOnClickListener {
-            startActivity(Intent(this, GroupProjectDashboardActivity::class.java))
+            loadPartnerIdList {
+                Log.d("LoadedPartnerIds", loadedPartners.joinToString("\n"))
 
+                val intent = Intent(this, GroupProjectDashboardActivity::class.java).apply {
+                    putExtra("courseName", currentCourseName)
+                }
+                startActivity(intent)
+            }
         }
         addUserItem.setOnClickListener {
             startActivity(Intent(this, spmatching::class.java).apply {
@@ -340,7 +344,7 @@ class CourseDetailActivity : AppCompatActivity() {
 
                     if (totalPartners == 0) {
                         loadedPartners = arrayListOf()
-                        onLoaded() // ✅ 没人，直接回调
+                        onLoaded()
                         return
                     }
 
@@ -364,7 +368,7 @@ class CourseDetailActivity : AppCompatActivity() {
                                 loadedCount++
                                 if (loadedCount == totalPartners) {
                                     loadedPartners = ArrayList(partnerList)
-                                    onLoaded() // ✅ 所有数据加载完毕，调用回调
+                                    onLoaded()
                                 }
                             }
                     }

@@ -22,6 +22,7 @@ import com.example.edkura.Jiankai.jiankaiUI.CustomCanvasView
 import com.example.edkura.Rao.StudyPartnerRequest
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.messaging.FirebaseMessaging
 
 class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestActionListener {
     private lateinit var student: Student  // Student object that holds courses locally
@@ -68,6 +69,27 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
         )
         recyclerViewCourse.adapter = courseAdapter
         updateCourseList()
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            val msg = getString(R.string.msg_token_fmt, token)
+            Log.d(TAG, msg)
+            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+        })
+
+        // Chat button
+        val buttonChat: ImageButton = findViewById(R.id.buttonChat)
+        buttonChat.setOnClickListener {
+            startActivity(Intent(this, AllChatsActivity::class.java))
+        }
 
         // Navigate to class management
         val buttonSetting: ImageButton = findViewById(R.id.buttonSetting)

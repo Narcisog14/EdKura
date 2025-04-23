@@ -14,6 +14,7 @@ import android.content.Intent
 import com.example.edkura.R
 import com.example.edkura.models.ProjectGroup
 import com.example.edkura.Deadlines.DeadlinesActivity
+import com.example.edkura.GroupFileSharing.GroupNoteSharingDashboard
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
@@ -38,7 +39,9 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
     private lateinit var groupInviteList: MutableList<GroupInvite>
     private lateinit var buttonsLinearLayout: LinearLayout
     private lateinit var cardViewDeadlines: CardView
+    private lateinit var groupFileSharing: TextView
 
+    private var currentUserCourse: String = ""
 
 
     data class GroupInvite(
@@ -62,8 +65,10 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         leaveGroupButton = findViewById(R.id.leaveGroupButton)
         groupInviteList = mutableListOf()
         cardViewDeadlines = findViewById(R.id.cardViewDeadlines)
+        groupFileSharing = findViewById(R.id.buttonProjectFiles)
         buttonsLinearLayout = findViewById(R.id.buttonsLinearLayout)
 
+        currentUserCourse = intent.getStringExtra("courseName") ?: ""
 
         database = FirebaseDatabase
             .getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com")
@@ -100,7 +105,7 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
         builder.setTitle("Create or Join a Group")
 
         builder.setPositiveButton("Create Group") { dialog, _ ->
-            val createGroupDialog = CreateGroupDialogFragment()
+            val createGroupDialog = CreateGroupDialogFragment.newInstance(currentUserCourse)
             createGroupDialog.show(supportFragmentManager, "CreateGroupDialog")
             dialog.dismiss()
         }
@@ -128,8 +133,13 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         for (dataSnapshot in snapshot.children) {
-                            groupId = dataSnapshot.key
-                            loadGroupDetails()
+                            val projectGroup = dataSnapshot.getValue(ProjectGroup::class.java) ?: continue
+                            Log.d("projectGroupCourse", projectGroup.course)
+                            if (projectGroup.course.contains(currentUserCourse)) {
+                                groupId = dataSnapshot.key
+                                Log.d("currentUserCourse2", currentUserCourse)
+                                loadGroupDetails()
+                            }
                         }
                         //show the buttons
                         updateButtonsVisibility(true)
@@ -177,6 +187,21 @@ class GroupProjectDashboardActivity : AppCompatActivity() {
             groupDescription.visibility = View.VISIBLE
             dashboardTitle.text = group.name
             groupDescription.text = group.description
+            Log.d("updateUI", "Group is ${group?.name}")
+
+            groupFileSharing.setOnClickListener {
+                val currentGroupMembers = group.members.keys.toList()
+                Log.d("Current group members尝试获取: ", currentGroupMembers.toString())
+                val intent = Intent(this, GroupNoteSharingDashboard::class.java).apply {
+                    putStringArrayListExtra("memberUidList", ArrayList(currentGroupMembers))
+                    putExtra("courseName", currentUserCourse)
+                    putExtra("USER_ID", currentUserId)
+                    putExtra("USER_NAME", group.creator)
+                    putExtra("GROUP_ID", groupId)
+                }
+
+                startActivity(intent)
+            }
 
         } else {
             // If no group exists, update the UI to prompt the user to create or join one
