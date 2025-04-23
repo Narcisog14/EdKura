@@ -14,8 +14,5 @@
     <string name="pick_a_file">Pick a File</string>
     <string name="msg_token_fmt">Token: %1$s</string>
     <string name="group_dashboard_title"> </string>
-    <string name="add_task">Add Task</string>
-    <string name="sort_by_near">Sort by near</string>
-    <string name="sort_by_far">Sort by far</string>
 
 </resources>
