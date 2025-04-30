@@ -25,15 +25,10 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var sendButton: Button
     private lateinit var messageEditText: EditText
     private lateinit var unblockButton: Button
-    data class ChatMessage(
-        val text: String,
-        val senderId: String,
-        val isSentByCurrentUser: Boolean
-    )
 
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
     private lateinit var chatRoomId: String
-    private var messagesList = mutableListOf<ChatMessage>()
+    private var messagesList = mutableListOf<Pair<String, Boolean>>()
     private var isBlocked = false
 
     private val prefs by lazy { getSharedPreferences("chat_prefs", MODE_PRIVATE) }
@@ -73,10 +68,6 @@ class ChatActivity : AppCompatActivity() {
         checkBlockStatus(partnerId)
         loadMessages()
         loadGroupMessages()
-        Log.d("partnername", "$partnerName")
-        if (partnerName == ""){
-            findViewById<TextView>(R.id.chatPartnerName).text = group
-        }
 
         sendButton.setOnClickListener {
             if (!isBlocked) {
@@ -161,17 +152,8 @@ class ChatActivity : AppCompatActivity() {
                     messagesList.clear()
                     snapshot.children.forEach {
                         val text = it.child("text").getValue(String::class.java) ?: ""
-                        val sender = it.child("senderId").getValue(String::class.java) ?: ""
-                        val isSentByCurrentUser = sender == currentUserId
-
-                        database.child("users").child(sender).child("name").get()
-                            .addOnSuccessListener { nameSnapshot ->
-                                val senderName = nameSnapshot.getValue(String::class.java) ?: "Unknown"
-                                messagesList.add(ChatMessage(text, senderName, isSentByCurrentUser))
-                                messagesRecyclerView.adapter?.notifyItemInserted(messagesList.size - 1)
-                                messagesRecyclerView.scrollToPosition(messagesList.size - 1)
-                            }
-
+                        val sender = it.child("senderId").getValue(String::class.java)
+                        messagesList.add(Pair(text, sender == currentUserId))
                     }
                     messagesRecyclerView.adapter = ChatMessageAdapter(messagesList)
                     messagesRecyclerView.scrollToPosition(messagesList.size - 1)
@@ -196,16 +178,8 @@ class ChatActivity : AppCompatActivity() {
                     messagesList.clear()
                     snapshot.children.forEach {
                         val text = it.child("text").getValue(String::class.java) ?: ""
-                        val sender = it.child("senderId").getValue(String::class.java)?:""
-                        val isSentByCurrentUser = sender == currentUserId
-
-                        database.child("users").child(sender).child("name").get()
-                            .addOnSuccessListener { nameSnapshot ->
-                                val senderName = nameSnapshot.getValue(String::class.java) ?: "Unknown"
-                                messagesList.add(ChatMessage(text, senderName, isSentByCurrentUser))
-                                messagesRecyclerView.adapter?.notifyItemInserted(messagesList.size - 1)
-                                messagesRecyclerView.scrollToPosition(messagesList.size - 1)
-                            }
+                        val sender = it.child("senderId").getValue(String::class.java)
+                        messagesList.add(Pair(text, sender == currentUserId))
                     }
                     messagesRecyclerView.adapter = ChatMessageAdapter(messagesList)
                     messagesRecyclerView.scrollToPosition(messagesList.size - 1)
