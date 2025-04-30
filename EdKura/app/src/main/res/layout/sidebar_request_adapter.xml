@@ -2,22 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="100dp">
+android:layout_height="match_parent">
 
 
     <TextView
         android:id="@+id/requestTextView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:text="From:"
-        android:maxLines="2"
         android:visibility="visible"
         app:layout_constraintWidth_percent="0.9"
         app:layout_constraintHeight_percent="0.06"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="fitCenter"
-        android:textSize="15sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="20dp"
@@ -31,7 +29,6 @@ android:layout_width="match_parent"
         android:scaleType="fitStart"
         android:visibility="visible"
         android:text="accept"
-        android:backgroundTint="@color/blue"
         app:layout_constraintHeight_percent="0.06"
         app:layout_constraintTop_toBottomOf="@+id/requestTextView"
         app:layout_constraintEnd_toStartOf="@+id/declineButton"
@@ -45,11 +42,12 @@ android:layout_width="match_parent"
         android:scaleType="fitEnd"
         android:visibility="visible"
         android:text="decline"
-        android:backgroundTint="#FF5660"
         app:layout_constraintHeight_percent="0.06"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/requestTextView"
         app:layout_constraintWidth_percent="0.3"
         android:layout_marginEnd="15dp"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

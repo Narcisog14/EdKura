@@ -12,7 +12,6 @@ import com.example.edkura.Jiankai.CustomRequestsAdapter
 import CourseAdapter
 import android.content.pm.PackageManager
 import android.os.Build
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageButton
@@ -20,17 +19,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.edkura.GroupProject.GroupInvite
 import com.example.edkura.Narciso.CourseDetailActivity
 import com.example.edkura.auth.LoginActivity
 import com.example.edkura.Jiankai.ProfileActivity
 import com.example.edkura.Jiankai.jiankaiUI.CustomCanvasView
 import com.example.edkura.Rao.StudyPartnerRequest
 import com.example.edkura.chat.AllChatsActivity
-import com.example.edkura.chat.ChatActivity.ChatMessage
-import com.example.edkura.chat.ChatMessageAdapter
 import com.example.edkura.utils.NotificationUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -46,16 +40,11 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
     private lateinit var courseAdapter: CourseAdapter
     private lateinit var authUser: FirebaseAuth
 
-    //Number of requests
-
-
-
     // these two point at the little red badges
     private lateinit var chatBadge: TextView
 
     // counters
     private var unreadChatCount = 0
-    private var requestId = ""
 
     // remember which message‐IDs we already notified on
     private val seenMessages = mutableSetOf<String>()
@@ -144,7 +133,7 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
         requestRecyclerView = findViewById(R.id.requestRecyclerView)
         requestRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        requestsAdapter = CustomRequestsAdapter(this)
+        requestsAdapter = CustomRequestsAdapter(listOf(), this)
         requestRecyclerView.adapter = requestsAdapter
 
         // setting button->password change
@@ -197,9 +186,6 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
 
         listenForIncomingRequests()
         listenForIncomingChats()
-        listenForIncomingGroupInvites()
-        listenForIncomingGroupChats()
-        loadRequests()
     }
 
     // Listen for incoming study-partner requests
@@ -227,31 +213,7 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
             })
     }
 
-    private fun listenForIncomingGroupInvites() {
-        val me = authUser.currentUser?.uid ?: return
-        database.child("groupInvites")
-            .orderByChild("inviteeId")
-            .equalTo(me)
-            .addChildEventListener(object : ChildEventListener {
-                override fun onChildAdded(snap: DataSnapshot, prev: String?) {
-                    val invite = snap.getValue(GroupInvite::class.java) ?: return
-                    if (invite.status == "pending") {
-                        // fetch the group’s name if you like, here we assume invite.groupName was already set
-                        NotificationUtils.sendNotification(
-                            this@DashboardActivity,
-                            "New group invitation",
-                            "You’ve been invited to join ${invite.GroupName}"
-                        )
-                    }
-                }
-                override fun onChildChanged(s: DataSnapshot, p3: String?) {}
-                override fun onChildRemoved(s: DataSnapshot) {}
-                override fun onChildMoved(s: DataSnapshot, p3: String?) {}
-                override fun onCancelled(err: DatabaseError) {}
-            })
-    }
-
-        private fun listenForIncomingChats() {
+    private fun listenForIncomingChats() {
         val me = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val chatsRef = database.child("chats")
 
@@ -282,10 +244,10 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
                             val text = msgSnap.child("text").getValue(String::class.java) ?: ""
                             database.child("users").child(sender).child("name")
                                 .get().addOnSuccessListener { nameSnap ->
-                                    val who = nameSnap.getValue(String::class.java) ?: sender
+                                    val otherName = nameSnap.getValue(String::class.java) ?: sender
                                     NotificationUtils.sendNotification(
                                         this@DashboardActivity,
-                                        "New message from $who",
+                                        "New message from $otherName",
                                         text
                                     )
                                 }
@@ -304,47 +266,6 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
         })
     }
 
-    private fun listenForIncomingGroupChats() {
-        val me = authUser.currentUser?.uid ?: return
-
-        // 1) first load all the group IDs where I'm a member
-        database.child("projectGroups")
-            .orderByChild("members/$me")
-            .equalTo(true)
-            .addListenerForSingleValueEvent(object: ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    // for each group I'm in, listen for new messages
-                    snapshot.children.forEach { groupSnap ->
-                        val groupId = groupSnap.key ?: return@forEach
-                        val groupName = groupSnap.child("name").getValue(String::class.java) ?: groupId
-
-                        database.child("groupChats")
-                            .child(groupId)
-                            .child("messages")
-                            .addChildEventListener(object: ChildEventListener {
-                                override fun onChildAdded(msgSnap: DataSnapshot, previousChildName: String?) {
-                                    // only notify when *they* send
-                                    val sender = msgSnap.child("senderId").getValue(String::class.java)
-                                    val text   = msgSnap.child("text").getValue(String::class.java) ?: ""
-                                    if (sender != null && sender != me) {
-                                        NotificationUtils.sendNotification(
-                                            this@DashboardActivity,
-                                            "New message in $groupName",
-                                            text
-                                        )
-                                    }
-                                }
-                                override fun onChildChanged(s: DataSnapshot, p2: String?) {}
-                                override fun onChildRemoved(s: DataSnapshot) {}
-                                override fun onChildMoved(s: DataSnapshot, p2: String?) {}
-                                override fun onCancelled(err: DatabaseError) {}
-                            })
-                    }
-                }
-                override fun onCancelled(error: DatabaseError) { /* ignore */ }
-            })
-    }
-
     // handle the POST_NOTIFICATIONS permission result (optional)
     private fun updateBadge(badge: TextView, count: Int) {
         if (count > 0) {
@@ -355,6 +276,7 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
         }
     }
 
+    // … your existing onAccept / onDecline etc. …
 
     // (optional) handle user’s response to the POST_NOTIFICATIONS permission request
     override fun onRequestPermissionsResult(
@@ -370,7 +292,7 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
 
 
     private fun updateSidebarLayout(rectWidth: Float) {
-        if (rectWidth <= 100f) {
+        if (rectWidth <= 2f) {
 
             sidebarView.visibility = View.GONE
 
@@ -465,7 +387,7 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
             val email = user.email ?: "No Email"
             val userId = user.uid
 
-            userEmail.text = email
+            userEmail.text = email  // 更新邮箱 TextView
 
             FirebaseDatabase.getInstance().reference
                 .child("users")
@@ -485,235 +407,62 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
     private fun loadRequests() {
         val userId = authUser.currentUser?.uid ?: return
 
-        // Lists to store both types of requests
-        val studyPartnerRequests = mutableListOf<StudyPartnerRequest>()
-        val groupInvites = mutableListOf<GroupInvite>()
-
-        // Counters to track async operations
-        var studyRequestsComplete = false
-        var groupInvitesComplete = false
-
-        // 1. Load StudyPartnerRequests
-        val studyRef = FirebaseDatabase.getInstance().getReference("study_partner_requests")
+        val ref = FirebaseDatabase.getInstance().getReference("study_partner_requests")
             .orderByChild("receiverId").equalTo(userId)
 
-        studyRef.addValueEventListener(object : ValueEventListener {
+        ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                // Clear the list for a fresh reload
-                studyPartnerRequests.clear()
-
-                // Track how many sender names we need to resolve
-                val totalRequests = snapshot.childrenCount
-                var processedRequests = 0L
-
-                if (totalRequests == 0L) {
-                    // No study partner requests, mark as complete
-                    studyRequestsComplete = true
-                    checkAndUpdateAdapter(studyPartnerRequests, groupInvites, studyRequestsComplete, groupInvitesComplete)
-                    return
-                }
+                val requestList = mutableListOf<StudyPartnerRequest>()
 
                 for (child in snapshot.children) {
                     val request = child.getValue(StudyPartnerRequest::class.java)
                     if (request != null && request.status == "pending") {
-                        studyPartnerRequests.add(request)
+                        requestList.add(request)
 
-                        // Fetch sender name asynchronously
-                        FirebaseDatabase.getInstance().getReference("users")
-                            .child(request.senderId)
-                            .child("name")
-                            .get()
-                            .addOnSuccessListener { nameSnapshot ->
-                                request.senderName = nameSnapshot.getValue(String::class.java) ?: "Unknown"
-                                processedRequests++
-
-                                // Check if we've processed all requests
-                                if (processedRequests == totalRequests) {
-                                    studyRequestsComplete = true
-                                    checkAndUpdateAdapter(studyPartnerRequests, groupInvites,
-                                        studyRequestsComplete, groupInvitesComplete)
+                        if (request.senderName.isNullOrEmpty() || request.senderName == "Unknown") {
+                            FirebaseDatabase.getInstance().getReference("users")
+                                .child(request.senderId)
+                                .child("name")
+                                .get()
+                                .addOnSuccessListener { nameSnapshot ->
+                                    request.senderName = nameSnapshot.getValue(String::class.java) ?: "Unknown"
+                                    requestsAdapter.notifyDataSetChanged()
                                 }
-                            }
-                            .addOnFailureListener {
-                                processedRequests++
-                                // Still count failed requests
-                                if (processedRequests == totalRequests) {
-                                    studyRequestsComplete = true
-                                    checkAndUpdateAdapter(studyPartnerRequests, groupInvites,
-                                        studyRequestsComplete, groupInvitesComplete)
-                                }
-                            }
-                    } else {
-                        // Skip this request but count it as processed
-                        processedRequests++
-                        if (processedRequests == totalRequests) {
-                            studyRequestsComplete = true
-                            checkAndUpdateAdapter(studyPartnerRequests, groupInvites,
-                                studyRequestsComplete, groupInvitesComplete)
                         }
                     }
                 }
+
+                // 更新适配器数据
+                // Update adapter data
+                requestsAdapter.updateRequests(requestList)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@DashboardActivity, "Failed to load study partner requests", Toast.LENGTH_SHORT).show()
-                studyRequestsComplete = true
-                checkAndUpdateAdapter(studyPartnerRequests, groupInvites, studyRequestsComplete, groupInvitesComplete)
-            }
-        })
-
-        // 2. Load GroupInvites
-        val groupInvitesRef = database.child("groupInvites")
-        groupInvitesRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                // Clear the list for a fresh reload
-                groupInvites.clear()
-
-                // Track how many group names we need to resolve
-                val totalInvites = snapshot.childrenCount
-                var processedInvites = 0L
-
-                if (totalInvites == 0L) {
-                    // No group invites, mark as complete
-                    groupInvitesComplete = true
-                    checkAndUpdateAdapter(studyPartnerRequests, groupInvites, studyRequestsComplete, groupInvitesComplete)
-                    return
-                }
-
-                for (child in snapshot.children) {
-                    val invite = child.getValue(GroupInvite::class.java)
-                    if (invite != null && invite.inviteeId == userId && invite.status == "pending") {
-                        groupInvites.add(invite)
-                        requestId = invite.inviteId
-                        Log.d("GroupInvite1", "Loaded invite: $invite")
-
-                        // Fetch group name asynchronously
-                        database.child("projectGroups")
-                            .orderByChild("groupId")
-                            .equalTo(invite.groupId)
-                            .addListenerForSingleValueEvent(object : ValueEventListener {
-                                override fun onDataChange(pgSnapshot: DataSnapshot) {
-                                    val groupRef = database.child("projectGroups").child(invite.groupId).child("name")
-                                    groupRef.get().addOnSuccessListener { dataSnapshot ->
-                                        val groupName = dataSnapshot.getValue(String::class.java) ?: "Unknown"
-                                        database.child("groupInvites").child(requestId)
-                                            .child("GroupName").setValue(groupName)
-                                        Log.d("GroupName", "Group name is: $groupName")
-                                        Log.d("DataSync", "StudyRequests: ${studyPartnerRequests.size}, GroupInvites: ${groupInvites.size}")
-
-                                    }
-
-                                    processedInvites++
-                                    if (processedInvites == totalInvites) {
-                                        groupInvitesComplete = true
-                                        checkAndUpdateAdapter(studyPartnerRequests, groupInvites,
-                                            studyRequestsComplete, groupInvitesComplete)
-                                    }
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {
-                                    processedInvites++
-                                    if (processedInvites == totalInvites) {
-                                        groupInvitesComplete = true
-                                        checkAndUpdateAdapter(studyPartnerRequests, groupInvites,
-                                            studyRequestsComplete, groupInvitesComplete)
-                                    }
-                                }
-                            })
-                    } else {
-                        // Skip this invite but count it as processed
-                        processedInvites++
-                        if (processedInvites == totalInvites) {
-                            groupInvitesComplete = true
-                            checkAndUpdateAdapter(studyPartnerRequests, groupInvites,
-                                studyRequestsComplete, groupInvitesComplete)
-                        }
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@DashboardActivity, "Failed to load group invites", Toast.LENGTH_SHORT).show()
-                groupInvitesComplete = true
-                checkAndUpdateAdapter(studyPartnerRequests, groupInvites, studyRequestsComplete, groupInvitesComplete)
+                Toast.makeText(this@DashboardActivity, "Failed to load requests", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    // Helper method to check if both loads are complete and update adapter
-    fun checkAndUpdateAdapter(
-        studyPartnerRequests: List<StudyPartnerRequest>,
-        groupInvites: List<GroupInvite>,
-        studyRequestsComplete: Boolean,
-        groupInvitesComplete: Boolean,
-    ) {
-        if (studyRequestsComplete || groupInvitesComplete) {
-            // Both loads are complete, update the adapter
-            requestsAdapter.updateData(studyPartnerRequests, groupInvites)
-        }
-    }
-
-    // Updated handler methods
+    // Handle request actions
     override fun onAccept(request: StudyPartnerRequest) {
-        if (request.id.isNotEmpty()) {
-            database.child("study_partner_requests").child(request.id)
-                .child("status").setValue("accepted")
-                .addOnSuccessListener {
-                    Toast.makeText(
-                        this,
-                        "Accepted ${request.senderName} for ${request.course}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Acceptance failed", Toast.LENGTH_SHORT).show()
-                }
-        }
-    }
-
-    override fun onGroupAccept(invite: GroupInvite) {
-        if (invite.groupId.isNotEmpty()) {
-            database.child("groupInvites").child(requestId)
-                .child("status").setValue("accepted")
-                .addOnSuccessListener {
-                    Toast.makeText(
-                        this,
-                        "Accepted invitation to join ${invite.groupId}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    // Add the user to the group members
-                    val userId = authUser.currentUser?.uid ?: return@addOnSuccessListener
-                    database.child("projectGroups").child(invite.groupId)
-                        .child("members").child(userId).setValue(true)
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Group acceptance failed", Toast.LENGTH_SHORT).show()
-                }
-        }
+        database.child("study_partner_requests").child(request.id)
+            .child("status").setValue("accepted")
+            .addOnSuccessListener {
+                Toast.makeText(this, "Accepted ${request.senderName} for ${request.course}", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Acceptance failed", Toast.LENGTH_SHORT).show()
+            }
     }
 
     override fun onDecline(request: StudyPartnerRequest) {
         database.child("study_partner_requests").child(request.id)
             .child("status").setValue("declined")
             .addOnSuccessListener {
-                Toast.makeText(this, "Declined request from ${request.senderName}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Declined ${request.senderName}", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Decline failed", Toast.LENGTH_SHORT).show()
             }
     }
-
-    override fun onGroupDecline(invite: GroupInvite) {
-        database.child("groupInvites").child(requestId)
-            .child("status").setValue("declined")
-            .addOnSuccessListener {
-                Toast.makeText(this, "Declined invitation to ${invite.groupId}", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Decline failed", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-
 }
