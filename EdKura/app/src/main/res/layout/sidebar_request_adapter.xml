@@ -1,33 +1,53 @@
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
 
 
     <TextView
         android:id="@+id/requestTextView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:maxLines="2"
-        android:text="From: sender"
-        android:textSize="16sp" />
-
+        android:layout_height="30dp"
+        android:text="From:"
+        android:visibility="visible"
+        app:layout_constraintWidth_percent="0.9"
+        app:layout_constraintHeight_percent="0.06"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleType="fitCenter"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp" />
 
     <Button
         android:id="@+id/acceptButton"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#428E54"
-        android:text="Accept" />
-
+        android:layout_height="50dp"
+        android:scaleType="fitStart"
+        android:visibility="visible"
+        android:text="accept"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintTop_toBottomOf="@+id/requestTextView"
+        app:layout_constraintEnd_toStartOf="@+id/declineButton"
+        app:layout_constraintWidth_percent="0.3"
+        android:layout_marginEnd="15dp"/>
 
     <Button
         android:id="@+id/declineButton"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#8E4250"
-        android:text="Decline" />
-</LinearLayout>
+        android:layout_height="50dp"
+        android:scaleType="fitEnd"
+        android:visibility="visible"
+        android:text="decline"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/requestTextView"
+        app:layout_constraintWidth_percent="0.3"
+        android:layout_marginEnd="15dp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

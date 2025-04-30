@@ -63,6 +63,8 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
 
     private lateinit var requestRecyclerView: RecyclerView
     private lateinit var requestsAdapter: CustomRequestsAdapter
+    private lateinit var acceptButton: ImageButton
+    private lateinit var declineButton: ImageButton
 
     private val prefs by lazy {
         getSharedPreferences("chat_prefs", MODE_PRIVATE)
@@ -290,7 +292,7 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
 
 
     private fun updateSidebarLayout(rectWidth: Float) {
-        if (rectWidth <= 20f) {
+        if (rectWidth <= 2f) {
 
             sidebarView.visibility = View.GONE
 
