@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:id="@+id/headerLayout"
@@ -20,7 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_weight="1"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:visibility="visible" />
     </LinearLayout>
 
     <TextView
@@ -42,7 +44,8 @@
         android:text="This is the group description."
         android:textSize="16sp"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/promptMessage" />
+        app:layout_constraintTop_toBottomOf="@id/promptMessage"
+        tools:layout_editor_absoluteX="16dp" />
 
     <LinearLayout
         android:id="@+id/buttonsLinearLayout"
@@ -50,6 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/headerLayout"
         tools:layout_editor_absoluteX="16dp">
 
@@ -121,6 +125,30 @@
                 android:background="#428E54"
                 android:padding="16dp"
                 android:text="Deadlines"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewGroupChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/buttonGroupChat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#2b77a6"
+                android:padding="16dp"
+                android:text="Group Chat"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />

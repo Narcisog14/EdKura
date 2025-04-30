@@ -22,14 +22,12 @@ class CreateGroupDialogFragment : DialogFragment() {
     private lateinit var groupDescriptionEditText: EditText
     private lateinit var createGroupButton: Button
     private lateinit var database: DatabaseReference
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val auth = FirebaseAuth.getInstance()
     private val currentUserId = auth.currentUser?.uid ?: ""
-    private var currentUserCourses: String = ""
+    private var currentUserCourse: String = ""
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.dialog_create_group, container, false)
         groupNameEditText = view.findViewById(R.id.groupNameEditText)
@@ -38,55 +36,49 @@ class CreateGroupDialogFragment : DialogFragment() {
         database = FirebaseDatabase
             .getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com")
             .reference
-        loadCurrentUserCourses()
-        createGroupButton.setOnClickListener {
-            createNewGroup()
-        }
 
+        // grab the courseId passed in
+        currentUserCourse = arguments?.getString("courseId") ?: ""
+        Log.d("CreateGroup", "Course = $currentUserCourse")
+
+        createGroupButton.setOnClickListener { createNewGroup() }
         return view
     }
 
     private fun createNewGroup() {
-        val groupName = groupNameEditText.text.toString().trim()
-        val groupDescription = groupDescriptionEditText.text.toString().trim()
-
-        if (groupName.isEmpty() || groupDescription.isEmpty()) {
+        val name = groupNameEditText.text.toString().trim()
+        val desc = groupDescriptionEditText.text.toString().trim()
+        if (name.isEmpty() || desc.isEmpty()) {
             Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return
         }
-        //generate a group id
-        val newGroupId = UUID.randomUUID().toString()
-        val newGroup = ProjectGroup(
-            groupId = newGroupId,
-            name = groupName,
-            description = groupDescription,
+        val newId = UUID.randomUUID().toString()
+        val group = ProjectGroup(
+            groupId = newId,
+            name = name,
+            description = desc,
             creator = currentUserId,
-            course = currentUserCourses
-        )
-        newGroup.members =
-            mutableMapOf(currentUserId to true) // Add current user to members
+            course = currentUserCourse
+        ).apply {
+            members = mutableMapOf(currentUserId to true)
+        }
 
-        val groupsRef = database.child("projectGroups")
-        groupsRef.child(newGroupId).setValue(newGroup)
+        database.child("projectGroups").child(newId)
+            .setValue(group)
             .addOnSuccessListener {
-                Toast.makeText(context, "Group created successfully", Toast.LENGTH_SHORT).show()
-                dismiss() // Close the dialog after creating the group
+                Toast.makeText(context, "Group created", Toast.LENGTH_SHORT).show()
+                dismiss()
             }
             .addOnFailureListener {
-                Toast.makeText(context, "Failed to create group", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error creating group", Toast.LENGTH_SHORT).show()
             }
     }
-    private fun loadCurrentUserCourses() {
-        currentUserCourses = arguments?.getString("courseId") ?: ""
-        Log.d("currentUserCourses",currentUserCourses )
-    }
+
     companion object {
-        fun newInstance(course: String): CreateGroupDialogFragment {
-            val fragment = CreateGroupDialogFragment()
-            val args = Bundle()
-            args.putString("courseId", course)
-            fragment.arguments = args
-            return fragment
+        fun newInstance(courseId: String): CreateGroupDialogFragment {
+            return CreateGroupDialogFragment().apply {
+                arguments = Bundle().apply { putString("courseId", courseId) }
+            }
         }
     }
 }

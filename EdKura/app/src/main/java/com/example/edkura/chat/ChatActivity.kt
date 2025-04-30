@@ -1,6 +1,7 @@
 package com.example.edkura.chat
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,13 @@ class ChatActivity : AppCompatActivity() {
     private var messagesList = mutableListOf<Pair<String, Boolean>>()
     private var isBlocked = false
 
+    private val prefs by lazy { getSharedPreferences("chat_prefs", MODE_PRIVATE) }
+
+    // helper to persist each room’s “last read” timestamp
+    private fun setLastRead(roomId: String, ts: Long) {
+        prefs.edit().putLong("last_read_$roomId", ts).apply()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -38,6 +46,13 @@ class ChatActivity : AppCompatActivity() {
 
         val partnerId = intent.getStringExtra("partnerId") ?: ""
         val partnerName = intent.getStringExtra("partnerName") ?: ""
+        val group = intent.getStringExtra("group") ?: ""
+        val groupId: ArrayList<String> =
+            intent.getStringArrayListExtra("groupId") ?: arrayListOf()
+        Log.d("ChatActivity", "$groupId")
+        val groupMembersId: ArrayList<String> =
+            intent.getStringArrayListExtra("groupMembersId") ?: arrayListOf()
+
 
         title = "Chat with $partnerName"
 
@@ -52,6 +67,7 @@ class ChatActivity : AppCompatActivity() {
 
         checkBlockStatus(partnerId)
         loadMessages()
+        loadGroupMessages()
 
         sendButton.setOnClickListener {
             if (!isBlocked) {
@@ -67,6 +83,12 @@ class ChatActivity : AppCompatActivity() {
         unblockButton.setOnClickListener {
             unblockPartner(partnerId)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // mark “everything up to right now” as read
+        setLastRead(chatRoomId, System.currentTimeMillis())
     }
 
     private fun checkBlockStatus(partnerId: String) {
@@ -136,6 +158,33 @@ class ChatActivity : AppCompatActivity() {
                     messagesRecyclerView.adapter = ChatMessageAdapter(messagesList)
                     messagesRecyclerView.scrollToPosition(messagesList.size - 1)
                 }
+                override fun onCancelled(error: DatabaseError) {}
+            })
+    }
+    private fun loadGroupMessages() {
+        val groupIdList: ArrayList<String> =
+            intent.getStringArrayListExtra("groupId") ?: arrayListOf()
+
+        val groupId = groupIdList.firstOrNull()
+            ?: run {
+                return
+            }
+
+        database.child("groupChats")
+            .child(groupId)
+            .child("messages")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    messagesList.clear()
+                    snapshot.children.forEach {
+                        val text = it.child("text").getValue(String::class.java) ?: ""
+                        val sender = it.child("senderId").getValue(String::class.java)
+                        messagesList.add(Pair(text, sender == currentUserId))
+                    }
+                    messagesRecyclerView.adapter = ChatMessageAdapter(messagesList)
+                    messagesRecyclerView.scrollToPosition(messagesList.size - 1)
+                }
+
                 override fun onCancelled(error: DatabaseError) {}
             })
     }
