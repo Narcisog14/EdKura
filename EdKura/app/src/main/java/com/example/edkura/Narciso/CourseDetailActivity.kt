@@ -2,7 +2,6 @@ package com.example.edkura.Narciso
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -17,14 +16,18 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.edkura.FileSharing.NoteSharingDashboardActivity
+import com.example.edkura.GroupProject.GroupProjectDashboardActivity
 import com.example.edkura.R
 import com.example.edkura.Rao.StudyPartnerRequest
 import com.example.edkura.Rao.spmatching
 import com.example.edkura.chat.ChatActivity
-import com.example.edkura.FileSharing.NoteSharingDashboardActivity
-import com.example.edkura.GroupProject.GroupProjectDashboardActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ServerValue
+import com.google.firebase.database.ValueEventListener
 
 class CourseDetailActivity : AppCompatActivity() {
 
@@ -34,6 +37,9 @@ class CourseDetailActivity : AppCompatActivity() {
     // Retrieve the current course from the Intent
     private val currentCourseName: String by lazy {
         intent.getStringExtra("courseName") ?: ""
+    }
+    private val currentSubject: String by lazy {
+        intent.getStringExtra("subject") ?: "Unknown subject"
     }
 
     private lateinit var courseDetailsContainer: LinearLayout
@@ -47,14 +53,23 @@ class CourseDetailActivity : AppCompatActivity() {
 
     private var loadedPartners: ArrayList<Student> = arrayListOf()
 
+    private val reportReasons = arrayOf(
+        "Spam",
+        "Hate Speech",
+        "Harassment",
+        "Inappropriate Content",
+        "Other"
+    )
+    private var selectedReason: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.course_detail)
 
         // Retrieve the subject and course from the Intent
-        val subject = intent.getStringExtra("subject") ?: "Unknown subject"
-        findViewById<TextView>(R.id.textsubject).text = "Subject: $subject"
+
+        findViewById<TextView>(R.id.textsubject).text = "Subject: $currentSubject"
         findViewById<TextView>(R.id.textCourseName).text = "Course: $currentCourseName"
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.course_detail_activity)) { v, insets ->
@@ -80,9 +95,7 @@ class CourseDetailActivity : AppCompatActivity() {
         }
         goToNoteSharingDashboardButton.setOnClickListener {
             loadPartnerIdList {
-                // 这里是数据加载完成之后再执行的代码
-                //Here's the code that will be executed after the data is loaded
-                Log.d("LoadedPartnerIds", loadedPartners.joinToString("\n"))
+                // Here's the code that will be executed after the data is loaded
 
                 val intent = Intent(this, NoteSharingDashboardActivity::class.java).apply {
                     putExtra("courseName", currentCourseName)
@@ -94,8 +107,6 @@ class CourseDetailActivity : AppCompatActivity() {
         }
         groupProjectButton.setOnClickListener {
             loadPartnerIdList {
-                Log.d("LoadedPartnerIds", loadedPartners.joinToString("\n"))
-
                 val intent = Intent(this, GroupProjectDashboardActivity::class.java).apply {
                     putExtra("courseName", currentCourseName)
                 }
@@ -156,15 +167,18 @@ class CourseDetailActivity : AppCompatActivity() {
 
                                 // Display partner name with aggregated courses
                                 val nameWithCourses = "$partnerName ($coursesStr)"
-                                partnerList.add(Student(
-                                    id = partnerId,
-                                    name = nameWithCourses,
-                                    status = status,
-                                    blockedBy = blockedBy
-                                ))
+                                partnerList.add(
+                                    Student(
+                                        id = partnerId,
+                                        name = nameWithCourses,
+                                        status = status,
+                                        blockedBy = blockedBy
+                                    )
+                                )
                                 loadedPartners = ArrayList(partnerList)
                                 studentsRecyclerView.adapter = PartnerAdapter(partnerList)
-                                studentsRecyclerView.visibility = if (partnerList.isEmpty()) View.GONE else View.VISIBLE
+                                studentsRecyclerView.visibility =
+                                    if (partnerList.isEmpty()) View.GONE else View.VISIBLE
                             }
                     }
 
@@ -199,22 +213,121 @@ class CourseDetailActivity : AppCompatActivity() {
 
             holder.nameBtn.setOnClickListener {
                 if (!blocked) {
-                    startActivity(Intent(this@CourseDetailActivity, ChatActivity::class.java).apply {
-                        putExtra("partnerId", partner.id)
-                        putExtra("partnerName", partner.name)
-                    })
+                    startActivity(
+                        Intent(
+                            this@CourseDetailActivity,
+                            ChatActivity::class.java
+                        ).apply {
+                            putExtra("partnerId", partner.id)
+                            putExtra("partnerName", partner.name)
+                        })
                 } else {
-                    showToast("Partner is blocked. Long press to unblock or remove.")
+                    showToast("Partner is blocked.")
                 }
             }
 
             holder.nameBtn.setOnLongClickListener {
                 if (blocked && partner.blockedBy == currentUserId) showBlockedPrompt(partner)
-                else if (!blocked) showRemoveOrBlockPrompt(partner)
+                else if (!blocked) showReportOrRemovePrompt(partner)
                 else showRemoveOnlyPrompt(partner)
                 true
             }
         }
+    }
+
+    private fun showReportOrRemovePrompt(partner: Student) = AlertDialog.Builder(this)
+        .setTitle("Warning")
+        .setMessage("Report or remove this partner?")
+        .setPositiveButton("Report") { _, _ ->
+            showReportReasonDialog(partner)
+        }
+        .setNegativeButton("Remove") { _, _ ->
+            showRemoveOrBlockPrompt(partner)
+        }
+        .setNeutralButton("Cancel", null)
+        .show()
+
+    private fun showReportReasonDialog(partner: Student) {
+        selectedReason = null
+        AlertDialog.Builder(this)
+            .setTitle("Select Report Reason")
+            .setSingleChoiceItems(reportReasons, -1) { _, which ->
+                selectedReason = reportReasons[which]
+            }
+            .setPositiveButton("Report") { _, _ ->
+                if (selectedReason != null) {
+                    reportUser(partner.id ?: return@setPositiveButton, selectedReason!!)
+                    blockPartner(partner)
+                } else {
+                    Toast.makeText(this, "Please select a reason", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun reportUser(reportedId: String, reason: String) {
+        val reportId = db.child("reports").push().key ?: return
+        val report = mapOf(
+            "reporterId" to currentUserId,
+            "reportedId" to reportedId,
+            "course" to currentCourseName,
+            "reason" to reason,
+            "timestamp" to ServerValue.TIMESTAMP
+        )
+        db.child("reports").child(reportId).setValue(report)
+            .addOnSuccessListener {
+                showToast("User reported.")
+                checkUserReports(reportedId)
+            }
+            .addOnFailureListener {
+                showToast("Failed to report user.")
+            }
+    }
+
+    private fun checkUserReports(reportedId: String) {
+        db.child("reports")
+            .orderByChild("reportedId")
+            .equalTo(reportedId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.childrenCount >= 3) { // Threshold for removing user
+                        removeUserFromCourse(reportedId)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle error
+                }
+            })
+    }
+
+    private fun removeUserFromCourse(userId: String) {
+        // First, remove the user from the study partners list
+        db.child("study_partner_requests")
+            .orderByChild("course")
+            .equalTo(currentCourseName)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach { c ->
+                        val r = c.getValue(StudyPartnerRequest::class.java) ?: return@forEach
+                        if (r.senderId == userId || r.receiverId == userId) {
+                            c.ref.removeValue()
+                        }
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            })
+        // Second, remove the user from the course list of courses they are in.
+        db.child("users").child(userId).child("courses").get()
+            .addOnSuccessListener {
+                val courses = it.value as? List<String>
+                val newCourses = courses?.filter { it != currentCourseName }
+                if (newCourses != null) {
+                    db.child("users").child(userId).child("courses").setValue(newCourses)
+                }
+            }
+        showToast("User has been removed from the course.")
     }
 
     private fun showRemoveOrBlockPrompt(partner: Student) = AlertDialog.Builder(this)
