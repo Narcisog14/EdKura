@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/course_detail_activity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
     <!-- Course Details Container -->
     <LinearLayout
         android:id="@+id/courseDetailsContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textsubject"
-            android:layout_width="365dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="subject: "
@@ -29,35 +26,86 @@
 
         <TextView
             android:id="@+id/textCourseName"
-            android:layout_width="367dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="Course: "
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/studyPartnerButton"
-            android:layout_width="wrap_content"
+        <!-- Study Partner Button as CardView -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewStudyPartner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="#428E54"
-            android:text="Study Partner" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="8dp">
 
-        <Button
-            android:id="@+id/goToNoteSharingDashboardButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="#428E54"
-            android:text="Note Sharing" />
-        <Button
-            android:id="@+id/groupProjectButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="#428E54"
-            android:text="Group Project" />
+            <TextView
+                android:id="@+id/studyPartnerButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#428E54"
+                android:clickable="true"
+                android:padding="16dp"
+                android:text="Study Partner"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
 
+        <!-- Note Sharing Button as CardView -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewNoteSharing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/goToNoteSharingDashboardButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#2b77a6"
+                android:clickable="true"
+                android:padding="16dp"
+                android:text="Note Sharing"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Group Project Button as CardView -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewGroupProject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/groupProjectButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#428E54"
+                android:clickable="true"
+                android:padding="16dp"
+                android:text="Group Project"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"  />
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
     <!-- Study Partner Dashboard Container -->
@@ -65,8 +113,9 @@
         android:id="@+id/studyPartnerDashboardContainer"
         layout="@layout/study_partner_dashboard"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/courseDetailsContainer" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

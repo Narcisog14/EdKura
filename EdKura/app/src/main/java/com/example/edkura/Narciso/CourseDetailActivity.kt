@@ -39,11 +39,11 @@ class CourseDetailActivity : AppCompatActivity() {
     private lateinit var courseDetailsContainer: LinearLayout
     private lateinit var studyPartnerDashboardContainer: View
     private lateinit var backButton: Button
-    private lateinit var studyPartnerButton: Button
-    private lateinit var groupProjectButton: Button
+    private lateinit var studyPartnerButton: TextView
+    private lateinit var groupProjectButton: TextView
     private lateinit var addUserItem: CardView
     private lateinit var studentsRecyclerView: RecyclerView
-    private lateinit var goToNoteSharingDashboardButton: Button // New button
+    private lateinit var goToNoteSharingDashboardButton: TextView // New button
 
     private var loadedPartners: ArrayList<Student> = arrayListOf()
 
