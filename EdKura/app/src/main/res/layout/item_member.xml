@@ -2,12 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/textMemberName"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:textSize="16sp" />
+        android:layout_weight="1"
+        android:text="Member Name"
+        android:textSize="18sp" />
+
+
 </LinearLayout>
