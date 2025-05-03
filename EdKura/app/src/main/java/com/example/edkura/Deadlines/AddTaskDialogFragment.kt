@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.edkura.R
@@ -87,10 +86,11 @@ class AddTaskDialogFragment : DialogFragment() {
             { _, selectedYear, selectedMonth, selectedDay ->
                 val selectedCalendar = Calendar.getInstance()
                 selectedCalendar.set(selectedYear, selectedMonth, selectedDay)
-                selectedDeadline = selectedCalendar.time
+                val newSelectedDeadline: Date = selectedCalendar.time
+                selectedDeadline = newSelectedDeadline
 
                 val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                deadlineEditText.setText(dateFormat.format(selectedDeadline!!))
+                deadlineEditText.setText(dateFormat.format(newSelectedDeadline))
             },
             year,
             month,
@@ -106,28 +106,29 @@ class AddTaskDialogFragment : DialogFragment() {
             Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return
         }
-
-        val task = Task(
-            taskId = UUID.randomUUID().toString(),
-            taskName = taskName,
-            deadline = selectedDeadline,
-            groupId = groupId
-        )
-
-        database.child("projectGroups")
-            .child(groupId)
-            .child("tasks")
-            .child(task.taskId)
-            .setValue(task)
-            .addOnSuccessListener {
-                Log.d("AddTaskDialog", "Task saved successfully")
-                Toast.makeText(context, "Task saved successfully", Toast.LENGTH_SHORT).show()
-                dismiss()
-            }
-            .addOnFailureListener { e ->
-                Log.e("AddTaskDialog", "Failed to save task", e)
-                Toast.makeText(context, "Failed to save task", Toast.LENGTH_SHORT).show()
-            }
+        selectedDeadline?.let { // Using Elvis operator and `let`
+            val task = Task(
+                taskId = UUID.randomUUID().toString(),
+                taskName = taskName,
+                deadline = it // 'it' now refers to the non-nullable Date
+            )
+            database.child("projectGroups")
+                .child(groupId)
+                .child("tasks")
+                .child(task.taskId)
+                .setValue(task)
+                .addOnSuccessListener {
+                    Log.d("AddTaskDialog", "Task saved successfully")
+                    Toast.makeText(context, "Task saved successfully", Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
+                .addOnFailureListener { e ->
+                    Log.e("AddTaskDialog", "Failed to save task", e)
+                    Toast.makeText(context, "Failed to save task", Toast.LENGTH_SHORT).show()
+                }
+        } ?: run {
+            Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            return
+        }
     }
 }
-
