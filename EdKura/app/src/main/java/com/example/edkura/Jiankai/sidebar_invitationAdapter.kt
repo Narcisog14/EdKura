@@ -12,7 +12,6 @@ import com.example.edkura.GroupProject.GroupInvite
 import com.example.edkura.R
 import com.example.edkura.Rao.StudyPartnerRequest
 
-private var requestNum: Int = 0
 class CustomRequestsAdapter(
     private val listener: OnRequestActionListener
 ) : RecyclerView.Adapter<CustomRequestsAdapter.RequestViewHolder>() {
@@ -106,8 +105,5 @@ class CustomRequestsAdapter(
         fun onGroupAccept(invite: GroupInvite)
         fun onDecline(request: StudyPartnerRequest)
         fun onGroupDecline(invite: GroupInvite)
-    }
-    fun requestCount(): Int {
-        return items.size
     }
 }
