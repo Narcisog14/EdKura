@@ -32,7 +32,7 @@ class RequestsAdapter(
         holder.senderTextView.text = "From: ${request.senderName}"
 
         holder.acceptButton.setOnClickListener {
-            listener.onAccept(request)
+
         }
 
         holder.declineButton.setOnClickListener {
