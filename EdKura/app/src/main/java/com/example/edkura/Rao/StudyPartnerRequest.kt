@@ -7,6 +7,7 @@ data class StudyPartnerRequest(
     var status: String = "pending",
     var senderName: String = "",
     var blockedBy: String? = null,
-    var course: String = ""
+    var course: String = "",
+
 )
 

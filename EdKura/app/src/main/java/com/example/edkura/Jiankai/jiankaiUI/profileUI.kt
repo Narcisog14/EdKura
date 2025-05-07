@@ -18,6 +18,8 @@ import android.graphics.drawable.BitmapDrawable
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.ViewConfiguration
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import com.example.edkura.DashboardActivity
 import com.example.edkura.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -538,4 +540,5 @@ class CustomCanvasView(context: Context, attrs: AttributeSet? = null) : View(con
     private fun notifyRectWidthChanged() {
         rectWidthChangeListener?.onRectWidthChanged(rectWidth)
     }
+
 }

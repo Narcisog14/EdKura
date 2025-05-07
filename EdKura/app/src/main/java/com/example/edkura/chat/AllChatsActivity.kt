@@ -36,10 +36,8 @@ class AllChatsActivity : AppCompatActivity() {
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
     private val db = FirebaseDatabase.getInstance().reference
 
-
     // will hold our final list of unique partners + their courses
     private val partnerList = mutableListOf<ChatPartner>()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,13 +59,11 @@ class AllChatsActivity : AppCompatActivity() {
                     // temp map: partnerId -> set of course names
                     val coursesByPartner = mutableMapOf<String, MutableSet<String>>()
 
-
                     snapshot.children.forEach { child ->
                         val req = child.getValue(StudyPartnerRequest::class.java) ?: return@forEach
                         // only keep those where I'm sender or receiver
                         val involved = req.senderId == currentUserId || req.receiverId == currentUserId
                         if (!involved) return@forEach
-
 
                         val partnerId =
                             if (req.senderId == currentUserId) req.receiverId else req.senderId
@@ -78,7 +74,6 @@ class AllChatsActivity : AppCompatActivity() {
                             .getOrPut(partnerId) { mutableSetOf() }
                             .add(req.course)
                     }
-
 
                     // now fetch each partner's name and build ChatPartner list
                     partnerList.clear()
