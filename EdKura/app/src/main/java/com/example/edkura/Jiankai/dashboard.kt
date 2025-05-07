@@ -20,6 +20,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.edkura.GroupProject.GroupInvite
 import com.example.edkura.Narciso.CourseDetailActivity
 import com.example.edkura.auth.LoginActivity
@@ -43,6 +45,10 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
     private lateinit var recyclerViewCourse: RecyclerView
     private lateinit var courseAdapter: CourseAdapter
     private lateinit var authUser: FirebaseAuth
+
+    //Number of requests
+
+
 
     // these two point at the little red badges
     private lateinit var chatBadge: TextView
@@ -191,6 +197,7 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
 
         listenForIncomingRequests()
         listenForIncomingChats()
+
     }
 
     // Listen for incoming study-partner requests
@@ -391,7 +398,7 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
             val email = user.email ?: "No Email"
             val userId = user.uid
 
-            userEmail.text = email  // 更新邮箱 TextView
+            userEmail.text = email
 
             FirebaseDatabase.getInstance().reference
                 .child("users")
@@ -567,11 +574,11 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
     }
 
     // Helper method to check if both loads are complete and update adapter
-    private fun checkAndUpdateAdapter(
+    fun checkAndUpdateAdapter(
         studyPartnerRequests: List<StudyPartnerRequest>,
         groupInvites: List<GroupInvite>,
         studyRequestsComplete: Boolean,
-        groupInvitesComplete: Boolean
+        groupInvitesComplete: Boolean,
     ) {
         if (studyRequestsComplete || groupInvitesComplete) {
             // Both loads are complete, update the adapter
@@ -640,4 +647,6 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
                 Toast.makeText(this, "Decline failed", Toast.LENGTH_SHORT).show()
             }
     }
+
+
 }
