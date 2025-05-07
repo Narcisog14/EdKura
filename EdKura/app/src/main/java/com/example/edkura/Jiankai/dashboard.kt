@@ -251,7 +251,7 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
             })
     }
 
-        private fun listenForIncomingChats() {
+    private fun listenForIncomingChats() {
         val me = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val chatsRef = database.child("chats")
 
