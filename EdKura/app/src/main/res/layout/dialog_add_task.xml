@@ -15,15 +15,16 @@
         android:id="@+id/deadlineEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Deadline (dd/MM/yyyy)"
+        android:layout_marginTop="8dp"
         android:focusable="false"
-        android:clickable="true" />
-
+        android:hint="Select Deadline" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="16dp"
         android:text="Save"
         android:backgroundTint="#2b77a6" />
 

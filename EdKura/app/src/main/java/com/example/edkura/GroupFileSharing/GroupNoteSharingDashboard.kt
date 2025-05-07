@@ -43,10 +43,10 @@ class GroupNoteSharingDashboard : AppCompatActivity() {
     private lateinit var binding: ActivityNoteSharingDashboardBinding
     private lateinit var database: DatabaseReference
     private lateinit var dashboardTitle: TextView
+
     // User info
     private var currentUserId: String = ""
     private var groupId: String = ""
-    private var currentUserProfileName: String = ""
     private var currentUserCourse: String = ""
     private val currentCourse: String by lazy {
         intent.getStringExtra("courseName") ?: ""
@@ -55,15 +55,14 @@ class GroupNoteSharingDashboard : AppCompatActivity() {
 
     // Data
     private val fileMessages = mutableListOf<FileMessage>()
+    private val fileKeys     = mutableListOf<String>()    // <-- new
     private lateinit var adapter: FileMessageAdapter
 
-    // For storing the selected file URI from the upload dialog
+    // For upload
     private var selectedFileUri: Uri? = null
-
-    // Using the new Activity Result API to pick a file
     private val pickFileLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
+    ) { uri ->
         if (uri != null) {
             selectedFileUri = uri
             Toast.makeText(this, "File selected", Toast.LENGTH_SHORT).show()
@@ -78,54 +77,53 @@ class GroupNoteSharingDashboard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteSharingDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         dashboardTitle = findViewById(R.id.dashboardTitle)
-        dashboardTitle.text = "Group Note"
+        dashboardTitle.text = "Group Notes"
 
-        partnerList = intent.getParcelableArrayListExtra<Student>("partnerList") ?: listOf()
-        groupId = intent.getStringExtra("GROUP_ID") ?: ""
-
-        // Retrieve extras from Intent
-        currentUserId = intent.getStringExtra("USER_ID") ?: FirebaseAuth.getInstance().currentUser?.uid ?: ""
-        FirebaseDatabase.getInstance().reference
-            .child("users")
-            .child(currentUserId)
-            .child("name")
-            .get()
-            .addOnSuccessListener { snapshot ->
-                senderName = snapshot.getValue(String::class.java) ?: "Unknown"
-            }
-        currentUserProfileName = intent.getStringExtra("USER_NAME") ?: ""
+        partnerList = intent.getParcelableArrayListExtra("partnerList") ?: listOf()
+        groupId      = intent.getStringExtra("GROUP_ID")    ?: ""
+        currentUserId = intent.getStringExtra("USER_ID")
+            ?: FirebaseAuth.getInstance().currentUser?.uid ?: ""
         currentUserCourse = intent.getStringExtra("USER_COURSE") ?: ""
 
-        // Initialize Firebase
-        database = FirebaseDatabase.getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com/").reference
+        // load my name
+        FirebaseDatabase.getInstance().reference
+            .child("users").child(currentUserId).child("name")
+            .get().addOnSuccessListener { snap ->
+                senderName = snap.getValue(String::class.java) ?: "Unknown"
+            }
 
-        // Initialize custom adapter for ListView
+        database = FirebaseDatabase
+            .getInstance("https://edkura-81d7c-default-rtdb.firebaseio.com/")
+            .reference
+
         adapter = FileMessageAdapter(
-            context = this,
+            context      = this,
             fileMessages = fileMessages,
-            onDownload = { fileMsg -> downloadFile(fileMsg) }
+            onDownload   = { fm -> downloadFile(fm) }
         )
         binding.listViewFiles.adapter = adapter
 
-        // Setup FloatingActionButton (plus button) for upload
-        binding.fabUpload.setOnClickListener { showUploadDialog() }
-
-        // Back button to exit dashboard
-        binding.backButton.setOnClickListener { finish() }
-
-        // Setup search bar filtering
-        binding.editTextSearch.addTextChangedListener { text ->
-            filterNotes(text.toString())
+        // long-press for report
+        binding.listViewFiles.setOnItemLongClickListener { _, _, pos, _ ->
+            showReportDialog(pos)
+            true
         }
 
-        // Setup sort spinner (for further extension; not fully implemented here)
-        val sortOptions = listOf("Sort by Timestamp", "Sort by Title")
-        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, sortOptions)
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerSortBy.adapter = spinnerAdapter
+        binding.fabUpload.setOnClickListener { showUploadDialog() }
+        binding.backButton.setOnClickListener { finish() }
+        binding.editTextSearch.addTextChangedListener { filterNotes(it.toString()) }
 
-        // Listen for file messages in real time
+        // sort spinner (unmodified)
+        val sortOptions = listOf("Sort by Timestamp","Sort by Title")
+        val spinnerAdpt = ArrayAdapter(this,
+            android.R.layout.simple_spinner_item,
+            sortOptions
+        )
+        spinnerAdpt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerSortBy.adapter = spinnerAdpt
+
         listenForFiles()
     }
 
@@ -231,56 +229,101 @@ class GroupNoteSharingDashboard : AppCompatActivity() {
 
 
     private fun listenForFiles() {
-        val course = currentUserCourse
-        //get the partner list
+        // first load group members
         database.child("projectGroups").child(groupId).child("members")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(memberSnapshot: DataSnapshot) {
-                    val members = memberSnapshot.children.mapNotNull { it.key }.toSet()
+            .addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onDataChange(ms: DataSnapshot) {
+                    val members = ms.children.mapNotNull { it.key }.toSet()
+                    // then load files
                     database.child("GroupNoteSharing").child(currentUserCourse)
-                        .addValueEventListener(object : ValueEventListener {
-                            override fun onDataChange(fileSnapshot: DataSnapshot) {
+                        .addValueEventListener(object: ValueEventListener {
+                            override fun onDataChange(fs: DataSnapshot) {
                                 fileMessages.clear()
-                                val displayStrings = mutableListOf<String>()
-
-                                for (snapshot in fileSnapshot.children) {
-                                    val fileMessage = snapshot.getValue(FileMessage::class.java) ?: continue
-                                    val uploaderId = fileMessage.userId
-
-                                    if ((uploaderId == currentUserId || members.contains(uploaderId)) && fileMessage.courseName == currentCourse) {
-                                        fileMessages.add(fileMessage)
-
-                                        val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-                                            .format(Date(fileMessage.timestamp))
-                                        val displayText = "${fileMessage.title}\n" +
-                                                "From: ${fileMessage.uploader}\n" +
-                                                "File: ${fileMessage.fileName}\n" +
-                                                "Date: ${fileMessage.classDate}\n" +
-                                                "Time: $time\n(Tap to preview)"
-                                        displayStrings.add(displayText)
+                                fileKeys.clear()
+                                for (snap in fs.children) {
+                                    val fm = snap.getValue(FileMessage::class.java) ?: continue
+                                    if ((fm.userId == currentUserId || members.contains(fm.userId))
+                                        && fm.courseName == currentCourse) {
+                                        fileMessages.add(fm)
+                                        fileKeys.add(snap.key ?: "")
                                     }
                                 }
-
                                 adapter.notifyDataSetChanged()
                             }
-
-                            override fun onCancelled(error: DatabaseError) {
-                                Toast.makeText(this@GroupNoteSharingDashboard, "Failed to load files", Toast.LENGTH_SHORT).show()
+                            override fun onCancelled(e: DatabaseError) {
+                                Toast.makeText(this@GroupNoteSharingDashboard,
+                                    "Failed loading files",Toast.LENGTH_SHORT).show()
                             }
                         })
                 }
-
-
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@GroupNoteSharingDashboard, "Failed to load partner data", Toast.LENGTH_SHORT).show()
+                override fun onCancelled(e: DatabaseError) {
+                    Toast.makeText(this@GroupNoteSharingDashboard,
+                        "Failed loading group members",Toast.LENGTH_SHORT).show()
                 }
             })
-
     }
 
+    // --- REPORT FEATURE ---
+    private fun showReportDialog(position: Int) {
+        val reasons = arrayOf(
+            "Spam","Hate Speech","Harassment","Inappropriate Content","Other"
+        )
+        var choice = 0
+        AlertDialog.Builder(this)
+            .setTitle("Report File")
+            .setSingleChoiceItems(reasons,0) { _, which -> choice = which }
+            .setPositiveButton("Report") { _,_ ->
+                performReport(position, reasons[choice])
+            }
+            .setNegativeButton("Cancel",null)
+            .show()
+    }
 
+    private fun performReport(position: Int, reason: String) {
+        val key = fileKeys.getOrNull(position) ?: return
+        val reportsRef = database
+            .child("fileReports")
+            .child(currentUserCourse)
+            .child(key)
 
-
+        // log my report
+        reportsRef.child(currentUserId).setValue(reason)
+            .addOnSuccessListener {
+                Toast.makeText(this,"Report submitted",Toast.LENGTH_SHORT).show()
+                // now check threshold
+                reportsRef.addListenerForSingleValueEvent(object: ValueEventListener {
+                    override fun onDataChange(rSnap: DataSnapshot) {
+                        val count = rSnap.childrenCount.toInt()
+                        // count enrolled students
+                        database.child("users")
+                            .addListenerForSingleValueEvent(object: ValueEventListener {
+                                override fun onDataChange(uSnap: DataSnapshot) {
+                                    var total = 0
+                                    for (u in uSnap.children) {
+                                        val courses = u.child("courses").children
+                                            .mapNotNull { it.getValue(String::class.java) }
+                                        if (currentUserCourse in courses) total++
+                                    }
+                                    // remove if ≥50% reported
+                                    if (count * 2 >= total) {
+                                        database.child("GroupNoteSharing")
+                                            .child(currentUserCourse)
+                                            .child(key)
+                                            .removeValue()
+                                            .addOnSuccessListener {
+                                                Toast.makeText(this@GroupNoteSharingDashboard,
+                                                    "Removed due to multiple reports",
+                                                    Toast.LENGTH_LONG).show()
+                                            }
+                                    }
+                                }
+                                override fun onCancelled(e: DatabaseError) {}
+                            })
+                    }
+                    override fun onCancelled(e: DatabaseError) {}
+                })
+            }
+    }
 
     private fun filterNotes(query: String) {
         val filtered = fileMessages.filter { fileMsg ->
