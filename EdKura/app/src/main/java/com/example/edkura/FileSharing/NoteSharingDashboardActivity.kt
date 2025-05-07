@@ -245,7 +245,7 @@ class NoteSharingDashboardActivity : AppCompatActivity() {
 
                                     // 展示条件：1. 自己上传的；2. partner上传的 3.firebase课程是当前课程
                                     //Display conditions:1. Uploaded by yourself; 2. 3. The firebase course is the current course
-                                    if ((uploaderId == currentUserId || partnerId.contains(uploaderId)) && fileMessage.courseName == currentCourse) {
+                                    if (fileMessage.courseName == currentCourse) {
                                         Log.d("FileMessage courseName", fileMessage.courseName)
                                         fileMessages.add(fileMessage)
 

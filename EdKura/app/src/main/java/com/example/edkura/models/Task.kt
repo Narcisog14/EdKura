@@ -3,9 +3,10 @@ package com.example.edkura.models
 import java.util.Date
 
 data class Task(
-    val taskId: String = "",
-    val taskName: String = "",
-    val deadline: Date? = null,
-    val groupId: String = ""
-)
-
+    var taskId: String = "",
+    var taskName: String = "",
+    var deadline: Date? = null,
+) {
+    // No-argument constructor (required by Firebase)
+    constructor() : this("", "", null)
+}
