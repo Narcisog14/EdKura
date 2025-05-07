@@ -17,8 +17,6 @@ import com.google.firebase.database.*
 /** A small model just for display in the "All Chats" list. */
 
 
-
-
 data class ChatPartner(
     val id: String? = null,
     val name: String? = null,
