@@ -18,18 +18,17 @@
         android:id="@+id/buttonSetting"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.13"
-        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintWidth_percent="0.11"
+        app:layout_constraintHeight_percent="0.057"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Settings"
         android:src="@drawable/jk_icon_settings"
         android:scaleType="fitCenter"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="55dp"
         android:layout_marginEnd="25dp" />
 
-    <!-- Dashboard标题 - 直接约束到参考线 -->
     <TextView
         android:id="@+id/textViewDashboardTitle"
         android:layout_width="wrap_content"
@@ -48,7 +47,7 @@
         android:id="@+id/recyclerViewCourses"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:clipToPadding="false"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginStart="328dp"
+            android:layout_marginStart="100dp"
             android:layout_marginBottom="44dp"
             android:backgroundTint="#428E54"
             android:contentDescription="Chat"
@@ -100,8 +99,6 @@
             android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="12sp"
-            android:translationX="4dp"
-            android:translationY="-4dp"
             android:visibility="gone" />
     </FrameLayout>
 
