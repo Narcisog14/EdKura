@@ -25,6 +25,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var sendButton: Button
     private lateinit var messageEditText: EditText
     private lateinit var unblockButton: Button
+    private val processedMessageIds = HashSet<String>()
+
     data class ChatMessage(
         val text: String,
         val senderId: String,
@@ -82,7 +84,17 @@ class ChatActivity : AppCompatActivity() {
             if (!isBlocked) {
                 val message = messageEditText.text.toString()
                 if (message.isNotEmpty()) {
-                    sendMessage(message)
+                    // 检查是群聊还是私聊
+                    val groupIdList: ArrayList<String> =
+                        intent.getStringArrayListExtra("groupId") ?: arrayListOf()
+
+                    if (groupIdList.isNotEmpty()) {
+                        // 如果是群聊，使用群聊发送方法
+                        sendGroupMessage(message, groupIdList.first())
+                    } else {
+                        // 如果是私聊，使用私聊发送方法
+                        sendMessage(message)
+                    }
                 }
             } else {
                 showToast("This partner is blocked. Unblock to chat.")
@@ -158,27 +170,42 @@ class ChatActivity : AppCompatActivity() {
         database.child("chats").child(chatRoomId).child("messages")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    messagesList.clear()
+                    // 不要在这里清除messagesList
+                    // messagesList.clear() - 删除这一行
+
                     snapshot.children.forEach {
-                        val text = it.child("text").getValue(String::class.java) ?: ""
-                        val sender = it.child("senderId").getValue(String::class.java) ?: ""
-                        val isSentByCurrentUser = sender == currentUserId
+                        val messageId = it.key ?: ""
 
-                        database.child("users").child(sender).child("name").get()
-                            .addOnSuccessListener { nameSnapshot ->
-                                val senderName = nameSnapshot.getValue(String::class.java) ?: "Unknown"
-                                messagesList.add(ChatMessage(text, senderName, isSentByCurrentUser))
-                                messagesRecyclerView.adapter?.notifyItemInserted(messagesList.size - 1)
-                                messagesRecyclerView.scrollToPosition(messagesList.size - 1)
-                            }
+                        // 检查这条消息是否已经被处理过
+                        if (!processedMessageIds.contains(messageId)) {
+                            val text = it.child("text").getValue(String::class.java) ?: ""
+                            val sender = it.child("senderId").getValue(String::class.java) ?: ""
+                            val isSentByCurrentUser = sender == currentUserId
 
+                            // 将消息ID添加到已处理集合中
+                            processedMessageIds.add(messageId)
+
+                            database.child("users").child(sender).child("name").get()
+                                .addOnSuccessListener { nameSnapshot ->
+                                    val senderName = nameSnapshot.getValue(String::class.java) ?: "Unknown"
+                                    messagesList.add(ChatMessage(text, senderName, isSentByCurrentUser))
+                                    // 只通知添加了一个新项目
+                                    messagesRecyclerView.adapter?.notifyItemInserted(messagesList.size - 1)
+                                    messagesRecyclerView.scrollToPosition(messagesList.size - 1)
+                                }
+                        }
                     }
-                    messagesRecyclerView.adapter = ChatMessageAdapter(messagesList)
-                    messagesRecyclerView.scrollToPosition(messagesList.size - 1)
+
+                    // 只在第一次加载时设置适配器
+                    if (messagesRecyclerView.adapter == null) {
+                        messagesRecyclerView.adapter = ChatMessageAdapter(messagesList)
+                    }
                 }
                 override fun onCancelled(error: DatabaseError) {}
             })
     }
+
+    // 3. 同样修改loadGroupMessages()方法
     private fun loadGroupMessages() {
         val groupIdList: ArrayList<String> =
             intent.getStringArrayListExtra("groupId") ?: arrayListOf()
@@ -193,22 +220,36 @@ class ChatActivity : AppCompatActivity() {
             .child("messages")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    messagesList.clear()
-                    snapshot.children.forEach {
-                        val text = it.child("text").getValue(String::class.java) ?: ""
-                        val sender = it.child("senderId").getValue(String::class.java)?:""
-                        val isSentByCurrentUser = sender == currentUserId
+                    // 不要在这里清除messagesList
+                    // messagesList.clear() - 删除这一行
 
-                        database.child("users").child(sender).child("name").get()
-                            .addOnSuccessListener { nameSnapshot ->
-                                val senderName = nameSnapshot.getValue(String::class.java) ?: "Unknown"
-                                messagesList.add(ChatMessage(text, senderName, isSentByCurrentUser))
-                                messagesRecyclerView.adapter?.notifyItemInserted(messagesList.size - 1)
-                                messagesRecyclerView.scrollToPosition(messagesList.size - 1)
-                            }
+                    snapshot.children.forEach {
+                        val messageId = it.key ?: ""
+
+                        // 检查这条消息是否已经被处理过
+                        if (!processedMessageIds.contains(messageId)) {
+                            val text = it.child("text").getValue(String::class.java) ?: ""
+                            val sender = it.child("senderId").getValue(String::class.java)?:""
+                            val isSentByCurrentUser = sender == currentUserId
+
+                            // 将消息ID添加到已处理集合中
+                            processedMessageIds.add(messageId)
+
+                            database.child("users").child(sender).child("name").get()
+                                .addOnSuccessListener { nameSnapshot ->
+                                    val senderName = nameSnapshot.getValue(String::class.java) ?: "Unknown"
+                                    messagesList.add(ChatMessage(text, senderName, isSentByCurrentUser))
+                                    // 只通知添加了一个新项目
+                                    messagesRecyclerView.adapter?.notifyItemInserted(messagesList.size - 1)
+                                    messagesRecyclerView.scrollToPosition(messagesList.size - 1)
+                                }
+                        }
                     }
-                    messagesRecyclerView.adapter = ChatMessageAdapter(messagesList)
-                    messagesRecyclerView.scrollToPosition(messagesList.size - 1)
+
+                    // 只在第一次加载时设置适配器
+                    if (messagesRecyclerView.adapter == null) {
+                        messagesRecyclerView.adapter = ChatMessageAdapter(messagesList)
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {}
@@ -217,6 +258,15 @@ class ChatActivity : AppCompatActivity() {
 
     private fun sendMessage(text: String) {
         val newMessageRef = database.child("chats").child(chatRoomId).child("messages").push()
+        newMessageRef.setValue(mapOf(
+            "senderId" to currentUserId,
+            "text" to text,
+            "timestamp" to ServerValue.TIMESTAMP
+        ))
+        messageEditText.setText("")
+    }
+    private fun sendGroupMessage(text: String, groupId: String) {
+        val newMessageRef = database.child("groupChats").child(groupId).child("messages").push()
         newMessageRef.setValue(mapOf(
             "senderId" to currentUserId,
             "text" to text,
