@@ -26,6 +26,7 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_group_members.xml">
+
         <config>
           <theme>@style/Theme.EdKura</theme>
         </config>
