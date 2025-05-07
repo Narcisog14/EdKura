@@ -197,7 +197,9 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
 
         listenForIncomingRequests()
         listenForIncomingChats()
-
+        listenForIncomingGroupInvites()
+        listenForIncomingGroupChats()
+        loadRequests()
     }
 
     // Listen for incoming study-partner requests
@@ -222,6 +224,30 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
                     }
                 }
                 override fun onCancelled(e: DatabaseError) {}
+            })
+    }
+
+    private fun listenForIncomingGroupInvites() {
+        val me = authUser.currentUser?.uid ?: return
+        database.child("groupInvites")
+            .orderByChild("inviteeId")
+            .equalTo(me)
+            .addChildEventListener(object : ChildEventListener {
+                override fun onChildAdded(snap: DataSnapshot, prev: String?) {
+                    val invite = snap.getValue(GroupInvite::class.java) ?: return
+                    if (invite.status == "pending") {
+                        // fetch the group’s name if you like, here we assume invite.groupName was already set
+                        NotificationUtils.sendNotification(
+                            this@DashboardActivity,
+                            "New group invitation",
+                            "You’ve been invited to join ${invite.GroupName}"
+                        )
+                    }
+                }
+                override fun onChildChanged(s: DataSnapshot, p3: String?) {}
+                override fun onChildRemoved(s: DataSnapshot) {}
+                override fun onChildMoved(s: DataSnapshot, p3: String?) {}
+                override fun onCancelled(err: DatabaseError) {}
             })
     }
 
@@ -256,10 +282,10 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
                             val text = msgSnap.child("text").getValue(String::class.java) ?: ""
                             database.child("users").child(sender).child("name")
                                 .get().addOnSuccessListener { nameSnap ->
-                                    val otherName = nameSnap.getValue(String::class.java) ?: sender
+                                    val who = nameSnap.getValue(String::class.java) ?: sender
                                     NotificationUtils.sendNotification(
                                         this@DashboardActivity,
-                                        "New message from $otherName",
+                                        "New message from $who",
                                         text
                                     )
                                 }
@@ -276,6 +302,47 @@ class DashboardActivity : AppCompatActivity(), CustomRequestsAdapter.OnRequestAc
             override fun onChildMoved(s: DataSnapshot, p: String?) {}
             override fun onCancelled(err: DatabaseError) {}
         })
+    }
+
+    private fun listenForIncomingGroupChats() {
+        val me = authUser.currentUser?.uid ?: return
+
+        // 1) first load all the group IDs where I'm a member
+        database.child("projectGroups")
+            .orderByChild("members/$me")
+            .equalTo(true)
+            .addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    // for each group I'm in, listen for new messages
+                    snapshot.children.forEach { groupSnap ->
+                        val groupId = groupSnap.key ?: return@forEach
+                        val groupName = groupSnap.child("name").getValue(String::class.java) ?: groupId
+
+                        database.child("groupChats")
+                            .child(groupId)
+                            .child("messages")
+                            .addChildEventListener(object: ChildEventListener {
+                                override fun onChildAdded(msgSnap: DataSnapshot, previousChildName: String?) {
+                                    // only notify when *they* send
+                                    val sender = msgSnap.child("senderId").getValue(String::class.java)
+                                    val text   = msgSnap.child("text").getValue(String::class.java) ?: ""
+                                    if (sender != null && sender != me) {
+                                        NotificationUtils.sendNotification(
+                                            this@DashboardActivity,
+                                            "New message in $groupName",
+                                            text
+                                        )
+                                    }
+                                }
+                                override fun onChildChanged(s: DataSnapshot, p2: String?) {}
+                                override fun onChildRemoved(s: DataSnapshot) {}
+                                override fun onChildMoved(s: DataSnapshot, p2: String?) {}
+                                override fun onCancelled(err: DatabaseError) {}
+                            })
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) { /* ignore */ }
+            })
     }
 
     // handle the POST_NOTIFICATIONS permission result (optional)
