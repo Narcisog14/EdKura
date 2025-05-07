@@ -69,27 +69,21 @@
         android:layout_height="match_parent"
         android:visibility="gone"/>
 
-    <FrameLayout
-        android:id="@+id/chatContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="16dp">
 
         <ImageButton
             android:id="@+id/buttonChat"
-            android:layout_width="74dp"
-            android:layout_height="68dp"
-            android:layout_gravity="bottom|end"
-            android:layout_marginStart="100dp"
-            android:layout_marginBottom="44dp"
-            android:contentDescription="Chat"
-            android:scaleType="fitCenter"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.15"
+            app:layout_constraintHeight_percent="0.06"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Settings"
             android:src="@drawable/chat"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="55dp"
+            android:layout_marginEnd="25dp" />
 
         <TextView
             android:id="@+id/chatBadge"
@@ -100,7 +94,10 @@
             android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="12sp"
-            android:visibility="gone" />
-    </FrameLayout>
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="108dp"
+            android:layout_marginEnd="18dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
