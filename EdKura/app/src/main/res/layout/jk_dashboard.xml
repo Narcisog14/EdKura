@@ -73,6 +73,7 @@
         android:id="@+id/chatContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="16dp">
@@ -84,7 +85,6 @@
             android:layout_gravity="bottom|end"
             android:layout_marginStart="100dp"
             android:layout_marginBottom="44dp"
-            android:backgroundTint="@color/white"
             android:contentDescription="Chat"
             android:scaleType="fitCenter"
             android:src="@drawable/chat"
